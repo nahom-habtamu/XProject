@@ -1,8 +1,7 @@
 using System;
-using domain.cargoowner;
 using domain.common;
 
-namespace domain;
+namespace domain.cargoowner;
 public class CargoOwner
 {
     public string Id { get; set; }
