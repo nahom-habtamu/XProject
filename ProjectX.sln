@@ -4,7 +4,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-x-test", "project-x-test\project-x-test.csproj", "{E55D0EF0-8F94-49CB-934B-6628C262F5DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "persistence", "persistence\data.csproj", "{C990A5E5-A5E4-4C6B-A51F-8514A4EB11BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "persistence", "persistence\persistence.csproj", "{C990A5E5-A5E4-4C6B-A51F-8514A4EB11BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "domain", "domain\domain.csproj", "{CC9AE178-8C5B-465F-9989-81BFF81A53C7}"
 EndProject
