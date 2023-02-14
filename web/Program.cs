@@ -1,3 +1,7 @@
+using domain.driver;
+using domain.driver.usecases;
+using persistence.driver;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Custom Injections
+builder.Services.AddScoped<DriverRepository, DriverRepositoryImpl>();
+builder.Services.AddScoped<GetAllDriversInteractor>();
+
 
 var app = builder.Build();
 
