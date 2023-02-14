@@ -1,6 +1,6 @@
 namespace domain.driver;
 
-interface DriverRepository : DomainRepository<Driver>
+public interface DriverRepository : DomainRepository<Driver>
 {
 
 }

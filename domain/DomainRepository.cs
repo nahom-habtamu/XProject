@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 
 namespace domain;
-interface DomainRepository<T>
+public interface DomainRepository<T>
 {
-    Task<T> Get(string id);
+    Task<T?> Get(string id);
     Task Save(T entity);
 }
