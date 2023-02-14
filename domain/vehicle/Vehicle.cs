@@ -8,6 +8,7 @@ namespace domain.vehicle
         public string Id { get; set; }
         public string PlateNumber { get; set; }
         public string OwnerId { get; set; }
+        public string DriverId { get; set; }
         public string City { get; set; }
         public string Type { get; set; }
         public string LoadType { get; set; }
@@ -24,7 +25,7 @@ namespace domain.vehicle
         public DateTime InsuranceExpiryDate { get; set; }
 
         public Vehicle(
-            string plateNumber, string ownerId, string city,
+            string plateNumber, string ownerId, string driverId, string city,
             string type, string loadType, DateTime manufacturedDate,
             string make, string model, string loadCapacity,
             string color, PersonId driverIdentificationDocument, Uri carImage,
@@ -35,6 +36,7 @@ namespace domain.vehicle
             Id = Guid.NewGuid().ToString("N");
             PlateNumber = plateNumber;
             OwnerId = ownerId;
+            DriverId = driverId;
             City = city;
             Type = type;
             LoadType = loadType;
@@ -50,6 +52,5 @@ namespace domain.vehicle
             LibreExpiryDate = libreExpiryDate;
             InsuranceExpiryDate = insuranceExpiryDate;
         }
-
     }
 }
