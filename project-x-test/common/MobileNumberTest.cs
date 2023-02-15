@@ -1,7 +1,7 @@
 using System.IO;
 using domain.common;
 
-namespace project_x_test;
+namespace project_x_test.common;
 public class MobileNumberTest
 {
     [Fact]
