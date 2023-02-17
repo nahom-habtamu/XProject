@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace domain.vehicle;
 
-interface VehicleRepository : DomainRepository<Vehicle>
+public interface VehicleRepository : DomainRepository<Vehicle>
 {
-    List<Vehicle> GetAllVehicles();
-    List<string> GetAllPlateNumbers();
-    List<Vehicle> GetVehiclesByOwner(string id);
-    List<Vehicle> GetVehiclesByDriver(string id);
+    Task<List<Vehicle>> GetAllVehicles();
+    Task<List<string>> GetAllPlateNumbers();
+    Task<List<Vehicle>> GetVehiclesByOwner(string id);
+    Task<List<Vehicle>> GetVehiclesByDriver(string id);
 }
