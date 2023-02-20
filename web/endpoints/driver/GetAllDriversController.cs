@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.driver;
 
 [ApiController]
-public class GetDriverController : ControllerBase
+public class GetAllDriversController : ControllerBase
 {
     private readonly GetAllDriversInteractor _getAllDrivers;
-    private readonly ILogger<GetDriverController> _logger;
+    private readonly ILogger<GetAllDriversController> _logger;
 
-    public GetDriverController(
-        ILogger<GetDriverController> logger,
+    public GetAllDriversController(
+        ILogger<GetAllDriversController> logger,
         GetAllDriversInteractor getAllDrivers
     )
     {
