@@ -1,6 +1,6 @@
 namespace domain.vehicleowner;
 
-interface VehicleOwnerRepository : DomainRepository<VehicleOwner>
+public interface VehicleOwnerRepository : DomainRepository<VehicleOwner>
 {
-    
+    Task<List<VehicleOwner>> GetAllVehicleOwners();
 }
