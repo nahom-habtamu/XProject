@@ -1,5 +1,7 @@
 using domain.driver;
 using domain.driver.usecases;
+using domain.vehicle;
+using domain.vehicle.usecases;
 using persistence.driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,9 @@ builder.Services.AddSwaggerGen();
 
 // Custom Injections
 builder.Services.AddScoped<DriverRepository, DriverRepositoryImpl>();
+builder.Services.AddScoped<VehicleRepository, VehicleRepositoryImpl>();
 builder.Services.AddScoped<GetAllDriversInteractor>();
+builder.Services.AddScoped<GetAllVehiclesInteractor>();
 
 
 var app = builder.Build();
