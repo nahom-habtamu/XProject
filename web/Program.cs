@@ -22,6 +22,7 @@ builder.Services.AddScoped<VehicleOwnerRepository, VehicleOwnerRepositoryImpl>()
 builder.Services.AddScoped<GetAllDriversInteractor>();
 builder.Services.AddScoped<GetAllVehiclesInteractor>();
 builder.Services.AddScoped<GetAllVehicleOwnersInteractor>();
+builder.Services.AddScoped<CreateVehicleInteractor>();
 
 
 var app = builder.Build();
