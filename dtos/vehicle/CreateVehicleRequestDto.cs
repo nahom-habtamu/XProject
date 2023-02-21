@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Http;
-namespace persistence.vehicle.dtos;
+namespace dtos.vehicle.dtos;
 
 public class CreateVehicleRequestDto
 {
