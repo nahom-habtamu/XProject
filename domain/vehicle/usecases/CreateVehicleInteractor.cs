@@ -28,17 +28,17 @@ public class CreateVehicleInteractor
         await HandleWrongOwnerId(requestDto);
 
         var vehicle = new Vehicle(
-            requestDto.PlateNumber,
-            requestDto.OwnerId,
-            requestDto.DriverId,
-            requestDto.City,
-            requestDto.Type,
-            requestDto.LoadType,
+            requestDto.PlateNumber!,
+            requestDto.OwnerId!,
+            requestDto.DriverId!,
+            requestDto.City!,
+            requestDto.Type!,
+            requestDto.LoadType!,
             requestDto.ManufacturedDate,
-            requestDto.Make,
-            requestDto.Model, 
-            requestDto.LoadCapacity, 
-            requestDto.Color, 
+            requestDto.Make!,
+            requestDto.Model!, 
+            requestDto.LoadCapacity!, 
+            requestDto.Color!, 
             new PersonId(
                 new List<Uri>{
                     new Uri("google.com"),
