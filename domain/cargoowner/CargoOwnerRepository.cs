@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace domain.cargoowner;
-interface CargoOwnerRepository : DomainRepository<CargoOwner>
+public interface CargoOwnerRepository : DomainRepository<CargoOwner>
 {
-    List<CargoOwner> GetCargoOwners();
+    Task<List<CargoOwner>> GetAllCargoOwners();
 }
