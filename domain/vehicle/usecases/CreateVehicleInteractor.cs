@@ -1,7 +1,7 @@
 using domain.common;
 using domain.driver;
 using domain.vehicleowner;
-using dtos.vehicle.dtos;
+using dtos.vehicle;
 
 namespace domain.vehicle.usecases;
 

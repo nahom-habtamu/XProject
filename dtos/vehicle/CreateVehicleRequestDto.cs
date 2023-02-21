@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Http;
-namespace dtos.vehicle.dtos;
+namespace dtos.vehicle;
 
 public class CreateVehicleRequestDto
 {
