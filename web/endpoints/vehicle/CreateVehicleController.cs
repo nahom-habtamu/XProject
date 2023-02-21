@@ -1,7 +1,7 @@
 using domain.vehicle;
 using domain.vehicle.usecases;
+using dtos.vehicle;
 using Microsoft.AspNetCore.Mvc;
-using persistence.vehicle.dtos;
 
 namespace web.endpoints.vehicle;
 
