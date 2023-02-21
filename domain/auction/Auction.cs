@@ -13,7 +13,7 @@ public class Auction
     public PickUpTimeInterval PickUpTimeInterval { get; set; }
     public string OtherInformationAboutCargo { get; set; }
     public Auction(
-        string id, string cargoOwnerId,
+        string cargoOwnerId,
         string typeOfCargo, int totalWeightOfCargo,
         string deliveryPlace, string pickUpPlace,
         DateTime plannedPickUpDate, PriceInterval priceIntervalPerHundredKiloGram,
