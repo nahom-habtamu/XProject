@@ -17,10 +17,11 @@ public class VehicleOwner
     public VehicleOwner(
         string name, MobileNumber phoneNumber,
         string email, string companyName, Uri tradeLicence,
-        string userName, string password
+        string userName, string password,
+        string? id = null
     )
     {
-        Id = Guid.NewGuid().ToString("N");
+        Id = id ?? Guid.NewGuid().ToString("N");
         Name = name;
         PhoneNumber = phoneNumber;
         Email = email;

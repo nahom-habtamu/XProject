@@ -16,10 +16,11 @@ public class Driver
         string firstName, string lastName,
         MobileNumber phoneNumber, string email,
         Gender gender, DateTime dateOfBirth,
-        string address, Uri drivingLicense
+        string address, Uri drivingLicense,
+        string? id = null
     )
     {
-        Id = Guid.NewGuid().ToString("N");
+        Id = id ?? Guid.NewGuid().ToString("N");
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;

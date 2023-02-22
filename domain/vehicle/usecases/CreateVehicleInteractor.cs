@@ -41,17 +41,17 @@ public class CreateVehicleInteractor
             requestDto.Color!, 
             new PersonId(
                 new List<Uri>{
-                    new Uri("google.com"),
-                    new Uri("google.com"),
+                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
                 }
             ),
             // new Uri(requestDto.CarRelatedImage.CarImage),
             // new Uri(requestDto.CarRelatedImage.LibreImage),
             // new Uri(requestDto.CarRelatedImage.InsuranceImage),
 
-            new Uri("google.com"),
-            new Uri("google.com"),
-            new Uri("google.com"),
+            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
             requestDto.LibreExpiryDate,
             requestDto.InsuranceExpiryDate
         );
