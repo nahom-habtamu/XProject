@@ -1,4 +1,3 @@
-using System;
 using domain.common;
 
 namespace domain.cargoowner;
@@ -13,6 +12,7 @@ public class CargoOwner
     public CargoOwnerPointPerson? PointPerson { get; set; }
 
     public CargoOwner(
+        string? id,
         string name,
         MobileNumber phoneNumber,
         string email,
@@ -21,7 +21,7 @@ public class CargoOwner
     )
     {
         Name = name;
-        Id = Guid.NewGuid().ToString("N");
+        Id = id ?? Guid.NewGuid().ToString("N");
         PhoneNumber = phoneNumber;
         Email = email;
         SpecificAddress = specificAddress;
