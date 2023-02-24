@@ -27,9 +27,9 @@ public class CreateAuctionInteractor
 
     private async Task HandleInvalidCargoOwner(CreateAuctionRequestDto requestDto)
     {
-        var cargoOwners = await _cargoOwnerRepo.GetAllCargoOwners();
+        var cargoOwner = await _cargoOwnerRepo.Get(requestDto.CargoOwnerId!);
 
-        if (!cargoOwners.Any(co => co.Id.Equals(requestDto.CargoOwnerId)))
+        if (cargoOwner == null)
         {
             throw new Exception("Invalid Cargo Owner");
         }

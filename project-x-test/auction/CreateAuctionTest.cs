@@ -16,7 +16,7 @@ public class CreateAuctionTest
     [Fact]
     public void ThrowsInvalidOwnerExceptionWhenInvalidOwnerIsPassed()
     {
-        Setup(new List<CargoOwner>());
+        Setup();
         CreateAuctionRequestDto createAuctionDto = InitializeRequestDtoObject();
         Assert.ThrowsAsync<Exception>(() => interactor!.Call(createAuctionDto));
     }
@@ -24,19 +24,19 @@ public class CreateAuctionTest
     [Fact]
     public async Task ObjectIsSavedWhenCorrectOwnerIdIsPassed()
     {
-        Setup(new List<CargoOwner>{
-          new CargoOwner("1","", new MobileNumber("0926849888"),"nahomhab@gmail.com","Some address", "tradeLicence")
-        });
+        Setup(
+          new CargoOwner("1", "", new MobileNumber("0926849888"), "nahomhab@gmail.com", "Some address", "tradeLicence")
+        );
         CreateAuctionRequestDto createAuctionDto = InitializeRequestDtoObject();
         await interactor!.Call(createAuctionDto);
         mockAuctionRepo!.Verify(ar => ar.Save(It.IsAny<Auction>()), Times.Once);
     }
-    private void Setup(List<CargoOwner> cargoOwners)
+    private void Setup(CargoOwner? cargoOwner = null)
     {
         mockAuctionRepo = new Mock<AuctionRepository>();
         mockCargoOwnerRepo = new Mock<CargoOwnerRepository>();
 
-        setUpCargoOwnersStub(cargoOwners);
+        setUpCargoOwnerStub(cargoOwner);
 
         interactor = new CreateAuctionInteractor(
           mockAuctionRepo.Object,
@@ -61,8 +61,8 @@ public class CreateAuctionTest
         };
     }
 
-    private void setUpCargoOwnersStub(List<CargoOwner> cargoOwners)
+    private void setUpCargoOwnerStub(CargoOwner? cargoOwner)
     {
-        mockCargoOwnerRepo!.Setup(co => co.GetAllCargoOwners()).Returns(Task.Run(() => cargoOwners));
+        mockCargoOwnerRepo!.Setup(co => co.Get(It.IsAny<string>())).Returns(Task.Run(() => cargoOwner));
     }
 }
