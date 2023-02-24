@@ -20,7 +20,7 @@ public class CreateAuctionInteractor
     public async Task<Auction> Call(CreateAuctionRequestDto requestDto)
     {
         await HandleInvalidCargoOwner(requestDto);
-        Auction auctionToSave = parseAuctionRequestDtoToEntity(requestDto);
+        Auction auctionToSave = Auction.parseAuctionFromDto(requestDto);
         await _auctionRepo.Save(auctionToSave);
         return auctionToSave;
     }
@@ -33,17 +33,5 @@ public class CreateAuctionInteractor
         {
             throw new Exception("Invalid Cargo Owner");
         }
-    }
-
-    private Auction parseAuctionRequestDtoToEntity(CreateAuctionRequestDto requestDto)
-    {
-        return new Auction(
-            requestDto.CargoOwnerId!, requestDto.TypeOfCargo!,
-            requestDto.TotalWeightOfCargo!, requestDto.DeliveryPlace!,
-            requestDto.PickUpPlace!, requestDto.PlannedPickUpDate!,
-            new PriceInterval(requestDto.MinPricePerHundredKiloGram, requestDto.MaxPricePerHundredKiloGram),
-            new PickUpTimeInterval(requestDto.MinPickUpTime!, requestDto.MaxPickUpTime!),
-            requestDto.OtherInformationAboutCargo!
-        );
     }
 }

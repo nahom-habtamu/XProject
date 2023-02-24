@@ -27,13 +27,7 @@ public class CreateBidInteractor
         await HandleWrongDriverId(requestDto);
         await HandleWrongAuctionId(requestDto);
 
-        var bid = new Bid(
-            requestDto.AuctionId!,
-            requestDto.DriverId!,
-            requestDto.PricePerKilogram,
-            requestDto.AdditionalInformation!
-        );
-
+        var bid = Bid.parseBidFromDto(requestDto);
         await _bidRepo.Save(bid);
         return bid;
     }

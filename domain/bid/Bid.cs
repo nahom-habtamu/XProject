@@ -1,3 +1,5 @@
+using dtos.bid;
+
 namespace domain.bid;
 
 public class Bid
@@ -8,9 +10,9 @@ public class Bid
     public double PricePerKilogram { get; set; }
     public string AdditionalInformation { get; set; }
     public Bid(
-        string auctionId, 
-        string driverId, 
-        double pricePerKilogram, 
+        string auctionId,
+        string driverId,
+        double pricePerKilogram,
         string additionalInformation
     )
     {
@@ -19,5 +21,15 @@ public class Bid
         DriverId = driverId;
         PricePerKilogram = pricePerKilogram;
         AdditionalInformation = additionalInformation;
-    }    
+    }
+
+    public static Bid parseBidFromDto(CreateBidRequestDto requestDto)
+    {
+        return new Bid(
+            requestDto.AuctionId!,
+            requestDto.DriverId!,
+            requestDto.PricePerKilogram,
+            requestDto.AdditionalInformation!
+        );
+    }
 }
