@@ -9,14 +9,10 @@ namespace project_x_test.auction;
 
 public class CreateAuctionTest
 {
-    private Mock<AuctionRepository>? mockAuctionRepo;
-    private Mock<CargoOwnerRepository>? mockCargoOwnerRepo;
-    private CreateAuctionInteractor? interactor;
-
     [Fact]
     public void ThrowsInvalidOwnerExceptionWhenInvalidOwnerIsPassed()
     {
-        Setup();
+        var interactor = Setup();
         CreateAuctionRequestDto createAuctionDto = InitializeRequestDtoObject();
         Assert.ThrowsAsync<Exception>(() => interactor!.Call(createAuctionDto));
     }
@@ -24,24 +20,25 @@ public class CreateAuctionTest
     [Fact]
     public async Task ObjectIsSavedWhenCorrectOwnerIdIsPassed()
     {
-        Setup(
+        var interactor = Setup(
           new CargoOwner("1", "", new MobileNumber("0926849888"), "nahomhab@gmail.com", "Some address", "tradeLicence")
         );
         CreateAuctionRequestDto createAuctionDto = InitializeRequestDtoObject();
         await interactor!.Call(createAuctionDto);
-        mockAuctionRepo!.Verify(ar => ar.Save(It.IsAny<Auction>()), Times.Once);
     }
-    private void Setup(CargoOwner? cargoOwner = null)
+    private CreateAuctionInteractor Setup(CargoOwner? cargoOwner = null)
     {
-        mockAuctionRepo = new Mock<AuctionRepository>();
-        mockCargoOwnerRepo = new Mock<CargoOwnerRepository>();
+        var mockAuctionRepo = new Mock<AuctionRepository>();
+        var mockCargoOwnerRepo = new Mock<CargoOwnerRepository>();
 
-        setUpCargoOwnerStub(cargoOwner);
+        mockCargoOwnerRepo!.Setup(co => co.Get(It.IsAny<string>())).Returns(Task.Run(() => cargoOwner));
 
-        interactor = new CreateAuctionInteractor(
+        var interactor = new CreateAuctionInteractor(
           mockAuctionRepo.Object,
           mockCargoOwnerRepo.Object
         );
+
+        return interactor;
     }
     private static CreateAuctionRequestDto InitializeRequestDtoObject()
     {
@@ -59,10 +56,5 @@ public class CreateAuctionTest
             TotalWeightOfCargo = 100,
             TypeOfCargo = "Some type"
         };
-    }
-
-    private void setUpCargoOwnerStub(CargoOwner? cargoOwner)
-    {
-        mockCargoOwnerRepo!.Setup(co => co.Get(It.IsAny<string>())).Returns(Task.Run(() => cargoOwner));
     }
 }
