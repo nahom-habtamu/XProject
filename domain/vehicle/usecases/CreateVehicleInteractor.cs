@@ -36,9 +36,9 @@ public class CreateVehicleInteractor
             requestDto.LoadType!,
             requestDto.ManufacturedDate,
             requestDto.Make!,
-            requestDto.Model!, 
-            requestDto.LoadCapacity!, 
-            requestDto.Color!, 
+            requestDto.Model!,
+            requestDto.LoadCapacity!,
+            requestDto.Color!,
             new PersonId(
                 new List<Uri>{
                     new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
@@ -62,9 +62,9 @@ public class CreateVehicleInteractor
 
     private async Task HandleWrongOwnerId(CreateVehicleRequestDto requestDto)
     {
-        var vehicleOwners = await _vehicleOwnerRepo.GetAllVehicleOwners();
+        var vehicleOwner = await _vehicleOwnerRepo.Get(requestDto.OwnerId!);
 
-        if (!vehicleOwners.Any(vo => vo.Id.Equals(requestDto.OwnerId)))
+        if (vehicleOwner == null)
         {
             throw new Exception("Invalid Owner");
         }
@@ -72,9 +72,8 @@ public class CreateVehicleInteractor
 
     private async Task HandleWrongDriverId(CreateVehicleRequestDto requestDto)
     {
-        var drivers = await _driverRepo.GetAllDrivers();
-
-        if (!drivers.Any(d => d.Id.Equals(requestDto.DriverId)))
+        var driver = await _driverRepo.Get(requestDto.DriverId!);
+        if (driver == null)
         {
             throw new Exception("Invalid Driver");
         }

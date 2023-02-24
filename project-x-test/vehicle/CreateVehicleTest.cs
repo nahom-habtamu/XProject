@@ -11,7 +11,7 @@ public class CreateVehicleTest
     [Fact]
     public void ThrowsExceptionWhenInvalidDriverIsPassed()
     {
-        CreateVehicleInteractor interactor = SetupSUT(new List<Driver>(), new List<VehicleOwner>());
+        CreateVehicleInteractor interactor = SetupSUT();
         CreateVehicleRequestDto createVehicleDto = InitializeDto();
         Assert.ThrowsAsync<Exception>(() => interactor!.Call(createVehicleDto));
     }
@@ -19,16 +19,16 @@ public class CreateVehicleTest
     [Fact]
     public void ThrowsExceptionWhenInvalidOwnerIsPassed()
     {
-        CreateVehicleInteractor interactor = SetupSUT(new List<Driver>(){
+        CreateVehicleInteractor interactor = SetupSUT(
             new Driver(
-                "Nahom","Habtamu",
+                "Nahom", "Habtamu",
                 new MobileNumber("0926849888"),
                 "someemail@gmail.com", Gender.MALE,
                 DateTime.Now, "Some Address",
                 new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
                 "1"
             )
-        }, new List<VehicleOwner>());
+        );
         CreateVehicleRequestDto createVehicleDto = InitializeDto();
         Assert.ThrowsAsync<Exception>(() => interactor!.Call(createVehicleDto));
     }
@@ -37,25 +37,21 @@ public class CreateVehicleTest
     public async Task ObjectIsSavedWhenCorrectOwnerAndDriverIdIsPassed()
     {
         CreateVehicleInteractor interactor = SetupSUT(
-            new List<Driver>(){
-                new Driver(
-                    "Nahom","Habtamu",
-                    new MobileNumber("0926849888"),
-                    "someemail@gmail.com", Gender.MALE,
-                    DateTime.Now, "Some Address",
-                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                    "1"
-                )
-            }, new List<VehicleOwner>()
-            {
-                new VehicleOwner(
-                    "nahom",
-                    new MobileNumber("0926849888"),
-                    "nahom@gmail.com", "CN",
-                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                    "ndhjahja","pass", "1"
-                )
-            }
+            new Driver(
+                "Nahom", "Habtamu",
+                new MobileNumber("0926849888"),
+                "someemail@gmail.com", Gender.MALE,
+                DateTime.Now, "Some Address",
+                new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+                "1"
+            ),
+            new VehicleOwner(
+                "nahom",
+                new MobileNumber("0926849888"),
+                "nahom@gmail.com", "CN",
+                new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+                "ndhjahja", "pass", "1"
+            )
         );
         CreateVehicleRequestDto createVehicleDto = InitializeDto();
         await interactor.Call(createVehicleDto);
@@ -82,16 +78,16 @@ public class CreateVehicleTest
     }
 
     private CreateVehicleInteractor SetupSUT(
-        List<Driver> drivers,
-        List<VehicleOwner> vehicleOwners
+        Driver? driver = null,
+        VehicleOwner? vehicleOwner = null
     )
     {
         var mockVehicleRepo = new Mock<VehicleRepository>();
         var mockDriverRepo = new Mock<DriverRepository>();
         var mockVehicleOwnerRepo = new Mock<VehicleOwnerRepository>();
 
-        mockDriverRepo.Setup(dr => dr.GetAllDrivers()).Returns(Task.Run(() => drivers));
-        mockVehicleOwnerRepo.Setup(dr => dr.GetAllVehicleOwners()).Returns(Task.Run(() => vehicleOwners));
+        mockDriverRepo.Setup(dr => dr.Get(It.IsAny<string>())).Returns(Task.Run(() => driver));
+        mockVehicleOwnerRepo.Setup(dr => dr.Get(It.IsAny<string>())).Returns(Task.Run(() => vehicleOwner));
 
         return new CreateVehicleInteractor(
             mockDriverRepo.Object,
