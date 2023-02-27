@@ -1,4 +1,5 @@
 using domain.common;
+using dtos.vehicleowner;
 
 namespace domain.vehicleowner;
 
@@ -12,7 +13,6 @@ public class VehicleOwner
     public Uri TradeLicence { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
-
 
     public VehicleOwner(
         string name, MobileNumber phoneNumber,
@@ -31,4 +31,14 @@ public class VehicleOwner
         Password = password;
     }
 
+    public static VehicleOwner buildFromDto(CreateVehicleOwnerRequest requestDto)
+    {
+        return new VehicleOwner(
+            requestDto.Name!,
+            new MobileNumber(requestDto.PhoneNumber!),
+            requestDto.Email!, requestDto.CompanyName!,
+            new Uri(requestDto.TradeLicence!),
+            requestDto.UserName!, requestDto.Password!
+        );
+    }
 }

@@ -16,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -56,6 +55,7 @@ static void RegisterCreateUseCases(WebApplicationBuilder builder)
 {
     builder.Services.AddScoped<CreateVehicleInteractor>();
     builder.Services.AddScoped<CreateAuctionInteractor>();
+    builder.Services.AddScoped<CreateVehicleOwnerInteractor>();
 }
 
 static void RegisterGetUseCases(WebApplicationBuilder builder)
