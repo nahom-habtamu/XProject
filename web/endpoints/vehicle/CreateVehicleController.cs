@@ -35,35 +35,7 @@ public class CreateVehicleController : ControllerBase
         await HandleWrongDriverId(requestDto);
         await HandleWrongOwnerId(requestDto);
 
-        var vehicle = new Vehicle(
-            requestDto.PlateNumber!,
-            requestDto.OwnerId!,
-            requestDto.DriverId!,
-            requestDto.City!,
-            requestDto.Type!,
-            requestDto.LoadType!,
-            requestDto.ManufacturedDate,
-            requestDto.Make!,
-            requestDto.Model!,
-            requestDto.LoadCapacity!,
-            requestDto.Color!,
-            new PersonId(
-                new List<Uri>{
-                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                    new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                }
-            ),
-            // new Uri(requestDto.CarRelatedImage.CarImage),
-            // new Uri(requestDto.CarRelatedImage.LibreImage),
-            // new Uri(requestDto.CarRelatedImage.InsuranceImage),
-
-            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-            new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-            requestDto.LibreExpiryDate,
-            requestDto.InsuranceExpiryDate
-        );
-
+        var vehicle = Vehicle.parseFromDto(requestDto);
         await _vehicleRepo.Save(vehicle);
         return vehicle;
     }
