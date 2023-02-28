@@ -23,7 +23,7 @@ public class Bid
         AdditionalInformation = additionalInformation;
     }
 
-    public static Bid parseBidFromDto(CreateBidRequestDto requestDto)
+    public static Bid parseFromDto(CreateBidRequestDto requestDto)
     {
         return new Bid(
             requestDto.AuctionId!,

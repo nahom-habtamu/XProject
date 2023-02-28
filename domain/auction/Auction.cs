@@ -35,7 +35,7 @@ public class Auction
         OtherInformationAboutCargo = otherInformationAboutCargo;
     }
 
-    public static Auction parseAuctionFromDto(CreateAuctionRequestDto requestDto)
+    public static Auction parseFromDto(CreateAuctionRequestDto requestDto)
     {
         return new Auction(requestDto.CargoOwnerId!, requestDto.TypeOfCargo!,
             requestDto.TotalWeightOfCargo!, requestDto.DeliveryPlace!,

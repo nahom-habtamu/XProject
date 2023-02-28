@@ -39,7 +39,7 @@ public class CreateAuctionController : ControllerBase
     public async Task<Auction> Call([FromBody] CreateAuctionRequestDto requestDto)
     {
         await HandleInvalidCargoOwner(requestDto);
-        Auction auctionToSave = Auction.parseAuctionFromDto(requestDto);
+        Auction auctionToSave = Auction.parseFromDto(requestDto);
         await _auctionRepo.Save(auctionToSave);
         return auctionToSave;
     }

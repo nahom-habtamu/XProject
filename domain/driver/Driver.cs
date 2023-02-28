@@ -32,7 +32,7 @@ public class Driver
         DrivingLicense = drivingLicense;
     }
 
-    public static Driver parseDriverFromDto(CreateDriverRequestDto requestDto)
+    public static Driver parseFromDto(CreateDriverRequestDto requestDto)
     {
         var gender = requestDto.Gender == 0 ? Gender.MALE : Gender.FEMALE;
         return new Driver(

@@ -34,7 +34,7 @@ public class CreateBidController : ControllerBase
         await HandleWrongDriverId(requestDto);
         await HandleWrongAuctionId(requestDto);
 
-        var bid = Bid.parseBidFromDto(requestDto);
+        var bid = Bid.parseFromDto(requestDto);
         await _bidRepo.Save(bid);
         return bid;
     }
