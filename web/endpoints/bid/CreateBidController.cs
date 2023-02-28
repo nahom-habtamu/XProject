@@ -1,28 +1,35 @@
 using domain.auction;
+using domain.bid;
 using domain.driver;
 using dtos.bid;
+using Microsoft.AspNetCore.Mvc;
 
-namespace domain.bid.usecases;
+namespace web.endpoints.auction;
 
-public class CreateBidInteractor
+[ApiController]
+public class CreateBidController : ControllerBase
 {
+    private readonly ILogger<CreateBidController> _logger;
     private readonly AuctionRepository _auctionRepo;
     private readonly DriverRepository _driverRepo;
-
     private readonly BidRepository _bidRepo;
 
-    public CreateBidInteractor(
+    public CreateBidController(
+        ILogger<CreateBidController> logger,
         AuctionRepository auctionRepo,
         DriverRepository driverRepo,
         BidRepository bidRepo
     )
     {
+        _logger = logger;
         _auctionRepo = auctionRepo;
         _driverRepo = driverRepo;
         _bidRepo = bidRepo;
     }
 
-    public async Task<Bid> Call(CreateBidRequestDto requestDto)
+    [HttpPost]
+    [Route("[controller]")]
+    public async Task<Bid> Call([FromBody] CreateBidRequestDto requestDto)
     {
         await HandleWrongDriverId(requestDto);
         await HandleWrongAuctionId(requestDto);

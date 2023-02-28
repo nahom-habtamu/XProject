@@ -1,12 +1,8 @@
 using domain.auction;
-using domain.auction.usecases;
 using domain.cargoowner;
 using domain.driver;
-using domain.driver.usecases;
 using domain.vehicle;
-using domain.vehicle.usecases;
 using domain.vehicleowner;
-using domain.vehicleowner.usecases;
 using persistence.auction;
 using persistence.cargoowner;
 using persistence.driver;
@@ -22,8 +18,6 @@ builder.Services.AddSwaggerGen();
 // Custom Injections
 
 RegisterRepostories(builder);
-RegisterGetUseCases(builder);
-RegisterCreateUseCases(builder);
 
 var app = builder.Build();
 
@@ -49,18 +43,4 @@ static void RegisterRepostories(WebApplicationBuilder builder)
     builder.Services.AddScoped<VehicleOwnerRepository, VehicleOwnerRepositoryImpl>();
     builder.Services.AddScoped<CargoOwnerRepository, CargoOwnerRepositoryImpl>();
     builder.Services.AddScoped<AuctionRepository, AuctionRepositoryImpl>();
-}
-
-static void RegisterCreateUseCases(WebApplicationBuilder builder)
-{
-    builder.Services.AddScoped<CreateVehicleInteractor>();
-    builder.Services.AddScoped<CreateAuctionInteractor>();
-    builder.Services.AddScoped<CreateVehicleOwnerInteractor>();
-}
-
-static void RegisterGetUseCases(WebApplicationBuilder builder)
-{
-    builder.Services.AddScoped<GetAllDriversInteractor>();
-    builder.Services.AddScoped<GetAllVehiclesInteractor>();
-    builder.Services.AddScoped<GetAllVehicleOwnersInteractor>();
 }

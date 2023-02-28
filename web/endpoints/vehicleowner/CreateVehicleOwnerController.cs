@@ -1,5 +1,4 @@
 using domain.vehicleowner;
-using domain.vehicleowner.usecases;
 using dtos.vehicleowner;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,22 +7,24 @@ namespace web.endpoints.vehicleowner;
 [ApiController]
 public class CreateVehicleOwnerController : ControllerBase
 {
-    private readonly CreateVehicleOwnerInteractor _interactor;
+    private readonly VehicleOwnerRepository _repository;
     private readonly ILogger<CreateVehicleOwnerController> _logger;
 
     public CreateVehicleOwnerController(
         ILogger<CreateVehicleOwnerController> logger,
-        CreateVehicleOwnerInteractor interactor
+        VehicleOwnerRepository repository
     )
     {
         _logger = logger;
-        _interactor = interactor;
+        _repository = repository;
     }
 
     [HttpPost]
     [Route("[controller]")]
     public async Task<VehicleOwner> Call(CreateVehicleOwnerRequest requestDto)
     {
-        return await _interactor.Call(requestDto);
+        var vehicleOwner = VehicleOwner.buildFromDto(requestDto);
+        await _repository.Save(vehicleOwner);
+        return vehicleOwner;
     }
 }
