@@ -1,4 +1,5 @@
 using domain.common;
+using dtos.driver;
 
 namespace domain.driver;
 public class Driver
@@ -29,5 +30,18 @@ public class Driver
         DateOfBirth = dateOfBirth;
         Address = address;
         DrivingLicense = drivingLicense;
+    }
+
+    public static Driver parseDriverFromDto(CreateDriverRequestDto requestDto)
+    {
+        var gender = requestDto.Gender == 0 ? Gender.MALE : Gender.FEMALE;
+        return new Driver(
+            requestDto.FirstName!,
+            requestDto.LastName!,
+            new MobileNumber(requestDto.PhoneNumber!),
+            requestDto.Email!, gender,
+            requestDto.DateOfBirth, requestDto.Address!,
+            new Uri(requestDto.DrivingLicense!)
+        );
     }
 }
