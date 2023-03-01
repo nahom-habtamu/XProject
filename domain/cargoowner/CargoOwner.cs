@@ -9,7 +9,7 @@ public class CargoOwner
     public string Email { get; set; }
     public string SpecificAddress { get; set; }
     public string TradeLicence { get; set; }
-    public CargoOwnerPointPerson? PointPerson { get; set; }
+    public CargoOwnerPointPerson PointPerson { get; set; }
 
     public CargoOwner(
         string? id,
@@ -17,14 +17,16 @@ public class CargoOwner
         MobileNumber phoneNumber,
         string email,
         string specificAddress,
-        string tradeLicence
+        string tradeLicence,
+        CargoOwnerPointPerson pointPerson
     )
     {
-        Name = name;
         Id = id ?? Guid.NewGuid().ToString("N");
+        Name = name;
         PhoneNumber = phoneNumber;
         Email = email;
         SpecificAddress = specificAddress;
         TradeLicence = tradeLicence;
+        PointPerson = pointPerson;
     }
 }
