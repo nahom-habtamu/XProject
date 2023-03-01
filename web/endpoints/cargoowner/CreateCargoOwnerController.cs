@@ -2,7 +2,7 @@ using domain.cargoowner;
 using dtos.cargoowner;
 using Microsoft.AspNetCore.Mvc;
 
-namespace web.endpoints.cargoowners;
+namespace web.endpoints.cargoowner;
 
 [ApiController]
 public class CreateCargoOwnerController : ControllerBase
