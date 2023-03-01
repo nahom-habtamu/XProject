@@ -16,9 +16,9 @@ public class CreateVehicleRequestDto
     public string? Color { get; set; }
     public DateTime LibreExpiryDate { get; set; }
     public DateTime InsuranceExpiryDate { get; set; }
-    public IFormFile? DriverIdentificationDocumentFront { get; set; }
-    public IFormFile? DriverIdentificationDocumentBack { get; set; }
-    public IFormFile? CarImage { get; set; }
-    public IFormFile? LibreImage { get; set; }
-    public IFormFile? InsuranceImage { get; set; }
+    public string? DriverIdentificationDocumentFront { get; set; }
+    public string? DriverIdentificationDocumentBack { get; set; }
+    public string? CarImage { get; set; }
+    public string? LibreImage { get; set; }
+    public string? InsuranceImage { get; set; }
 }

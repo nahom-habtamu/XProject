@@ -69,17 +69,14 @@ namespace domain.vehicle
                 requestDto.Color!,
                 new PersonId(
                     new List<Uri>{
-                        new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                        new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+
+                        new Uri(requestDto.DriverIdentificationDocumentFront!),
+                        new Uri(requestDto.DriverIdentificationDocumentBack!),
                     }
                 ),
-                // new Uri(requestDto.CarRelatedImage.CarImage),
-                // new Uri(requestDto.CarRelatedImage.LibreImage),
-                // new Uri(requestDto.CarRelatedImage.InsuranceImage),
-
-                new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
-                new Uri("https://docs.educationsmediagroup.com/unit-testing-csharp/moq/quick-glance-at-moq"),
+                new Uri(requestDto.CarImage!),
+                new Uri(requestDto.LibreImage!),
+                new Uri(requestDto.InsuranceImage!),
                 requestDto.LibreExpiryDate,
                 requestDto.InsuranceExpiryDate
             );

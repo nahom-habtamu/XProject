@@ -29,7 +29,7 @@ public class CreateVehicleController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Vehicle> Call([FromForm] CreateVehicleRequestDto requestDto)
+    public async Task<Vehicle> Call([FromBody] CreateVehicleRequestDto requestDto)
     {
         await HandleWrongDriverId(requestDto);
         await HandleWrongOwnerId(requestDto);
