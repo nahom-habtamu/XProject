@@ -14,7 +14,7 @@ public class AuctionRepositoryImpl : AuctionRepository
         return Task.Run(() => new List<Auction>());
     }
 
-    public Task<Auction> GetAuctionsByCargoOwner(string id)
+    public Task<List<Auction>> GetAuctionsByCargoOwner(string id)
     {
         throw new NotImplementedException();
     }
