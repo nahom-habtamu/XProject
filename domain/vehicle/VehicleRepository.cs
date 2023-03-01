@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace domain.vehicle;
 
 public interface VehicleRepository : DomainRepository<Vehicle>

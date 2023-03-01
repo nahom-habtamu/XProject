@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace domain;
 public interface DomainRepository<T>
 {

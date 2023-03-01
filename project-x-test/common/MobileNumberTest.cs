@@ -1,4 +1,3 @@
-using System.IO;
 using domain.common;
 
 namespace project_x_test.common;

@@ -1,4 +1,3 @@
-using domain.common;
 using domain.driver;
 using domain.vehicle;
 using domain.vehicleowner;

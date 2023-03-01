@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace domain.cargoowner;
 public interface CargoOwnerRepository : DomainRepository<CargoOwner>
 {
