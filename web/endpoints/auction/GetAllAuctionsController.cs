@@ -68,10 +68,12 @@ public class GetAllAuctionsController : ControllerBase
             AuctionId = auction.Id,
             CargoOwnerId = cargoOwner.Id,
             CargoOwnerName = cargoOwner.Name,
+            TypeOfCargo = auction.TypeOfCargo,
+            WeightOfCargo = auction.TotalWeightOfCargo,
             CompanyName = "",
-            MaxPricePerHundredKiloGram = auction.PriceIntervalPerHundredKiloGram.Max,
+            MaxPricePerHundredKiloGram = auction.PriceIntervalPerHundredKiloGram!.Max,
             MinPricePerHundredKiloGram = auction.PriceIntervalPerHundredKiloGram.Min,
-            MaxPickUpTime = auction.PickUpTimeInterval.Max,
+            MaxPickUpTime = auction.PickUpTimeInterval!.Max,
             MinPickUpTime = auction.PickUpTimeInterval.Min
         };
     }
