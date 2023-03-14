@@ -4,15 +4,15 @@ namespace domain.cargoowner;
 public class CargoOwnerPointPerson
 {
     public CargoOwnerPointPerson(
+        string position,
         string name, 
-        MobileNumber phoneNumber, 
+        string phoneNumber, 
         string specificAddress, 
-        string email, 
-        string position
+        string email
     )
     {
         Name = name;
-        PhoneNumber = phoneNumber;
+        PhoneNumber = new MobileNumber(phoneNumber);
         SpecificAddress = specificAddress;
         Email = email;
         Position = position;

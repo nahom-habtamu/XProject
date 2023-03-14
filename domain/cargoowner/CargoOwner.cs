@@ -9,42 +9,59 @@ public class CargoOwner
     public MobileNumber PhoneNumber { get; set; }
     public string Email { get; set; }
     public string SpecificAddress { get; set; }
-    public string TradeLicence { get; set; }
-    public CargoOwnerPointPerson PointPerson { get; set; }
+    public string TradeLicense { get; set; }
+    public CargoOwnerPointPerson? PointPerson { get; set; }
 
     public CargoOwner(
         string name,
-        MobileNumber phoneNumber,
+        string phoneNumber,
         string email,
         string specificAddress,
-        string tradeLicence,
+        string tradeLicense,
         CargoOwnerPointPerson pointPerson,
         string? id = null
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
         Name = name;
-        PhoneNumber = phoneNumber;
+        PhoneNumber = new MobileNumber(phoneNumber);
         Email = email;
         SpecificAddress = specificAddress;
-        TradeLicence = tradeLicence;
+        TradeLicense = tradeLicense;
         PointPerson = pointPerson;
+    }
+
+    public CargoOwner(
+        string id,
+        string name,
+        string phoneNumber,
+        string email,
+        string specificAddress,
+        string tradeLicense
+    )
+    {
+        Id = id;
+        Name = name;
+        PhoneNumber = new MobileNumber(phoneNumber);
+        Email = email;
+        SpecificAddress = specificAddress;
+        TradeLicense = tradeLicense;
     }
 
     public static CargoOwner parseFromDto(CreateCargoOwnerRequestDto requestDto)
     {
         return new CargoOwner(
             requestDto.Name!,
-            new MobileNumber(requestDto.PhoneNumber!),
+            requestDto.PhoneNumber!,
             requestDto.Email!,
             requestDto.SpecificAddress!,
-            requestDto.TradeLicence!,
+            requestDto.TradeLicense!,
             new CargoOwnerPointPerson(
+                requestDto.PointPersonPosition!,
                 requestDto.PointPersonName!,
-                new MobileNumber(requestDto.PointPersonPhoneNumber!),
+                requestDto.PointPersonPhoneNumber!,
                 requestDto.PointPersonSpecificAddress!,
-                requestDto.PointPersonEmail!,
-                requestDto.PointPersonPosition!
+                requestDto.PointPersonEmail!
             )
         );
     }

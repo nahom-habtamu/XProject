@@ -1,11 +1,27 @@
+using Dapper;
 using domain.cargoowner;
+using Npgsql;
 
 namespace persistence.cargoowner;
 public class CargoOwnerRepositoryImpl : CargoOwnerRepository
 {
-    public Task<CargoOwner?> Get(string id)
+    public async Task<CargoOwner?> Get(string id)
     {
-        throw new NotImplementedException();
+        using (var connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"))
+        {
+            var cargoOwner = connection.Query<CargoOwner, CargoOwnerPointPerson, CargoOwner>(
+                @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
+                  pointPersonPosition as position, pointPersonName as name, pointPersonPhoneNumber as phoneNumber, 
+                  pointPersonSpecificAddress as specificAddress, pointPersonEmail as email 
+                  from cargoowner
+                ", (cargoOwner, pointPerson) =>
+                {
+                    cargoOwner.PointPerson = pointPerson;
+                    return cargoOwner;
+                }, splitOn: "id,position").FirstOrDefault();
+            
+            return cargoOwner;
+        }
     }
 
     public Task<List<CargoOwner>> GetAllCargoOwners()
