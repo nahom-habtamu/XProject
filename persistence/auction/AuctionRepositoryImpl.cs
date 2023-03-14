@@ -1,4 +1,6 @@
+using Dapper;
 using domain.auction;
+using Npgsql;
 
 namespace persistence.auction;
 
@@ -9,9 +11,23 @@ public class AuctionRepositoryImpl : AuctionRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<Auction>> GetAllAuctions()
+    public async Task<List<Auction>> GetAllAuctions()
     {
-        return Task.Run(() => new List<Auction>());
+        using (var connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"))
+        {
+            var auctions = connection.Query<Auction, PriceInterval, PickUpTimeInterval, Auction>(
+            @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
+              minpriceperhundredkg as min, maxpriceperhundredkg as max, 
+              minpickuptime as min, minpickuptime as max from Auction
+            ", (auction, priceInterval, pickUpTimeInterval) =>
+            {
+                auction.PriceIntervalPerHundredKiloGram = priceInterval;
+                auction.PickUpTimeInterval = pickUpTimeInterval;
+                return auction;
+            }, splitOn: "id,min,min").ToList();
+
+            return auctions;
+        }
     }
 
     public Task<List<Auction>> GetAuctionsByCargoOwner(string id)
