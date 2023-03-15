@@ -1,6 +1,6 @@
 using Dapper;
-using Npgsql;
 using domain.cargoowner;
+using Npgsql;
 
 namespace persistence.cargoowner;
 public class CargoOwnerRepositoryImpl : CargoOwnerRepository
@@ -13,8 +13,8 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
                 @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
                   pointPersonPosition as position, pointPersonName as name, pointPersonPhoneNumber as phoneNumber, 
                   pointPersonSpecificAddress as specificAddress, pointPersonEmail as email 
-                  from cargoowner
-                ", (cargoOwner, pointPerson) =>
+                  from cargoowner where id = 
+                " + id, (cargoOwner, pointPerson) =>
                 {
                     cargoOwner.PointPerson = pointPerson;
                     return cargoOwner;
