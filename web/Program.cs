@@ -3,6 +3,8 @@ using domain.cargoowner;
 using domain.driver;
 using domain.vehicle;
 using domain.vehicleowner;
+using Npgsql;
+using persistence;
 using persistence.auction;
 using persistence.cargoowner;
 using persistence.driver;
@@ -15,9 +17,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Custom Injections
+#region CustomInjections
+
+var connectionString = builder.Configuration.GetConnectionString("TestDbConnection");
+
+builder.Services.AddScoped(o => new NpgsqlConnection(connectionString));
+builder.Services.AddScoped<DatabaseContext>();
 
 RegisterRepostories(builder);
+
+#endregion
 
 var app = builder.Build();
 
