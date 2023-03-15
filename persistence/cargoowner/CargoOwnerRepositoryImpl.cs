@@ -1,6 +1,6 @@
 using Dapper;
-using domain.cargoowner;
 using Npgsql;
+using domain.cargoowner;
 
 namespace persistence.cargoowner;
 public class CargoOwnerRepositoryImpl : CargoOwnerRepository
@@ -9,7 +9,7 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
     {
         using (var connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"))
         {
-            var cargoOwner = connection.Query<CargoOwner, CargoOwnerPointPerson, CargoOwner>(
+            var cargoOwner = (await connection.QueryAsync<CargoOwner, CargoOwnerPointPerson, CargoOwner>(
                 @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
                   pointPersonPosition as position, pointPersonName as name, pointPersonPhoneNumber as phoneNumber, 
                   pointPersonSpecificAddress as specificAddress, pointPersonEmail as email 
@@ -18,8 +18,8 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
                 {
                     cargoOwner.PointPerson = pointPerson;
                     return cargoOwner;
-                }, splitOn: "id,position").FirstOrDefault();
-            
+                }, splitOn: "id,position")).FirstOrDefault();
+
             return cargoOwner;
         }
     }

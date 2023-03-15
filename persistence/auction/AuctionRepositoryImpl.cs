@@ -1,6 +1,6 @@
 using Dapper;
-using domain.auction;
 using Npgsql;
+using domain.auction;
 
 namespace persistence.auction;
 
@@ -15,7 +15,7 @@ public class AuctionRepositoryImpl : AuctionRepository
     {
         using (var connection = new NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"))
         {
-            var auctions = connection.Query<Auction, PriceInterval, PickUpTimeInterval, Auction>(
+            var auctions = (await connection.QueryAsync<Auction, PriceInterval, PickUpTimeInterval, Auction>(
             @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
               minpriceperhundredkg as min, maxpriceperhundredkg as max, 
               minpickuptime as min, minpickuptime as max from Auction
@@ -24,7 +24,7 @@ public class AuctionRepositoryImpl : AuctionRepository
                 auction.PriceIntervalPerHundredKiloGram = priceInterval;
                 auction.PickUpTimeInterval = pickUpTimeInterval;
                 return auction;
-            }, splitOn: "id,min,min").ToList();
+            }, splitOn: "id,min,min")).ToList();
 
             return auctions;
         }
