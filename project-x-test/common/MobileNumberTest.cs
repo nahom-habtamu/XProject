@@ -17,4 +17,26 @@ public class MobileNumberTest
         var phoneNumber = new MobileNumber(correctPhoneNumberValue);
         Assert.Equal(phoneNumber.Value, correctPhoneNumberValue);
     }
+
+    [Fact]
+    public void ShouldReturnTrueWhenComparingCargoOwnerInstancesOfSameValue()
+    {
+        Assert.Equal(
+            new MobileNumber("0926849888").Equals(new MobileNumber("0926849888")
+        ), true);
+    }
+
+    [Fact]
+    public void ShouldReturnFalseWhenComparingCargoOwnerInstancesOfDifferentPropertyValues()
+    {
+        Assert.Equal(
+            new MobileNumber("0926849888").Equals(new MobileNumber("0926849880")
+        ), false);
+    }
+
+    [Fact]
+    public void ShouldReturnFalseWhenComparingWithNullValue()
+    {
+        Assert.Equal(new MobileNumber("0926849888").Equals(null), false);
+    }
 }
