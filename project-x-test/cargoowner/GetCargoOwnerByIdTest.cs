@@ -9,7 +9,7 @@ public class GetCargoOwnerByIdTest
     public void GettingCargoOwnerWithIdThatDoesntExistShowThrowAnError()
     {
         var wrongId = "wrongid";
-        GetCargoOwnerController sut = setUpSut();
+        var sut = setUpSut();
         Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
     }
 
@@ -17,7 +17,7 @@ public class GetCargoOwnerByIdTest
     public async Task GettingCargoOwnerWithIdThatExistShowParseObjectSuccessfullyAndReturnCargoOwner()
     {
         var id = "4650df78-9132-44d8-9168-4f90e31616e1";
-        GetCargoOwnerController sut = setUpSut();
+        var sut = setUpSut();
 
         var cargoOwnerFound = await sut.Call(id);
         var expectedCargoOwnerResult = new CargoOwner(
