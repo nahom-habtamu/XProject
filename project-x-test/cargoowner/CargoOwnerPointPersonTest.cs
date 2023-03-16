@@ -3,37 +3,31 @@ using domain.cargoowner;
 namespace project_x_test.cargoowner;
 public class CargoOwnerPointPersonTest
 {
+    CargoOwnerPointPerson pointPersonOne = new CargoOwnerPointPerson(
+        "position", "abebe", "0911041221", "address", "abebe@gmail.com"
+    );
+
     [Fact]
     public void ShouldReturnTrueWhenComparingCargoOwnerInstancesOfSameValue()
     {
-        var pointPersonOne = new CargoOwnerPointPerson(
-            "position", "abebe", "0911041221", "address", "abebe@gmail.com"
-        );
         var pointPersonTwo = new CargoOwnerPointPerson(
             "position", "abebe", "0911041221", "address", "abebe@gmail.com"
         );
-
-        Assert.Equal(pointPersonOne.Equals(pointPersonTwo), true);
+        Assert.Equal(pointPersonOne, pointPersonTwo);
     }
 
     [Fact]
     public void ShouldReturnFalseWhenComparingCargoOwnerInstancesOfDifferentPropertyValues()
     {
-        var pointPersonOne = new CargoOwnerPointPerson(
-            "position", "abebe", "0911041221", "address", "abebe@gmail.com"
-        );
         var pointPersonTwo = new CargoOwnerPointPerson(
-            "position1", "abebe", "0911041221", "address", "abebe@gmail.com"
+            "position1", "abebed", "0911041220", "addresss", "daabebe@gmail.com"
         );
-        Assert.Equal(pointPersonOne.Equals(pointPersonTwo), false);
+        Assert.NotEqual(pointPersonOne, pointPersonTwo);
     }
 
     [Fact]
     public void ShouldReturnFalseWhenComparingWithNullValue()
     {
-        var pointPersonOne = new CargoOwnerPointPerson(
-            "position", "abebe", "0911041221", "address", "abebe@gmail.com"
-        );
         Assert.Equal(pointPersonOne.Equals(null), false);
     }
 }
