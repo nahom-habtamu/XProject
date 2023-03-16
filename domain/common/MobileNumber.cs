@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace domain.common;
@@ -16,5 +15,30 @@ public class MobileNumber
         {
             throw new InvalidDataException();
         }
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as MobileNumber;
+        
+        if (this.Value.Equals(parsed?.Value))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.Value.GetHashCode();
     }
 }

@@ -65,4 +65,38 @@ public class CargoOwner
             )
         );
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as CargoOwner;
+
+        if (
+            this.Id.Equals(parsed?.Id) &&
+            this.Email.Equals(parsed.Email) &&
+            this.Name.Equals(parsed.Name) &&
+            this.PhoneNumber.Equals(parsed.PhoneNumber) &&
+            this.TradeLicense.Equals(parsed.TradeLicense) &&
+            this.SpecificAddress.Equals(parsed.SpecificAddress) &&
+            this.PointPerson!.Equals(parsed.PointPerson)
+        )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.Id.GetHashCode();
+    }
 }
