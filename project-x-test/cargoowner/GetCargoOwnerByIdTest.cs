@@ -9,10 +9,7 @@ public class GetCargoOwnerByIdTest
     public void GettingCargoOwnerWithIdThatDoesntExistShowThrowAnError()
     {
         var wrongId = "wrongid";
-        var database = new DatabaseContext(new Npgsql.NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
-        var repository = new CargoOwnerRepositoryImpl(database);
-        var sut = new GetCargoOwnerController(repository);
-
+        GetCargoOwnerController sut = setUpSut();
         Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
     }
 
@@ -20,9 +17,7 @@ public class GetCargoOwnerByIdTest
     public async Task GettingCargoOwnerWithIdThatExistShowParseObjectSuccessfullyAndReturnCargoOwner()
     {
         var id = "4650df78-9132-44d8-9168-4f90e31616e1";
-        var database = new DatabaseContext(new Npgsql.NpgsqlConnection("Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
-        var repository = new CargoOwnerRepositoryImpl(database);
-        var sut = new GetCargoOwnerController(repository);
+        GetCargoOwnerController sut = setUpSut();
 
         var cargoOwnerFound = await sut.Call(id);
         var expectedCargoOwnerResult = new CargoOwner(
@@ -33,4 +28,15 @@ public class GetCargoOwnerByIdTest
         );
         Assert.Equal(cargoOwnerFound, expectedCargoOwnerResult);
     }
+
+    private GetCargoOwnerController setUpSut()
+    {
+        var database = new DatabaseContext(
+            new Npgsql.NpgsqlConnection(
+                "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
+        var repository = new CargoOwnerRepositoryImpl(database);
+        var sut = new GetCargoOwnerController(repository);
+        return sut;
+    }
+
 }
