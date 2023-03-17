@@ -13,19 +13,10 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
     public async Task<CargoOwner?> Get(string id)
     {
         var connection = _context.Get();
-
         var sql = @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
-                pointPersonPosition as position, pointPersonName as name, pointPersonPhoneNumber as phoneNumber, 
-                pointPersonSpecificAddress as specificAddress, pointPersonEmail as email 
-                from cargoowner WHERE id = " + "'" + id + "'";
-
-        var cargoOwner = (await connection.QueryAsync<CargoOwner, CargoOwnerPointPerson, CargoOwner>(
-            sql, (cargoOwner, pointPerson) =>
-            {
-                cargoOwner.PointPerson = pointPerson;
-                return cargoOwner;
-            }, splitOn: "id,position")).FirstOrDefault();
-
+            pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
+            pointPersonPosition from cargoowner WHERE id = " + "'" + id + "'";
+        var cargoOwner = (await connection.QueryAsync<CargoOwner>(sql)).FirstOrDefault();
         return cargoOwner;
     }
 

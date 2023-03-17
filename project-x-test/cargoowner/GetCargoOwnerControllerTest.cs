@@ -21,10 +21,10 @@ public class GetCargoOwnerControllerTest
 
         var cargoOwnerFound = await sut.Call(id);
         var expectedCargoOwnerResult = new CargoOwner(
+            "4650df78-9132-44d8-9168-4f90e31616e1",
             "Cargo Owner 1", "0926849881", "cowner1@gmail.com",
             "Shola, Addis Ababa", "65650df78-9132-44d8-9168-4f90e31616e4.png",
-            new CargoOwnerPointPerson("NN", "abebe gemechu", "0911041221", "Shola, Addis Ababa", "abebe@gmail.com"),
-            "4650df78-9132-44d8-9168-4f90e31616e1"
+            "abebe gemechu", "0911041221", "Shola, Addis Ababa", "abebe@gmail.com", "NN"
         );
         Assert.Equal(cargoOwnerFound, expectedCargoOwnerResult);
     }
