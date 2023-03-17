@@ -12,9 +12,21 @@ public class AuctionRepositoryImpl : AuctionRepository
         _context = context;
     }
 
-    public Task<Auction?> Get(string id)
+    public async Task<Auction?> Get(string id)
     {
-        throw new NotImplementedException();
+        var connection = _context.Get();
+        var auction = (await connection.QueryAsync<Auction, PriceInterval, PickUpTimeInterval, Auction>(
+        @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
+            minpriceperhundredkg as min, maxpriceperhundredkg as max, 
+            minpickuptime as min, minpickuptime as max from Auction Where id = 
+        " + "'" + id + "'", (auction, priceInterval, pickUpTimeInterval) =>
+        {
+            auction.PriceIntervalPerHundredKiloGram = priceInterval;
+            auction.PickUpTimeInterval = pickUpTimeInterval;
+            return auction;
+        }, splitOn: "id,min,min")).FirstOrDefault();
+
+        return auction;
     }
 
     public async Task<List<Auction>> GetAllAuctions()
