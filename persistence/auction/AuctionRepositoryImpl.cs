@@ -15,16 +15,15 @@ public class AuctionRepositoryImpl : AuctionRepository
     public async Task<Auction?> Get(string id)
     {
         var connection = _context.Get();
-        var auction = (await connection.QueryAsync<Auction, PriceInterval, PickUpTimeInterval, Auction>(
+        var auction = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
         @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
-            minpriceperhundredkg as min, maxpriceperhundredkg as max, 
-            minpickuptime as min, minpickuptime as max from Auction Where id = 
-        " + "'" + id + "'", (auction, priceInterval, pickUpTimeInterval) =>
+            minpickuptime, maxpickuptime,minpriceperhundredkg as min, maxpriceperhundredkg as max  
+            from Auction Where id = 
+        " + "'" + id + "'", (auction, priceInterval) =>
         {
             auction.PriceIntervalPerHundredKiloGram = priceInterval;
-            auction.PickUpTimeInterval = pickUpTimeInterval;
             return auction;
-        }, splitOn: "id,min,min")).FirstOrDefault();
+        }, splitOn: "id,min")).FirstOrDefault();
 
         return auction;
     }
@@ -32,16 +31,15 @@ public class AuctionRepositoryImpl : AuctionRepository
     public async Task<List<Auction>> GetAllAuctions()
     {
         var connection = _context.Get();
-        var auctions = (await connection.QueryAsync<Auction, PriceInterval, PickUpTimeInterval, Auction>(
+        var auctions = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
         @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
-            minpriceperhundredkg as min, maxpriceperhundredkg as max, 
-            minpickuptime as min, minpickuptime as max from Auction
-        ", (auction, priceInterval, pickUpTimeInterval) =>
+            minpickuptime, maxpickuptime, minpriceperhundredkg as min, maxpriceperhundredkg as max
+            from Auction
+        ", (auction, priceInterval) =>
         {
             auction.PriceIntervalPerHundredKiloGram = priceInterval;
-            auction.PickUpTimeInterval = pickUpTimeInterval;
             return auction;
-        }, splitOn: "id,min,min")).ToList();
+        }, splitOn: "id,min")).ToList();
 
         return auctions;
     }

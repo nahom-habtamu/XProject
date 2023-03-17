@@ -15,4 +15,31 @@ public class PriceInterval
         Max = max;
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as PriceInterval;
+
+        if (
+            this.Min.Equals(parsed?.Min) &&
+            this.Max.Equals(parsed.Max)
+        )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return (this.Max.ToString() + this.Min.ToString()).GetHashCode();
+    }
 }

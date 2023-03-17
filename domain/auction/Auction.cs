@@ -13,15 +13,17 @@ public class Auction
     public DateTime PlannedPickUpDate { get; set; }
     public string OtherInformationAboutCargo { get; set; }
     public PriceInterval? PriceIntervalPerHundredKiloGram { get; set; }
-    public PickUpTimeInterval? PickUpTimeInterval { get; set; }
+    public TimeSpan MinPickUpTime { get; set; }
+    public TimeSpan MaxPickUpTime { get; set; }
     public Auction(
         string cargoOwnerId,
         string typeOfCargo, int totalWeightOfCargo,
         string deliveryPlace, string pickUpPlace,
         DateTime plannedPickUpDate,
         string otherInformationAboutCargo,
+        string minPickUpTime,
+        string maxPickUpTime,
         PriceInterval priceIntervalPerHundredKiloGram,
-        PickUpTimeInterval pickUpTimeInterval,
         string? id = null
     )
     {
@@ -34,7 +36,8 @@ public class Auction
         PlannedPickUpDate = plannedPickUpDate;
         OtherInformationAboutCargo = otherInformationAboutCargo;
         PriceIntervalPerHundredKiloGram = priceIntervalPerHundredKiloGram;
-        PickUpTimeInterval = pickUpTimeInterval;
+        MinPickUpTime = TimeSpan.Parse(minPickUpTime);
+        MaxPickUpTime = TimeSpan.Parse(maxPickUpTime);
     }
 
     public Auction(
@@ -43,7 +46,9 @@ public class Auction
         string typeOfCargo, int totalWeightOfCargo,
         string deliveryPlace, string pickUpPlace,
         DateTime plannedPickUpDate,
-        string otherInformationAboutCargo
+        string otherInformationAboutCargo,
+        string minPickUpTime,
+        string maxPickUpTime
     )
     {
         Id = id;
@@ -54,6 +59,8 @@ public class Auction
         PickUpPlace = pickUpPlace;
         PlannedPickUpDate = plannedPickUpDate;
         OtherInformationAboutCargo = otherInformationAboutCargo;
+        MinPickUpTime = TimeSpan.Parse(minPickUpTime);
+        MaxPickUpTime = TimeSpan.Parse(maxPickUpTime);
     }
 
     public static Auction parseFromDto(CreateAuctionRequestDto requestDto)
@@ -62,8 +69,46 @@ public class Auction
             requestDto.TotalWeightOfCargo!, requestDto.DeliveryPlace!,
             requestDto.PickUpPlace!, requestDto.PlannedPickUpDate!,
             requestDto.OtherInformationAboutCargo!,
-            new PriceInterval(requestDto.MinPricePerHundredKiloGram, requestDto.MaxPricePerHundredKiloGram),
-            new PickUpTimeInterval(requestDto.MinPickUpTime!, requestDto.MaxPickUpTime!)
+            requestDto.MinPickUpTime!,
+            requestDto.MaxPickUpTime!,
+            new PriceInterval(requestDto.MinPricePerHundredKiloGram, requestDto.MaxPricePerHundredKiloGram)
         );
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as Auction;
+
+        if (
+            this.Id.Equals(parsed?.Id) &&
+            this.CargoOwnerId.Equals(parsed?.CargoOwnerId) &&
+            this.TypeOfCargo.Equals(parsed?.TypeOfCargo) &&
+            this.TotalWeightOfCargo.Equals(parsed?.TotalWeightOfCargo) &&
+            this.DeliveryPlace.Equals(parsed?.DeliveryPlace) &&
+            this.PickUpPlace.Equals(parsed?.PickUpPlace) &&
+            this.PlannedPickUpDate.Equals(parsed.PlannedPickUpDate) &&
+            this.OtherInformationAboutCargo.Equals(parsed.OtherInformationAboutCargo) &&
+            this.PriceIntervalPerHundredKiloGram!.Equals(parsed.PriceIntervalPerHundredKiloGram) &&
+            this.MinPickUpTime!.Equals(parsed.MinPickUpTime) &&
+            this.MaxPickUpTime!.Equals(parsed.MaxPickUpTime)
+        )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.Id.GetHashCode();
     }
 }
