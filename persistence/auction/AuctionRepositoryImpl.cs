@@ -12,14 +12,16 @@ public class AuctionRepositoryImpl : AuctionRepository
         _context = context;
     }
 
+    const string baseGetSql = @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
+        minpickuptime, maxpickuptime,minpriceperhundredkg as min, maxpriceperhundredkg as max  
+        from Auction";
+
     public async Task<Auction?> Get(string id)
     {
         var connection = _context.Get();
+        var sql = baseGetSql + " where id = " + "'" + id + "'";
         var auction = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
-        @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
-            minpickuptime, maxpickuptime,minpriceperhundredkg as min, maxpriceperhundredkg as max  
-            from Auction Where id = 
-        " + "'" + id + "'", (auction, priceInterval) =>
+           sql, (auction, priceInterval) =>
         {
             auction.PriceIntervalPerHundredKiloGram = priceInterval;
             return auction;
@@ -32,10 +34,7 @@ public class AuctionRepositoryImpl : AuctionRepository
     {
         var connection = _context.Get();
         var auctions = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
-        @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
-            minpickuptime, maxpickuptime, minpriceperhundredkg as min, maxpriceperhundredkg as max
-            from Auction
-        ", (auction, priceInterval) =>
+            baseGetSql, (auction, priceInterval) =>
         {
             auction.PriceIntervalPerHundredKiloGram = priceInterval;
             return auction;
