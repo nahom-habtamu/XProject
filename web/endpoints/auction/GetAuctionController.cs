@@ -6,15 +6,10 @@ namespace web.endpoints.auction;
 [ApiController]
 public class GetAuctionController : ControllerBase
 {
-    private readonly ILogger<GetAuctionController> _logger;
     private readonly AuctionRepository _auctionRepo;
 
-    public GetAuctionController(
-        ILogger<GetAuctionController> logger,
-        AuctionRepository auctionRepo
-    )
+    public GetAuctionController(AuctionRepository auctionRepo)
     {
-        _logger = logger;
         _auctionRepo = auctionRepo;
     }
 
@@ -23,7 +18,7 @@ public class GetAuctionController : ControllerBase
     public async Task<Auction> Call([FromQuery] string id)
     {
         var auction = await _auctionRepo.Get(id);
-        if (auction == null) throw new Exception("Auction With This Id not Found");
+        if (auction == null) throw new Exception("Auction With This Id Not Found");
         return auction;
     }
 }
