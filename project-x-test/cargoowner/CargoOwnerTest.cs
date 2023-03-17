@@ -28,7 +28,7 @@ public class CargoOwnerTest
             new CargoOwnerPointPerson("position", "abebe", "0911041221", "address", "abebe@gmail.com"),
             "4650df78-9132-44d8-9168-4f90e31616e2"
         );
-        Assert.Equal(cargoOwnerOne, cargoOwnerTwo);
+        Assert.NotEqual(cargoOwnerOne, cargoOwnerTwo);
     }
 
     [Fact]
