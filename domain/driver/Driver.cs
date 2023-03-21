@@ -45,4 +45,38 @@ public class Driver
             requestDto.DrivingLicense!
         );
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as Driver;
+
+        if (
+            this.Id.Equals(parsed?.Id) &&
+            this.Name.Equals(parsed?.Name) &&
+            this.PhoneNumber.Equals(parsed?.PhoneNumber) &&
+            this.Email.Equals(parsed?.Email) &&
+            this.Gender.Equals(parsed?.Gender) &&
+            this.DateOfBirth.Equals(parsed?.DateOfBirth) &&
+            this.SpecificAddress.Equals(parsed.SpecificAddress) &&
+            this.DrivingLicense.Equals(parsed.DrivingLicense)
+        )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.Id.GetHashCode();
+    }
 }
