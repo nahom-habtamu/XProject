@@ -19,7 +19,7 @@ public class Driver
         string email,
         string gender,
         DateTime dateOfBirth,
-        string address,
+        string specificAddress,
         string drivingLicense
     )
     {
@@ -29,7 +29,7 @@ public class Driver
         Email = email;
         Gender = int.Parse(gender) == 0 ? Gender.MALE : Gender.FEMALE;
         DateOfBirth = dateOfBirth;
-        SpecificAddress = address;
+        SpecificAddress = specificAddress;
         DrivingLicense = drivingLicense;
     }
 
@@ -41,7 +41,7 @@ public class Driver
             requestDto.PhoneNumber!,
             requestDto.Email!,
             requestDto.Gender!,
-            requestDto.DateOfBirth, requestDto.Address!,
+            requestDto.DateOfBirth, requestDto.SpecificAddress!,
             requestDto.DrivingLicense!
         );
     }

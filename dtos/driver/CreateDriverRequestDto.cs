@@ -7,6 +7,6 @@ public class CreateDriverRequestDto
     public string? Email { get; set; }
     public string? Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string? Address { get; set; }
+    public string? SpecificAddress { get; set; }
     public string? DrivingLicense { get; set; }
 }
