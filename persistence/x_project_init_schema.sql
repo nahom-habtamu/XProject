@@ -29,3 +29,23 @@ create table if not exists Auction(
       FOREIGN KEY(cargoOwnerId) 
 	  REFERENCES CargoOwner(id)
 );
+
+do
+$$
+begin
+	create type Gender AS ENUM ('0','1');	
+	exception when DUPLICATE_OBJECT then
+	raise notice 'type "gender" exists, skipping CREATE TYPE';
+end
+$$;
+
+create table if not exists Driver(
+	id varchar(64) primary key,
+	name varchar(100) not null,
+	phoneNumber varchar(100) not null,
+	email varchar(100) not null,
+	gender Gender not null,
+	dateOfBirth date not null,
+	specificAddress varchar(100) not null,
+	drivingLicence varchar(255) not null
+);
