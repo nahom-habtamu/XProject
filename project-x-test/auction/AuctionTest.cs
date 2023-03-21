@@ -11,7 +11,7 @@ public class AuctionTest
     );
 
     [Fact]
-    public void ShouldReturnTrueWhenComparingCargoOwnerInstancesOfSameValue()
+    public void ShouldReturnTrueWhenComparingAuctionInstancesOfSameValue()
     {
 
         Auction auctionTwo = new Auction(
@@ -24,7 +24,7 @@ public class AuctionTest
     }
 
     [Fact]
-    public void ShouldReturnFalseWhenComparingCargoOwnerInstancesOfDifferentPropertyValues()
+    public void ShouldReturnFalseWhenComparingAuctionInstancesOfDifferentPropertyValues()
     {
         Auction auctionTwo = new Auction(
             "4650df78-9132-44d8-9168-4f90e31616e2",
