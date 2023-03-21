@@ -15,16 +15,19 @@ public class Driver
     public Driver(
         string? id,
         string name,
-        MobileNumber phoneNumber, string email,
-        Gender gender, DateTime dateOfBirth,
-        string address, string drivingLicense
+        string phoneNumber,
+        string email,
+        int gender,
+        DateTime dateOfBirth,
+        string address,
+        string drivingLicense
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
         Name = name;
-        PhoneNumber = phoneNumber;
+        PhoneNumber = new MobileNumber(phoneNumber);
         Email = email;
-        Gender = gender;
+        Gender = gender == 0 ? Gender.MALE : Gender.FEMALE;
         DateOfBirth = dateOfBirth;
         SpecificAddress = address;
         DrivingLicense = drivingLicense;
@@ -32,12 +35,12 @@ public class Driver
 
     public static Driver parseFromDto(CreateDriverRequestDto requestDto)
     {
-        var gender = requestDto.Gender == 0 ? Gender.MALE : Gender.FEMALE;
         return new Driver(
             null,
             requestDto.Name!,
-            new MobileNumber(requestDto.PhoneNumber!),
-            requestDto.Email!, gender,
+            requestDto.PhoneNumber!,
+            requestDto.Email!,
+            requestDto.Gender,
             requestDto.DateOfBirth, requestDto.Address!,
             requestDto.DrivingLicense!
         );
