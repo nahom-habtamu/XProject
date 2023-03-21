@@ -76,7 +76,7 @@ public class GetAllBidsForAuctionController : ControllerBase
         return new GetAllBidsForAuctionItemResponseDto
         {
             DriverId = driver.Id,
-            DriverName = driver.FirstName + " " + driver.LastName,
+            DriverName = driver.Name,
             VehicleManufaturedDate = vehicle.ManufacturedDate,
             VehicleModel = vehicle.Model,
             VehicleImages = new List<Uri> {

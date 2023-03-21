@@ -5,30 +5,28 @@ namespace domain.driver;
 public class Driver
 {
     public string Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string Name { get; set; }
     public MobileNumber PhoneNumber { get; set; }
     public string Email { get; set; }
     public Gender Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string Address { get; set; }
-    public Uri DrivingLicense { get; set; }
+    public string SpecificAddress { get; set; }
+    public string DrivingLicense { get; set; }
     public Driver(
-        string firstName, string lastName,
+        string? id,
+        string name,
         MobileNumber phoneNumber, string email,
         Gender gender, DateTime dateOfBirth,
-        string address, Uri drivingLicense,
-        string? id = null
+        string address, string drivingLicense
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
-        FirstName = firstName;
-        LastName = lastName;
+        Name = name;
         PhoneNumber = phoneNumber;
         Email = email;
         Gender = gender;
         DateOfBirth = dateOfBirth;
-        Address = address;
+        SpecificAddress = address;
         DrivingLicense = drivingLicense;
     }
 
@@ -36,12 +34,12 @@ public class Driver
     {
         var gender = requestDto.Gender == 0 ? Gender.MALE : Gender.FEMALE;
         return new Driver(
-            requestDto.FirstName!,
-            requestDto.LastName!,
+            null,
+            requestDto.Name!,
             new MobileNumber(requestDto.PhoneNumber!),
             requestDto.Email!, gender,
             requestDto.DateOfBirth, requestDto.Address!,
-            new Uri(requestDto.DrivingLicense!)
+            requestDto.DrivingLicense!
         );
     }
 }
