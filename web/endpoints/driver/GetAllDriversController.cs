@@ -7,14 +7,9 @@ namespace web.endpoints.driver;
 public class GetAllDriversController : ControllerBase
 {
     private readonly DriverRepository _repository;
-    private readonly ILogger<GetAllDriversController> _logger;
 
-    public GetAllDriversController(
-        ILogger<GetAllDriversController> logger,
-        DriverRepository repository
-    )
+    public GetAllDriversController(DriverRepository repository)
     {
-        _logger = logger;
         _repository = repository;
     }
 
