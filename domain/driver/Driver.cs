@@ -17,7 +17,7 @@ public class Driver
         string name,
         string phoneNumber,
         string email,
-        int gender,
+        string gender,
         DateTime dateOfBirth,
         string address,
         string drivingLicense
@@ -27,7 +27,7 @@ public class Driver
         Name = name;
         PhoneNumber = new MobileNumber(phoneNumber);
         Email = email;
-        Gender = gender == 0 ? Gender.MALE : Gender.FEMALE;
+        Gender = int.Parse(gender) == 0 ? Gender.MALE : Gender.FEMALE;
         DateOfBirth = dateOfBirth;
         SpecificAddress = address;
         DrivingLicense = drivingLicense;
@@ -40,7 +40,7 @@ public class Driver
             requestDto.Name!,
             requestDto.PhoneNumber!,
             requestDto.Email!,
-            requestDto.Gender,
+            requestDto.Gender!,
             requestDto.DateOfBirth, requestDto.Address!,
             requestDto.DrivingLicense!
         );
