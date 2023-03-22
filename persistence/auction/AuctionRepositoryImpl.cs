@@ -19,33 +19,33 @@ public class AuctionRepositoryImpl : AuctionRepository
     public async Task<Auction?> Get(string id)
     {
         var connection = _context.Get();
-        var sql = baseGetSql + " where id = " + "'" + id + "'";
-        var auction = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
-           sql, (auction, priceInterval) =>
-        {
-            auction.PriceIntervalPerHundredKiloGram = priceInterval;
-            return auction;
-        }, splitOn: "id,min")).FirstOrDefault();
-
+        var sql = baseGetSql + " where id = " + "" + id + "'";
+        var auction = (await QueryAndParseResult(sql)).FirstOrDefault();
         return auction;
     }
 
     public async Task<List<Auction>> GetAllAuctions()
     {
         var connection = _context.Get();
-        var auctions = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
-            baseGetSql, (auction, priceInterval) =>
-        {
-            auction.PriceIntervalPerHundredKiloGram = priceInterval;
-            return auction;
-        }, splitOn: "id,min")).ToList();
-
+        var auctions = (await QueryAndParseResult(baseGetSql)).ToList();
         return auctions;
     }
 
     public Task<List<Auction>> GetAuctionsByCargoOwner(string id)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task<IEnumerable<Auction>> QueryAndParseResult(string sql)
+    {
+        var connection = _context.Get();
+        var result = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
+            baseGetSql, (auction, priceInterval) =>
+        {
+            auction.PriceIntervalPerHundredKiloGram = priceInterval;
+            return auction;
+        }, splitOn: "id,min"));
+        return result;
     }
 
     public Task Save(Auction entity)
