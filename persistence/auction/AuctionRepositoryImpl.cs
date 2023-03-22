@@ -20,14 +20,14 @@ public class AuctionRepositoryImpl : AuctionRepository
     {
         var connection = _context.Get();
         var sql = baseGetSql + " where id = " + "" + id + "'";
-        var auction = (await QueryAndParseResult(sql)).FirstOrDefault();
+        var auction = (await QueryAndParseSelectRequest(sql)).FirstOrDefault();
         return auction;
     }
 
     public async Task<List<Auction>> GetAllAuctions()
     {
         var connection = _context.Get();
-        var auctions = (await QueryAndParseResult(baseGetSql)).ToList();
+        var auctions = (await QueryAndParseSelectRequest(baseGetSql)).ToList();
         return auctions;
     }
 
@@ -36,7 +36,7 @@ public class AuctionRepositoryImpl : AuctionRepository
         throw new NotImplementedException();
     }
 
-    private async Task<IEnumerable<Auction>> QueryAndParseResult(string sql)
+    private async Task<IEnumerable<Auction>> QueryAndParseSelectRequest(string sql)
     {
         var connection = _context.Get();
         var result = (await connection.QueryAsync<Auction, PriceInterval, Auction>(

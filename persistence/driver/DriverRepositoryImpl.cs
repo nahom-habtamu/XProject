@@ -17,11 +17,11 @@ public class DriverRepositoryImpl : DriverRepository
     public async Task<Driver?> Get(string id)
     {
         var sql = baseGetSql + " WHERE id = " + "'" + id + "'";
-        var driver = (await QueryAndParseResult(sql)).FirstOrDefault();
+        var driver = (await QueryAndParseSelectRequest(sql)).FirstOrDefault();
         return driver;
     }
 
-    private async Task<IEnumerable<Driver>> QueryAndParseResult(string sql)
+    private async Task<IEnumerable<Driver>> QueryAndParseSelectRequest(string sql)
     {
         var connection = _context.Get();
         var result = (await connection.QueryAsync<Driver>(sql));
@@ -30,7 +30,7 @@ public class DriverRepositoryImpl : DriverRepository
 
     public async Task<List<Driver>> GetAllDrivers()
     {
-        var drivers = (await QueryAndParseResult(baseGetSql)).ToList();
+        var drivers = (await QueryAndParseSelectRequest(baseGetSql)).ToList();
         return drivers;
     }
 
