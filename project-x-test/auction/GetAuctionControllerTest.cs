@@ -16,11 +16,14 @@ public class GetAuctionControllerTest
     [Fact]
     public async Task GettingAuctionWithIdThatExistShouldParseObjectSuccessfullyAndReturnAuction()
     {
-        var id = "1110df78-9132-44d8-9168-4f90e31616e1";
-        var sut = setUpSut();
+        var idOne = "1110df78-9132-44d8-9168-4f90e31616e1";
+        var idTwo = "1110df78-9132-44d8-9168-4f90e31616e2";
 
-        var auctionFound = await sut.Call(id);
-        Auction expectedAuctionResult = new Auction(
+        var sut = setUpSut();
+        var auctionFoundByIdOne = await sut.Call(idOne);
+        var auctionFoundByIdTwo = await sut.Call(idTwo);
+
+        Auction expectedAuctionResultForIdOne = new Auction(
             "4650df78-9132-44d8-9168-4f90e31616e1",
             "HEAVY", 20, "Idk", "Addis Ababa, Shola",
             DateTime.Parse("2023-02-03"),
@@ -29,7 +32,19 @@ public class GetAuctionControllerTest
             new PriceInterval(135.45, 180.9),
             "1110df78-9132-44d8-9168-4f90e31616e1"
         );
-        Assert.Equal(auctionFound, expectedAuctionResult);
+
+        Auction expectedAuctionResultForIdTwo = new Auction(
+            "4650df78-9132-44d8-9168-4f90e31616e2",
+            "LIGHT", 20, "some place", "Addis Ababa, Shola",
+            DateTime.Parse("2023-03-04"),
+            "beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit",
+            "11:00:00", "03:00:00",
+            new PriceInterval(35.45, 43.9),
+            "1110df78-9132-44d8-9168-4f90e31616e2"
+        );
+
+        Assert.Equal(auctionFoundByIdOne, expectedAuctionResultForIdOne);
+        Assert.Equal(auctionFoundByIdTwo, expectedAuctionResultForIdTwo);
     }
 
     private GetAuctionController setUpSut()
