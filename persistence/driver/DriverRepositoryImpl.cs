@@ -21,17 +21,17 @@ public class DriverRepositoryImpl : DriverRepository
         return driver;
     }
 
+    public async Task<List<Driver>> GetAllDrivers()
+    {
+        var drivers = (await QueryAndParseSelectRequest(baseGetSql)).ToList();
+        return drivers;
+    }
+
     private async Task<IEnumerable<Driver>> QueryAndParseSelectRequest(string sql)
     {
         var connection = _context.Get();
         var result = (await connection.QueryAsync<Driver>(sql));
         return result;
-    }
-
-    public async Task<List<Driver>> GetAllDrivers()
-    {
-        var drivers = (await QueryAndParseSelectRequest(baseGetSql)).ToList();
-        return drivers;
     }
 
     public Task Save(Driver entity)
