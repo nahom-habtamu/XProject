@@ -19,7 +19,7 @@ public class AuctionRepositoryImpl : AuctionRepository
     public async Task<Auction?> Get(string id)
     {
         var connection = _context.Get();
-        var sql = baseGetSql + " where id = " + "" + id + "'";
+        var sql = baseGetSql + " where id = " + "'" + id + "'";
         var auction = (await QueryAndParseSelectRequest(sql)).FirstOrDefault();
         return auction;
     }
