@@ -6,15 +6,12 @@ namespace web.endpoints.auction;
 [ApiController]
 public class GetAuctionsByCargoOwnerController : ControllerBase
 {
-    private readonly ILogger<GetAuctionsByCargoOwnerController> _logger;
     private readonly AuctionRepository _auctionRepo;
 
     public GetAuctionsByCargoOwnerController(
-        ILogger<GetAuctionsByCargoOwnerController> logger,
         AuctionRepository auctionRepo
     )
     {
-        _logger = logger;
         _auctionRepo = auctionRepo;
     }
 
