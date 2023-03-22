@@ -31,9 +31,12 @@ public class AuctionRepositoryImpl : AuctionRepository
         return auctions;
     }
 
-    public Task<List<Auction>> GetAuctionsByCargoOwner(string id)
+    public async Task<List<Auction>> GetAuctionsByCargoOwner(string id)
     {
-        throw new NotImplementedException();
+        var connection = _context.Get();
+        var sql = baseGetSql + " where cargoOwnerId = " + "'" + id + "'";
+        var auctions = (await QueryAndParseSelectRequest(sql)).ToList();
+        return auctions;
     }
 
     private async Task<IEnumerable<Auction>> QueryAndParseSelectRequest(string sql)
