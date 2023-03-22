@@ -40,7 +40,7 @@ public class AuctionRepositoryImpl : AuctionRepository
     {
         var connection = _context.Get();
         var result = (await connection.QueryAsync<Auction, PriceInterval, Auction>(
-            baseGetSql, (auction, priceInterval) =>
+            sql, (auction, priceInterval) =>
         {
             auction.PriceIntervalPerHundredKiloGram = priceInterval;
             return auction;
