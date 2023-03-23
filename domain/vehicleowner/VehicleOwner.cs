@@ -61,7 +61,7 @@ public class VehicleOwner
             this.PhoneNumber.Equals(parsed?.PhoneNumber) &&
             this.Email.Equals(parsed?.Email) &&
             this.CompanyName.Equals(parsed?.CompanyName) &&
-            this.TradeLicense.Equals(parsed?.TradeLicense) &&
+            checkEqualityOfTradeLicense(parsed!.TradeLicense) &&
             this.UserName.Equals(parsed.UserName) &&
             this.Password.Equals(parsed.Password)
         )
@@ -74,5 +74,32 @@ public class VehicleOwner
     public override int GetHashCode()
     {
         return this.Id.GetHashCode();
+    }
+
+    private bool checkEqualityOfTradeLicense(string tradeLicense)
+    {
+        var currentTLSplitted = removeFirstAndLast(this.TradeLicense)
+            .Split(',', StringSplitOptions.TrimEntries)
+            .Select(tl => removeFirstAndLast(tl))
+            .ToList();
+
+        var passedTLSplitted = removeFirstAndLast(tradeLicense)
+            .Split(',', StringSplitOptions.TrimEntries)
+            .Select(tl => removeFirstAndLast(tl))
+            .ToList();
+
+
+        var isSubSet = currentTLSplitted
+            .Where(tl => passedTLSplitted
+            .Contains(tl))
+            .Count() == currentTLSplitted.Count;
+        var isEqualInLength = currentTLSplitted.Count == passedTLSplitted.Count;
+
+        return isSubSet && isEqualInLength;
+    }
+
+    private string removeFirstAndLast(string withBrace)
+    {
+        return withBrace.Substring(1, withBrace.Length - 2);
     }
 }
