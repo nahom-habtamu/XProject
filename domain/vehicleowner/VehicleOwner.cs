@@ -38,8 +38,41 @@ public class VehicleOwner
             requestDto.PhoneNumber!,
             requestDto.Email!, requestDto.CompanyName!,
             requestDto.TradeLicense!,
-            requestDto.UserName!, 
+            requestDto.UserName!,
             requestDto.Password!
         );
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null) return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as VehicleOwner;
+
+        if (
+            this.Id.Equals(parsed?.Id) &&
+            this.Name.Equals(parsed?.Name) &&
+            this.PhoneNumber.Equals(parsed?.PhoneNumber) &&
+            this.Email.Equals(parsed?.Email) &&
+            this.CompanyName.Equals(parsed?.CompanyName) &&
+            this.TradeLicense.Equals(parsed?.TradeLicense) &&
+            this.UserName.Equals(parsed.UserName) &&
+            this.Password.Equals(parsed.Password)
+        )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.Id.GetHashCode();
     }
 }
