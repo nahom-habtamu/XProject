@@ -20,9 +20,14 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
         return cargoOwner;
     }
 
-    public Task<List<CargoOwner>> GetAllCargoOwners()
+    public async Task<List<CargoOwner>> GetAllCargoOwners()
     {
-        return Task.Run(() => new List<CargoOwner>());
+        var connection = _context.Get();
+        var sql = @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
+            pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
+            pointPersonPosition from cargoowner";
+        var cargoOwners = (await connection.QueryAsync<CargoOwner>(sql)).ToList();
+        return cargoOwners;
     }
 
     public Task Save(CargoOwner entity)
