@@ -10,13 +10,13 @@ public class VehicleOwner
     public MobileNumber PhoneNumber { get; set; }
     public string Email { get; set; }
     public string CompanyName { get; set; }
-    public string TradeLicence { get; set; }
+    public string TradeLicense { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
 
     public VehicleOwner(
         string? id, string name, string phoneNumber,
-        string email, string companyName, string tradeLicence,
+        string email, string companyName, string tradeLicense,
         string userName, string password
     )
     {
@@ -25,7 +25,7 @@ public class VehicleOwner
         PhoneNumber = new MobileNumber(phoneNumber);
         Email = email;
         CompanyName = companyName;
-        TradeLicence = tradeLicence;
+        TradeLicense = tradeLicense;
         UserName = userName;
         Password = password;
     }
@@ -37,7 +37,7 @@ public class VehicleOwner
             requestDto.Name!,
             requestDto.PhoneNumber!,
             requestDto.Email!, requestDto.CompanyName!,
-            requestDto.TradeLicence!,
+            requestDto.TradeLicense!,
             requestDto.UserName!, 
             requestDto.Password!
         );
