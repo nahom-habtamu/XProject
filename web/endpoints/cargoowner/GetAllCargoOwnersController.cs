@@ -7,14 +7,10 @@ namespace web.endpoints.cargoowner;
 public class GetAllCargoOwnersController : ControllerBase
 {
     private readonly CargoOwnerRepository _repository;
-    private readonly ILogger<GetAllCargoOwnersController> _logger;
-
     public GetAllCargoOwnersController(
-        ILogger<GetAllCargoOwnersController> logger,
         CargoOwnerRepository repository
     )
     {
-        _logger = logger;
         _repository = repository;
     }
 
