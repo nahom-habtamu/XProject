@@ -49,3 +49,14 @@ create table if not exists Driver(
 	specificAddress varchar(100) not null,
 	drivingLicense varchar(255) not null
 );
+
+create table if not exists VehicleOwner(
+	id varchar(64) primary key,
+	name varchar(100) not null,
+	phoneNumber varchar(100) not null,
+	email varchar(100) not null,
+	companyName varchar(100) not null,
+	tradeLicense varchar(255) not null,
+	userName varchar(100) not null,
+	password varchar(255) not null
+);
