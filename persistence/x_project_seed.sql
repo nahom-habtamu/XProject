@@ -72,10 +72,10 @@ insert into VehicleOwner values(
 	'2150df78-9132-44d8-9168-4f90e31616e1',
 	'Vehicle Owner 1', '0926849881', 'vo1@gmail.com',
 	'VO1 Company', 
- 	'[
-	   ''2150df78-9132-44d8-9168-4f90e31616e1.jpg'',
-	   ''2150df78-9132-44d8-9168-4f90e31616e1.jpg''
-  	]',
+ 	$$[
+	   "2150df78-9132-44d8-9168-4f90e31616e1.jpg",
+	   "2150df78-9132-44d8-9168-4f90e31616e1.jpg"
+  	]$$,
 	'vehicleowner-1',
 	'vehicleowner1pass'
 );
@@ -84,10 +84,10 @@ insert into VehicleOwner values(
 	'2150df78-9132-44d8-9168-4f90e31616e2',
 	'Vehicle Owner 2', '0926849882', 'vo2@gmail.com',
 	'VO2 Company', 
- 	'[
-	   ''2150df78-9132-44d8-9168-4f90e31616e2.jpg'',
-	   ''2150df78-9132-44d8-9168-4f90e31616e2.jpg''
-  	]',
+ 	$$[
+	   "2150df78-9132-44d8-9168-4f90e31616e2.jpg",
+	   "2150df78-9132-44d8-9168-4f90e31616e2.jpg"
+  	]$$,
 	'vehicleowner-2',
 	'vehicleowner2pass'
 );
@@ -96,10 +96,10 @@ insert into VehicleOwner values(
 	'2150df78-9132-44d8-9168-4f90e31616e3',
 	'Vehicle Owner 3', '0926849883', 'vo3@gmail.com',
 	'VO3 Company', 
- 	'[
-	   ''2150df78-9132-44d8-9168-4f90e31616e3.jpg'',
-	   ''2150df78-9132-44d8-9168-4f90e31616e3.jpg''
-  	]',
+ 	$$[
+	   "2150df78-9132-44d8-9168-4f90e31616e3.jpg",
+	   "2150df78-9132-44d8-9168-4f90e31616e3.jpg"
+  	]$$,
 	'vehicleowner-3',
 	'vehicleowner3pass'
 );
