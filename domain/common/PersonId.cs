@@ -5,8 +5,8 @@ using System.IO;
 namespace domain.common;
 public class PersonId
 {
-    public List<Uri> Value { get; }
-    public PersonId(List<Uri> value)
+    public List<string> Value { get; }
+    public PersonId(List<string> value)
     {
         if (value.Count == 2)
         {

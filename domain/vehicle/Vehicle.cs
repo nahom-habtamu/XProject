@@ -17,23 +17,23 @@ namespace domain.vehicle
         public string Model { get; set; }
         public string LoadCapacity { get; set; }
         public string Color { get; set; }
-        public PersonId DriverIdentificationDocument { get; set; }
-        public Uri CarImage { get; set; }
-        public Uri LibreImage { get; set; }
-        public Uri InsuranceImage { get; set; }
+        public string CarImage { get; set; }
+        public string LibreImage { get; set; }
+        public string InsuranceImage { get; set; }
         public DateTime LibreExpiryDate { get; set; }
         public DateTime InsuranceExpiryDate { get; set; }
+        public PersonId? DriverIdentificationDocument { get; set; }
 
         public Vehicle(
-            string plateNumber, string ownerId, string driverId, string city,
-            string type, string loadType, DateTime manufacturedDate,
-            string make, string model, string loadCapacity,
-            string color, PersonId driverIdentificationDocument, Uri carImage,
-            Uri libreImage, Uri insuranceImage, DateTime libreExpiryDate,
-            DateTime insuranceExpiryDate
+            string? id, string plateNumber, string ownerId,
+            string driverId, string city, string type, string loadType,
+            DateTime manufacturedDate, string make, string model, string loadCapacity,
+            string color, string carImage, string libreImage, string insuranceImage,
+            DateTime libreExpiryDate, DateTime insuranceExpiryDate,
+            PersonId? driverDocument = null
         )
         {
-            Id = Guid.NewGuid().ToString("N");
+            Id = id ?? Guid.NewGuid().ToString("N");
             PlateNumber = plateNumber;
             OwnerId = ownerId;
             DriverId = driverId;
@@ -45,7 +45,7 @@ namespace domain.vehicle
             Model = model;
             LoadCapacity = loadCapacity;
             Color = color;
-            DriverIdentificationDocument = driverIdentificationDocument;
+            DriverIdentificationDocument = driverDocument;
             CarImage = carImage;
             LibreImage = libreImage;
             InsuranceImage = insuranceImage;
@@ -56,6 +56,7 @@ namespace domain.vehicle
         public static Vehicle parseFromDto(CreateVehicleRequestDto requestDto)
         {
             return new Vehicle(
+                null,
                 requestDto.PlateNumber!,
                 requestDto.OwnerId!,
                 requestDto.DriverId!,
@@ -67,18 +68,17 @@ namespace domain.vehicle
                 requestDto.Model!,
                 requestDto.LoadCapacity!,
                 requestDto.Color!,
-                new PersonId(
-                    new List<Uri>{
-
-                        new Uri(requestDto.DriverIdentificationDocumentFront!),
-                        new Uri(requestDto.DriverIdentificationDocumentBack!),
-                    }
-                ),
-                new Uri(requestDto.CarImage!),
-                new Uri(requestDto.LibreImage!),
-                new Uri(requestDto.InsuranceImage!),
+                requestDto.CarImage!,
+                requestDto.LibreImage!,
+                requestDto.InsuranceImage!,
                 requestDto.LibreExpiryDate,
-                requestDto.InsuranceExpiryDate
+                requestDto.InsuranceExpiryDate,
+                new PersonId(
+                    new List<string>{
+                        requestDto.DriverIdentificationDocumentFront!,
+                        requestDto.DriverIdentificationDocumentBack!,
+                    }
+                )
             );
         }
     }

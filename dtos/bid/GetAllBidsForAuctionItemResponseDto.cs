@@ -6,7 +6,7 @@ public class GetAllBidsForAuctionItemResponseDto
     public string? DriverName { get; set; }
     public string? VehicleModel { get; set; }
     public double? VehicleRating { get; set; }
-    public Uri? VehicleInsuranceImage { get; set; }
-    public List<Uri> VehicleImages { get; set; } = new List<Uri>();
+    public string? VehicleInsuranceImage { get; set; }
+    public List<string> VehicleImages { get; set; } = new List<string>();
     public DateTime? VehicleManufaturedDate { get; set; }
 }

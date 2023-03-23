@@ -79,7 +79,7 @@ public class GetAllBidsForAuctionController : ControllerBase
             DriverName = driver.Name,
             VehicleManufaturedDate = vehicle.ManufacturedDate,
             VehicleModel = vehicle.Model,
-            VehicleImages = new List<Uri> {
+            VehicleImages = new List<string> {
                vehicle.CarImage,
             },
             VehicleInsuranceImage = vehicle.InsuranceImage,
