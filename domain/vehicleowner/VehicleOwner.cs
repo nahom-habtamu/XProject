@@ -45,6 +45,9 @@ public class VehicleOwner
 
     public override bool Equals(object? obj)
     {
+
+        var jsonListFormatter = new JsonListFormatter();
+
         if (obj == null) return false;
 
         if (ReferenceEquals(obj, this))
@@ -61,7 +64,7 @@ public class VehicleOwner
             this.PhoneNumber.Equals(parsed?.PhoneNumber) &&
             this.Email.Equals(parsed?.Email) &&
             this.CompanyName.Equals(parsed?.CompanyName) &&
-            checkEqualityOfTradeLicense(parsed!.TradeLicense) &&
+            jsonListFormatter.CheckEqualityOfJsonLists(this.TradeLicense, parsed!.TradeLicense) &&
             this.UserName.Equals(parsed.UserName) &&
             this.Password.Equals(parsed.Password)
         )
@@ -74,32 +77,5 @@ public class VehicleOwner
     public override int GetHashCode()
     {
         return this.Id.GetHashCode();
-    }
-
-    private bool checkEqualityOfTradeLicense(string tradeLicense)
-    {
-        var currentTLSplitted = removeFirstAndLast(this.TradeLicense)
-            .Split(',', StringSplitOptions.TrimEntries)
-            .Select(tl => removeFirstAndLast(tl))
-            .ToList();
-
-        var passedTLSplitted = removeFirstAndLast(tradeLicense)
-            .Split(',', StringSplitOptions.TrimEntries)
-            .Select(tl => removeFirstAndLast(tl))
-            .ToList();
-
-
-        var isSubSet = currentTLSplitted
-            .Where(tl => passedTLSplitted
-            .Contains(tl))
-            .Count() == currentTLSplitted.Count;
-        var isEqualInLength = currentTLSplitted.Count == passedTLSplitted.Count;
-
-        return isSubSet && isEqualInLength;
-    }
-
-    private string removeFirstAndLast(string withBrace)
-    {
-        return withBrace.Substring(1, withBrace.Length - 2);
     }
 }
