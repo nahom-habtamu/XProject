@@ -8,6 +8,7 @@ using persistence;
 using persistence.auction;
 using persistence.cargoowner;
 using persistence.driver;
+using persistence.vehicle;
 using persistence.vehicleowner;
 
 var builder = WebApplication.CreateBuilder(args);
