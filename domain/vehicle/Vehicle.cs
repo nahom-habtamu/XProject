@@ -22,7 +22,7 @@ namespace domain.vehicle
         public string InsuranceImage { get; set; }
         public DateTime LibreExpiryDate { get; set; }
         public DateTime InsuranceExpiryDate { get; set; }
-        public IdentificationDocument? DriverIdentificationDocument { get; set; }
+        public IdentificationDocument DriverIdentificationDocument { get; set; }
 
         public Vehicle(
             string? id, string plateNumber, string ownerId,
@@ -82,6 +82,50 @@ namespace domain.vehicle
                     }
                 )
             );
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null)
+                return false;
+
+            if (ReferenceEquals(obj, this))
+                return false;
+
+            if (obj.GetType() != this.GetType())
+                return false;
+
+            var parsed = obj as Vehicle;
+
+            if (
+                this.Id.Equals(parsed?.Id) &&
+                this.OwnerId.Equals(parsed?.OwnerId) &&
+                this.DriverId.Equals(parsed?.DriverId) &&
+                this.CarImage.Equals(parsed?.CarImage) &&
+                this.City.Equals(parsed?.City) &&
+                this.Color.Equals(parsed?.Color) &&
+                this.DriverIdentificationDocument.Equals(parsed.DriverIdentificationDocument) &&
+                this.InsuranceExpiryDate!.Equals(parsed.InsuranceExpiryDate) &&
+                this.InsuranceImage!.Equals(parsed.InsuranceImage) &&
+                this.LibreExpiryDate!.Equals(parsed.LibreExpiryDate) &&
+                this.LibreImage!.Equals(parsed.LibreImage) &&
+                this.LoadCapacity!.Equals(parsed.LoadCapacity) &&
+                this.LoadType!.Equals(parsed.LoadType) &&
+                this.ManufacturedDate!.Equals(parsed.ManufacturedDate) &&
+                this.Make!.Equals(parsed.Make) &&
+                this.Model!.Equals(parsed.Model) &&
+                this.PlateNumber!.Equals(parsed.PlateNumber) &&
+                this.Type!.Equals(parsed.Type)
+            )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
         }
     }
 }
