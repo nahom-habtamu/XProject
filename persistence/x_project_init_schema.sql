@@ -60,3 +60,30 @@ create table if not exists VehicleOwner(
 	userName varchar(100) not null,
 	password varchar(255) not null
 );
+
+create table if not exists Vehicle(
+  id varchar(64) primary key,
+  plateNumber varchar(10) not null,
+  ownerId varchar(64) not null,
+  driverId varchar(64) not null,
+  city varchar(50) not null,
+  type varchar(50) not null,
+  loadType varchar(50) not null,
+  manufacturedDate date not null,
+  make varchar(50) not null,
+  model varchar(50) not null,
+  loadCapacity varchar(20) not null,
+  color varchar(50) not null,
+  carImage varchar(255) not null,
+  libreImage varchar(255) not null,
+  insuranceImage varchar(255) not null,
+  libreExpiryDate date not null,
+  insuranceExpiryDate date not null,
+  driverIdentificationDocument varchar(255) not null,
+  CONSTRAINT ownerId
+    FOREIGN KEY(ownerId) 
+    REFERENCES VehicleOwner(id),
+  CONSTRAINT driverId
+      FOREIGN KEY(driverId) 
+    REFERENCES Driver(id)
+);
