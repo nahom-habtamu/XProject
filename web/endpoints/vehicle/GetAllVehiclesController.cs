@@ -7,14 +7,11 @@ namespace web.endpoints.vehicle;
 public class GetAllVehiclesController : ControllerBase
 {
     private readonly VehicleRepository _repository;
-    private readonly ILogger<GetAllVehiclesController> _logger;
 
     public GetAllVehiclesController(
-        ILogger<GetAllVehiclesController> logger,
         VehicleRepository repository
     )
     {
-        _logger = logger;
         _repository = repository;
     }
 
