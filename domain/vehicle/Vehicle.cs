@@ -22,15 +22,14 @@ namespace domain.vehicle
         public string InsuranceImage { get; set; }
         public DateTime LibreExpiryDate { get; set; }
         public DateTime InsuranceExpiryDate { get; set; }
-        public PersonId? DriverIdentificationDocument { get; set; }
+        public IdentificationDocument? DriverIdentificationDocument { get; set; }
 
         public Vehicle(
             string? id, string plateNumber, string ownerId,
             string driverId, string city, string type, string loadType,
             DateTime manufacturedDate, string make, string model, string loadCapacity,
             string color, string carImage, string libreImage, string insuranceImage,
-            DateTime libreExpiryDate, DateTime insuranceExpiryDate,
-            PersonId? driverDocument = null
+            DateTime libreExpiryDate, DateTime insuranceExpiryDate, string driverDocument
         )
         {
             Id = id ?? Guid.NewGuid().ToString("N");
@@ -45,7 +44,9 @@ namespace domain.vehicle
             Model = model;
             LoadCapacity = loadCapacity;
             Color = color;
-            DriverIdentificationDocument = driverDocument;
+            DriverIdentificationDocument = new IdentificationDocument(
+                new JsonListFormatter().Decode(driverDocument)
+            );
             CarImage = carImage;
             LibreImage = libreImage;
             InsuranceImage = insuranceImage;
@@ -55,6 +56,7 @@ namespace domain.vehicle
 
         public static Vehicle parseFromDto(CreateVehicleRequestDto requestDto)
         {
+            var jsonFormatter = new JsonListFormatter();
             return new Vehicle(
                 null,
                 requestDto.PlateNumber!,
@@ -73,7 +75,7 @@ namespace domain.vehicle
                 requestDto.InsuranceImage!,
                 requestDto.LibreExpiryDate,
                 requestDto.InsuranceExpiryDate,
-                new PersonId(
+                jsonFormatter.Encode(
                     new List<string>{
                         requestDto.DriverIdentificationDocumentFront!,
                         requestDto.DriverIdentificationDocumentBack!,
