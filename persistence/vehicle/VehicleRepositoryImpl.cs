@@ -1,7 +1,16 @@
+using Dapper;
 using domain.vehicle;
 
+namespace persistence.vehicle;
 public class VehicleRepositoryImpl : VehicleRepository
 {
+    private readonly DatabaseContext _context;
+
+    public VehicleRepositoryImpl(DatabaseContext context)
+    {
+        _context = context;
+    }
+
     public Task<Vehicle?> Get(string id)
     {
         throw new NotImplementedException();
@@ -12,9 +21,17 @@ public class VehicleRepositoryImpl : VehicleRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<Vehicle>> GetAllVehicles()
+    public async Task<List<Vehicle>> GetAllVehicles()
     {
-        throw new NotImplementedException();
+        var connection = _context.Get();
+        var sql = @"select id, plateNumber, ownerId, driverId, city, 
+            type, loadType, manufacturedDate, make, model, 
+            loadCapacity, color, carImage, libreImage, 
+            insuranceImage, libreExpiryDate, insuranceExpiryDate, 
+            driverIdentificationDocument as driverDocument from Vehicle
+        ";
+        var vehicles = (await connection.QueryAsync<Vehicle>(sql)).ToList();
+        return vehicles;
     }
 
     public Task<List<Vehicle>> GetVehiclesByDriver(string id)
