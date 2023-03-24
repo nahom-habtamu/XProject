@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 namespace domain.common;
-public class PersonId
+public class IdentificationDocument
 {
     public List<string> Value { get; }
-    public PersonId(List<string> value)
+    
+    public IdentificationDocument(List<string> value)
     {
         if (value.Count == 2)
         {

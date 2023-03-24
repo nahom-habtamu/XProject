@@ -15,8 +15,8 @@ public class PersonIdTest
            "1671303286130-ff026be9407c.jpg",
         };
 
-        Assert.Throws<InvalidDataException>(() => new PersonId(listOfImagesWithOneValue));
-        Assert.Throws<InvalidDataException>(() => new PersonId(listOfImagesWithThreeValues));
+        Assert.Throws<InvalidDataException>(() => new IdentificationDocument(listOfImagesWithOneValue));
+        Assert.Throws<InvalidDataException>(() => new IdentificationDocument(listOfImagesWithThreeValues));
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class PersonIdTest
            "1671303286130-ff026be9407c.jpg",
         };
 
-        var id = new PersonId(listOfImagesWithTwoValues);
+        var id = new IdentificationDocument(listOfImagesWithTwoValues);
         Assert.Equal(id.Value.Count, listOfImagesWithTwoValues.Count);
     }
 }
