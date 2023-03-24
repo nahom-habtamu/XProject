@@ -19,7 +19,7 @@ public class MobileNumberTest
     }
 
     [Fact]
-    public void ShouldReturnTrueWhenComparingCargoOwnerInstancesOfSameValue()
+    public void ShouldReturnTrueWhenComparingMobileNumberInstancesOfSameValue()
     {
         Assert.Equal(
             new MobileNumber("0926849888").Equals(new MobileNumber("0926849888")
@@ -27,7 +27,7 @@ public class MobileNumberTest
     }
 
     [Fact]
-    public void ShouldReturnFalseWhenComparingCargoOwnerInstancesOfDifferentPropertyValues()
+    public void ShouldReturnFalseWhenComparingMobileNumberInstancesOfDifferentPropertyValues()
     {
         Assert.Equal(
             new MobileNumber("0926849888").Equals(new MobileNumber("0926849880")
