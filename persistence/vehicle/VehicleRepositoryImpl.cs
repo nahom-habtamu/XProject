@@ -18,9 +18,11 @@ public class VehicleRepositoryImpl : VehicleRepository
         _context = context;
     }
 
-    public Task<Vehicle?> Get(string id)
+    public async Task<Vehicle?> Get(string id)
     {
-        throw new NotImplementedException();
+        var sql = baseGetSql + " where id = " + "'" + id + "'";
+        var vehicles = await QuerySelectAndParse(sql);
+        return vehicles.FirstOrDefault();
     }
 
     public async Task<List<string>> GetAllPlateNumbers()
@@ -33,25 +35,25 @@ public class VehicleRepositoryImpl : VehicleRepository
 
     public async Task<List<Vehicle>> GetAllVehicles()
     {
-        var vehicles = await QuerySelectAndParseToListOfVehicle(baseGetSql);
+        var vehicles = await QuerySelectAndParse(baseGetSql);
         return vehicles;
     }
 
     public async Task<List<Vehicle>> GetVehiclesByDriver(string id)
     {
         var sql = baseGetSql + " where driverId = " + "'" + id + "'";
-        var vehicles = await QuerySelectAndParseToListOfVehicle(sql);
+        var vehicles = await QuerySelectAndParse(sql);
         return vehicles;
     }
 
     public async Task<List<Vehicle>> GetVehiclesByOwner(string id)
     {
         var sql = baseGetSql + " where ownerId = " + "'" + id + "'";
-        var vehicles = await QuerySelectAndParseToListOfVehicle(sql);
+        var vehicles = await QuerySelectAndParse(sql);
         return vehicles;
     }
 
-    private async Task<List<Vehicle>> QuerySelectAndParseToListOfVehicle(string sql)
+    private async Task<List<Vehicle>> QuerySelectAndParse(string sql)
     {
         var connection = _context.Get();
         var vehicles = (await connection.QueryAsync<Vehicle>(sql)).ToList();
