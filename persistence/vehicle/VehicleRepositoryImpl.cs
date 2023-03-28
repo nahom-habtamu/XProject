@@ -37,10 +37,11 @@ public class VehicleRepositoryImpl : VehicleRepository
         return vehicles;
     }
 
-
-    public Task<List<Vehicle>> GetVehiclesByDriver(string id)
+    public async Task<List<Vehicle>> GetVehiclesByDriver(string id)
     {
-        throw new NotImplementedException();
+        var sql = baseGetSql + " where driverId = " + "'" + id + "'";
+        var vehicles = await QuerySelectAndParseToListOfVehicle(sql);
+        return vehicles;
     }
 
     public async Task<List<Vehicle>> GetVehiclesByOwner(string id)
