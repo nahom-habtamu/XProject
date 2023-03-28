@@ -10,11 +10,7 @@ public class GetVehiclesByOwnerControllerTest
     [Fact]
     public async Task GettingVehiclesByInvalidOwnerIdShouldReturnEmptyList()
     {
-        var database = new DatabaseContext(
-            new Npgsql.NpgsqlConnection(
-                "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
-        var vehicleRepo = new VehicleRepositoryImpl(database);
-        var sut = new GetVehiclesByOwnerController(vehicleRepo);
+        var sut = SetUpSut();
         var wrongOwner = "wrongowerid";
 
         var vehicles = await sut.Call(wrongOwner);
@@ -25,11 +21,7 @@ public class GetVehiclesByOwnerControllerTest
     [Fact]
     public async Task GettingVehiclesByOwnerShouldSuccessfullyReadParseAndReturnProperListOfVehicles()
     {
-        var database = new DatabaseContext(
-            new Npgsql.NpgsqlConnection(
-                "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
-        var vehicleRepo = new VehicleRepositoryImpl(database);
-        var sut = new GetVehiclesByOwnerController(vehicleRepo);
+        var sut = SetUpSut();
         var ownerIdOne = "2150df78-9132-44d8-9168-4f90e31616e1";
         var ownerIdTwo = "2150df78-9132-44d8-9168-4f90e31616e2";
 
@@ -48,6 +40,16 @@ public class GetVehiclesByOwnerControllerTest
             actualVehiclesByOwnerTwo,
             expectedVehiclesByOwnerTwo
         );
+    }
+
+    private GetVehiclesByOwnerController SetUpSut()
+    {
+        var database = new DatabaseContext(
+                    new Npgsql.NpgsqlConnection(
+                        "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
+        var vehicleRepo = new VehicleRepositoryImpl(database);
+        var sut = new GetVehiclesByOwnerController(vehicleRepo);
+        return sut;
     }
 
     private List<Vehicle> GetExpectedVehiclesByOwnerOne()
