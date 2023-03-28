@@ -16,9 +16,12 @@ public class VehicleRepositoryImpl : VehicleRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<string>> GetAllPlateNumbers()
+    public async Task<List<string>> GetAllPlateNumbers()
     {
-        throw new NotImplementedException();
+        var connection = _context.Get();
+        var sql = @"select plateNumber from Vehicle";
+        var plateNumbers = (await connection.QueryAsync<string>(sql)).ToList();
+        return plateNumbers;
     }
 
     public async Task<List<Vehicle>> GetAllVehicles()
