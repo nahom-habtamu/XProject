@@ -34,4 +34,35 @@ public class Bid
             requestDto.AdditionalInformation!
         );
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (ReferenceEquals(obj, this))
+            return false;
+
+        if (obj.GetType() != this.GetType())
+            return false;
+
+        var parsed = obj as Bid;
+
+        if (
+            this.Id.Equals(parsed?.Id) &&
+            this.DriverId.Equals(parsed?.DriverId) &&
+            this.AuctionId.Equals(parsed?.AuctionId) &&
+            this.AdditionalInformation.Equals(parsed?.AdditionalInformation) &&
+            this.PricePerKilogram.Equals(parsed?.PricePerKilogram)
+        )
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public override int GetHashCode()
+    {
+        return this.Id.GetHashCode();
+    }
 }
