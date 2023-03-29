@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.bid;
 
 [ApiController]
-public class GetAllBidsByDriverController : ControllerBase
+public class GetBidsByDriverController : ControllerBase
 {
     private readonly BidRepository _bidRepo;
 
-    public GetAllBidsByDriverController(
+    public GetBidsByDriverController(
         BidRepository bidRepo
     )
     {

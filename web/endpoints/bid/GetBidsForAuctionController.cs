@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.bid;
 
 [ApiController]
-public class GetAllBidsForAuctionController : ControllerBase
+public class GetBidsForAuctionController : ControllerBase
 {
     private readonly BidRepository _bidRepo;
     private readonly DriverRepository _driverRepo;
     private readonly VehicleRepository _vehicleRepo;
 
-    public GetAllBidsForAuctionController(
+    public GetBidsForAuctionController(
         BidRepository bidRepo,
         DriverRepository driverRepo,
         VehicleRepository vehicleRepo
@@ -26,21 +26,21 @@ public class GetAllBidsForAuctionController : ControllerBase
 
     [HttpGet]
     [Route("[controller]")]
-    public async Task<List<GetAllBidsForAuctionItemResponseDto>> Call([FromRoute] string auctionId)
+    public async Task<List<GetBidsForAuctionItemResponseDto>> Call([FromRoute] string auctionId)
     {
         var allBidsForAuction = await _bidRepo.GetBidsForAuction(auctionId);
-        List<GetAllBidsForAuctionItemResponseDto> parsedBids = await parseBidsToListOfDto(allBidsForAuction);
+        List<GetBidsForAuctionItemResponseDto> parsedBids = await parseBidsToListOfDto(allBidsForAuction);
         return parsedBids;
     }
 
-    private async Task<List<GetAllBidsForAuctionItemResponseDto>> parseBidsToListOfDto(
+    private async Task<List<GetBidsForAuctionItemResponseDto>> parseBidsToListOfDto(
         List<Bid> allBidsForAuction
     )
     {
-        var parsedBids = new List<GetAllBidsForAuctionItemResponseDto>();
+        var parsedBids = new List<GetBidsForAuctionItemResponseDto>();
         foreach (var bid in allBidsForAuction)
         {
-            GetAllBidsForAuctionItemResponseDto? parsedBid = null;
+            GetBidsForAuctionItemResponseDto? parsedBid = null;
             try
             {
                 parsedBid = await parseToDto(bid);
@@ -57,7 +57,7 @@ public class GetAllBidsForAuctionController : ControllerBase
         return parsedBids;
     }
 
-    private async Task<GetAllBidsForAuctionItemResponseDto> parseToDto(Bid b)
+    private async Task<GetBidsForAuctionItemResponseDto> parseToDto(Bid b)
     {
         var driver = await _driverRepo.Get(b.DriverId);
         if (driver == null)
@@ -70,7 +70,7 @@ public class GetAllBidsForAuctionController : ControllerBase
         {
             throw new Exception("Driver Doesn't Have Vehicles Registered");
         }
-        return new GetAllBidsForAuctionItemResponseDto
+        return new GetBidsForAuctionItemResponseDto
         {
             DriverId = driver.Id,
             DriverName = driver.Name,

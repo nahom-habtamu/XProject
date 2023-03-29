@@ -1,6 +1,6 @@
 namespace dtos.bid;
 
-public class GetAllBidsForAuctionItemResponseDto
+public class GetBidsForAuctionItemResponseDto
 {
     public string? DriverId { get; set; }
     public string? DriverName { get; set; }
