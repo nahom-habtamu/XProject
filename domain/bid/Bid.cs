@@ -10,13 +10,14 @@ public class Bid
     public double PricePerKilogram { get; set; }
     public string AdditionalInformation { get; set; }
     public Bid(
+        string? id,
         string auctionId,
         string driverId,
         double pricePerKilogram,
         string additionalInformation
     )
     {
-        Id = Guid.NewGuid().ToString("N");
+        Id = id ?? Guid.NewGuid().ToString("N");
         AuctionId = auctionId;
         DriverId = driverId;
         PricePerKilogram = pricePerKilogram;
@@ -26,6 +27,7 @@ public class Bid
     public static Bid parseFromDto(CreateBidRequestDto requestDto)
     {
         return new Bid(
+            null,
             requestDto.AuctionId!,
             requestDto.DriverId!,
             requestDto.PricePerKilogram,
