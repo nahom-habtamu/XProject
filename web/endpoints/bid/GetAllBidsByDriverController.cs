@@ -6,15 +6,12 @@ namespace web.endpoints.auction;
 [ApiController]
 public class GetAllBidsByDriverController : ControllerBase
 {
-    private readonly ILogger<GetAllBidsByDriverController> _logger;
     private readonly BidRepository _bidRepo;
 
     public GetAllBidsByDriverController(
-        ILogger<GetAllBidsByDriverController> logger,
         BidRepository bidRepo
     )
     {
-        _logger = logger;
         _bidRepo = bidRepo;
     }
 

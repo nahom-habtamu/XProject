@@ -9,19 +9,16 @@ namespace web.endpoints.auction;
 [ApiController]
 public class GetAllBidsForAuctionController : ControllerBase
 {
-    private readonly ILogger<GetAllBidsForAuctionController> _logger;
     private readonly BidRepository _bidRepo;
     private readonly DriverRepository _driverRepo;
     private readonly VehicleRepository _vehicleRepo;
 
     public GetAllBidsForAuctionController(
-        ILogger<GetAllBidsForAuctionController> logger,
         BidRepository bidRepo,
         DriverRepository driverRepo,
         VehicleRepository vehicleRepo
     )
     {
-        _logger = logger;
         _bidRepo = bidRepo;
         _driverRepo = driverRepo;
         _vehicleRepo = vehicleRepo;
