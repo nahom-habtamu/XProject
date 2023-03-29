@@ -87,3 +87,17 @@ create table if not exists Vehicle(
       FOREIGN KEY(driverId) 
     REFERENCES Driver(id)
 );
+
+create table if not exists Bid(
+	id varchar(64) primary key,
+	auctionId varchar(64) not null,
+	driverId varchar(64) not null,
+	pricePerKilogram float not null,
+	additionalInformation varchar(255) not null,
+	CONSTRAINT auctionId
+    	FOREIGN KEY(auctionId) 
+    	REFERENCES Auction(id),
+  	CONSTRAINT driverId
+      	FOREIGN KEY(driverId) 
+    	REFERENCES Driver(id)
+);
