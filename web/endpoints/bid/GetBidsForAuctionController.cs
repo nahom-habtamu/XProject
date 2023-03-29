@@ -26,10 +26,11 @@ public class GetBidsForAuctionController : ControllerBase
 
     [HttpGet]
     [Route("[controller]")]
-    public async Task<List<GetBidsForAuctionItemResponseDto>> Call([FromRoute] string auctionId)
+    public async Task<List<GetBidsForAuctionItemResponseDto>> Call(string auctionId)
     {
         var allBidsForAuction = await _bidRepo.GetBidsForAuction(auctionId);
-        List<GetBidsForAuctionItemResponseDto> parsedBids = await parseBidsToListOfDto(allBidsForAuction);
+        List<GetBidsForAuctionItemResponseDto> parsedBids = 
+            await parseBidsToListOfDto(allBidsForAuction);
         return parsedBids;
     }
 
@@ -40,41 +41,23 @@ public class GetBidsForAuctionController : ControllerBase
         var parsedBids = new List<GetBidsForAuctionItemResponseDto>();
         foreach (var bid in allBidsForAuction)
         {
-            GetBidsForAuctionItemResponseDto? parsedBid = null;
-            try
-            {
-                parsedBid = await parseToDto(bid);
-            }
-            finally
-            {
-                if (parsedBid != null)
-                {
-                    parsedBids.Add(parsedBid!);
-                }
-            }
+            var parsedBid = await parseToDto(bid);
+            parsedBids.Add(parsedBid!);
         }
-
         return parsedBids;
     }
 
     private async Task<GetBidsForAuctionItemResponseDto> parseToDto(Bid b)
     {
         var driver = await _driverRepo.Get(b.DriverId);
-        if (driver == null)
-        {
-            throw new Exception("Driver Not Found");
-        }
+        var vehicle = (await _vehicleRepo.GetVehiclesByDriver(driver!.Id)).FirstOrDefault();
 
-        var vehicle = (await _vehicleRepo.GetVehiclesByDriver(driver.Id)).FirstOrDefault();
-        if (vehicle == null)
-        {
-            throw new Exception("Driver Doesn't Have Vehicles Registered");
-        }
         return new GetBidsForAuctionItemResponseDto
         {
+            Id = b.Id,
             DriverId = driver.Id,
             DriverName = driver.Name,
-            VehicleManufaturedDate = vehicle.ManufacturedDate,
+            VehicleManufaturedDate = vehicle!.ManufacturedDate,
             VehicleModel = vehicle.Model,
             VehicleImages = new List<string> {
                vehicle.CarImage,

@@ -7,6 +7,9 @@ public class BidRepositoryImpl : BidRepository
 {
     private readonly DatabaseContext _context;
 
+    private readonly string baseGetSql =
+        @"select id, auctionId, driverId, pricePerKilogram, additionalInformation from Bid";
+
     public BidRepositoryImpl(DatabaseContext context)
     {
         _context = context;
@@ -19,17 +22,23 @@ public class BidRepositoryImpl : BidRepository
 
     public async Task<List<Bid>> GetBidsByDriver(string id)
     {
-        var connection = _context.Get();
-        var sql = @"select id, auctionId, driverId, pricePerKilogram, 
-            additionalInformation from Bid WHERE driverId = " + "'" + id + "'";
-        var bids = (await connection.QueryAsync<Bid>(sql)).ToList();
+        string sql = baseGetSql + " where driverId = " + "'" + id + "'";
+        List<Bid> bids = await QuerySelectAndParse(sql);
         return bids;
     }
 
-    public Task<List<Bid>> GetBidsForAuction(string id)
+    public async Task<List<Bid>> GetBidsForAuction(string id)
     {
-        throw new NotImplementedException();
+        string sql = baseGetSql + " where auctionId = " + "'" + id + "'";
+        List<Bid> bids = await QuerySelectAndParse(sql);
+        return bids;
+    }
 
+    private async Task<List<Bid>> QuerySelectAndParse(string sql)
+    {
+        var connection = _context.Get();
+        var bids = (await connection.QueryAsync<Bid>(sql)).ToList();
+        return bids;
     }
 
     public Task Save(Bid entity)
