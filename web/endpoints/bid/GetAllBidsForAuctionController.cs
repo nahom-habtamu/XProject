@@ -4,7 +4,7 @@ using domain.vehicle;
 using dtos.bid;
 using Microsoft.AspNetCore.Mvc;
 
-namespace web.endpoints.auction;
+namespace web.endpoints.bid;
 
 [ApiController]
 public class GetAllBidsForAuctionController : ControllerBase
