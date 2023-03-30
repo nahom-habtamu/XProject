@@ -15,9 +15,10 @@ public class BidRepositoryImpl : BidRepository
         _context = context;
     }
 
-    public Task<Bid?> Get(string id)
+    public async Task<Bid?> Get(string id)
     {
-        throw new NotImplementedException();
+        string sql = baseGetSql + " where id = " + "'" + id + "'";
+        return (await QuerySelectAndParse(sql)).FirstOrDefault();
     }
 
     public async Task<List<Bid>> GetBidsByDriver(string id)

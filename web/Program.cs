@@ -1,4 +1,5 @@
 using domain.auction;
+using domain.bid;
 using domain.cargoowner;
 using domain.driver;
 using domain.vehicle;
@@ -6,6 +7,7 @@ using domain.vehicleowner;
 using Npgsql;
 using persistence;
 using persistence.auction;
+using persistence.bid;
 using persistence.cargoowner;
 using persistence.driver;
 using persistence.vehicle;
@@ -54,4 +56,5 @@ static void RegisterRepostories(WebApplicationBuilder builder)
     builder.Services.AddScoped<VehicleOwnerRepository, VehicleOwnerRepositoryImpl>();
     builder.Services.AddScoped<CargoOwnerRepository, CargoOwnerRepositoryImpl>();
     builder.Services.AddScoped<AuctionRepository, AuctionRepositoryImpl>();
+    builder.Services.AddScoped<BidRepository, BidRepositoryImpl>();
 }
