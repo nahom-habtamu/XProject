@@ -1,4 +1,5 @@
 using domain.auction;
+using domain.exceptions;
 using persistence;
 using persistence.auction;
 using web.endpoints.auction;
@@ -6,11 +7,12 @@ using web.endpoints.auction;
 public class GetAuctionControllerTest
 {
     [Fact]
-    public void GettingAuctionWithIdThatDoesntExistShouldThrowAnError()
+    public async Task GettingAuctionWithIdThatDoesntExistShouldThrowANoDataFoundWithThisIdException()
     {
         var wrongId = "wrongid";
         var sut = setUpSut();
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]

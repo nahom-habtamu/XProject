@@ -1,4 +1,5 @@
 using domain.auction;
+using domain.exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace web.endpoints.auction;
@@ -18,7 +19,7 @@ public class GetAuctionController : ControllerBase
     public async Task<Auction> Call([FromQuery] string id)
     {
         var auction = await _auctionRepo.Get(id);
-        if (auction == null) throw new Exception("Auction With This Id Not Found");
+        if (auction == null) throw new NoDataFoundWithThisIdException(nameof(Auction), id);
         return auction;
     }
 }
