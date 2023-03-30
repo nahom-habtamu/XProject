@@ -19,7 +19,7 @@ public class GetVehicleOwnerController : ControllerBase
     public async Task<VehicleOwner> Call(string id)
     {
         var vehicleOwner = await _repository.Get(id);
-        if(vehicleOwner == null) throw new NoDataFoundWithThisIdException("Vehicle", id);
+        if(vehicleOwner == null) throw new NoDataFoundWithThisIdException("VehicleOwner", id);
         return vehicleOwner;
     }
 }
