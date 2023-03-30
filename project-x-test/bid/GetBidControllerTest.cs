@@ -14,7 +14,10 @@ public class GetBidControllerTest
         var sut = SetUpSut();
         var wrongId = "wrongbidid";
 
-        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
+        var exception = await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(
+            async () => await sut.Call(wrongId)
+        );
+        Assert.Equal("Bid With Id: " + wrongId + " Is Not Found", exception.Message);
     }
 
     [Fact]

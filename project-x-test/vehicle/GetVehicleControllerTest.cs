@@ -19,7 +19,10 @@ public class GetVehicleTest
 
         var wrongId = "wrongvehicleid";
 
-        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
+        var exception = await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(
+            async () => await sut.Call(wrongId)
+        );
+        Assert.Equal("Vehicle With Id: " + wrongId +  " Is Not Found", exception.Message);
     }
 
     [Fact]

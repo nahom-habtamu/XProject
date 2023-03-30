@@ -11,8 +11,10 @@ public class GetDriverControllerTest
     {
         var wrongId = "wrongid";
         var sut = setUpSut();
-        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
-    }
+        var exception = await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(
+            async () => await sut.Call(wrongId)
+        );
+        Assert.Equal("Driver With Id: " + wrongId +  " Is Not Found", exception.Message);    }
 
     [Fact]
     public async Task GettingDriverWithIdThatExistShouldParseObjectSuccessfullyAndReturnDriver()

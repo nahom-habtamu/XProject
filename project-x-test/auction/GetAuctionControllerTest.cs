@@ -12,7 +12,10 @@ public class GetAuctionControllerTest
         var wrongId = "wrongid";
         var sut = setUpSut();
 
-        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
+        var exception = await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(
+            async () => await sut.Call(wrongId)
+        );
+        Assert.Equal("Auction With Id: " + wrongId + " Is Not Found", exception.Message);
     }
 
     [Fact]
