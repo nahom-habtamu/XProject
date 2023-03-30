@@ -1,3 +1,4 @@
+using domain.exceptions;
 using domain.vehicleowner;
 using persistence;
 using persistence.vehicleowner;
@@ -6,11 +7,11 @@ using web.endpoints.vehicleowner;
 public class GetVehicleOwnerControllerTest
 {
     [Fact]
-    public void GettingVehicleOwnerWithIdThatDoesntExistShouldThrowAnError()
+    public async Task GettingVehicleOwnerWithIdThatDoesntExistShouldThrowAnError()
     {
         var wrongId = "wrongid";
         var sut = setUpSut();
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]
