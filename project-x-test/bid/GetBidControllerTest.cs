@@ -1,4 +1,5 @@
 using domain.bid;
+using domain.exceptions;
 using persistence;
 using persistence.bid;
 using web.endpoints.bid;
@@ -8,12 +9,12 @@ namespace project_x_test.bid;
 public class GetBidControllerTest
 {
     [Fact]
-    public void GettingBidWithWrongIdShouldThrowAnException()
+    public async Task GettingBidWithWrongIdShouldThrowAnException()
     {
         var sut = SetUpSut();
         var wrongId = "wrongbidid";
 
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]

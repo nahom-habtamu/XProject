@@ -1,4 +1,5 @@
 using domain.bid;
+using domain.exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace web.endpoints.bid;
@@ -17,6 +18,8 @@ public class GetBidController : ControllerBase
     [Route("[controller]")]
     public async Task<Bid?> Call(string id)
     {
-        return await _bidRepo.Get(id);
+        var bid = await _bidRepo.Get(id);
+        if(bid == null) throw new NoDataFoundWithThisIdException("Bid", id);
+        return bid;
     }
 }
