@@ -1,4 +1,5 @@
 using domain.cargoowner;
+using domain.exceptions;
 using persistence;
 using persistence.cargoowner;
 using web.endpoints.cargoowner;
@@ -6,11 +7,11 @@ namespace project_x_test.cargoowner;
 public class GetCargoOwnerControllerTest
 {
     [Fact]
-    public void GettingCargoOwnerWithIdThatDoesntExistShowThrowAnError()
+    public async Task GettingCargoOwnerWithIdThatDoesntExistShowThrowAnError()
     {
         var wrongId = "wrongid";
         var sut = setUpSut();
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]

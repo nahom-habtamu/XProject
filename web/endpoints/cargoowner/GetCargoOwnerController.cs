@@ -1,4 +1,5 @@
 using domain.cargoowner;
+using domain.exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace web.endpoints.cargoowner;
@@ -20,7 +21,7 @@ public class GetCargoOwnerController : ControllerBase
     public async Task<CargoOwner?> Call(string id)
     {
         var result = await _repository.Get(id);
-        if (result == null) throw new Exception("CargoOwner With This Id NotFound");
+        if (result == null) throw new NoDataFoundWithThisIdException("CargoOwner", id);
         return result;
     }
 }
