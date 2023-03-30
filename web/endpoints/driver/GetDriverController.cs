@@ -1,4 +1,5 @@
 using domain.driver;
+using domain.exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace web.endpoints.driver;
@@ -18,7 +19,7 @@ public class GetDriverController : ControllerBase
     public async Task<Driver?> Call(string id)
     {
         var driver = await _repository.Get(id);
-        if (driver == null) throw new Exception("Driver With That Id Not Found");
+        if (driver == null) throw new NoDataFoundWithThisIdException("Driver", id);
         return driver;
     }
 }

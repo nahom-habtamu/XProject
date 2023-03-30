@@ -1,4 +1,5 @@
 using domain.driver;
+using domain.exceptions;
 using persistence;
 using persistence.driver;
 using web.endpoints.driver;
@@ -6,11 +7,11 @@ using web.endpoints.driver;
 public class GetDriverControllerTest
 {
     [Fact]
-    public void GettingDriverWithIdThatDoesntExistShouldThrowAnError()
+    public async Task GettingDriverWithIdThatDoesntExistShouldThrowAnError()
     {
         var wrongId = "wrongid";
         var sut = setUpSut();
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]
