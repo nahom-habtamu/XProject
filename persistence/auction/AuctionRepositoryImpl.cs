@@ -18,7 +18,6 @@ public class AuctionRepositoryImpl : AuctionRepository
 
     public async Task<Auction?> Get(string id)
     {
-        var connection = _context.Get();
         var sql = baseGetSql + " where id = " + "'" + id + "'";
         var auction = (await QueryAndParseSelectRequest(sql)).FirstOrDefault();
         return auction;
@@ -26,14 +25,12 @@ public class AuctionRepositoryImpl : AuctionRepository
 
     public async Task<List<Auction>> GetAllAuctions()
     {
-        var connection = _context.Get();
         var auctions = (await QueryAndParseSelectRequest(baseGetSql)).ToList();
         return auctions;
     }
 
     public async Task<List<Auction>> GetAuctionsByCargoOwner(string id)
     {
-        var connection = _context.Get();
         var sql = baseGetSql + " where cargoOwnerId = " + "'" + id + "'";
         var auctions = (await QueryAndParseSelectRequest(sql)).ToList();
         return auctions;
