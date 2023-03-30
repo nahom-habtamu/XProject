@@ -1,3 +1,4 @@
+using domain.exceptions;
 using domain.vehicle;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ public class GetVehicleController : ControllerBase
     public async Task<Vehicle> Call(string id)
     {
         var vehicle = await _vehicleRepo.Get(id);
-        if (vehicle == null) throw new Exception("Vehicle With This Id Not Found");
+        if (vehicle == null) throw new NoDataFoundWithThisIdException("Vehicle", id);
         return vehicle;
     }
 }

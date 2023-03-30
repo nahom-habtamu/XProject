@@ -1,3 +1,4 @@
+using domain.exceptions;
 using domain.vehicle;
 using persistence;
 using persistence.vehicle;
@@ -8,7 +9,7 @@ namespace project_x_test.vehicle;
 public class GetVehicleTest
 {
     [Fact]
-    public void GettingVehicleWithWrongIdShouldThrowAnError()
+    public async Task GettingVehicleWithWrongIdShouldThrowAnError()
     {
         var database = new DatabaseContext(
             new Npgsql.NpgsqlConnection(
@@ -18,7 +19,7 @@ public class GetVehicleTest
 
         var wrongId = "wrongvehicleid";
 
-        Assert.ThrowsAsync<Exception>(async () => await sut.Call(wrongId));
+        await Assert.ThrowsAsync<NoDataFoundWithThisIdException>(async () => await sut.Call(wrongId));
     }
 
     [Fact]
