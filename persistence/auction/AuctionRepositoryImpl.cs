@@ -48,7 +48,7 @@ public class AuctionRepositoryImpl : AuctionRepository
         return result;
     }
 
-    public Task Save(Auction entity)
+    public Task<string> Save(Auction entity)
     {
         throw new NotImplementedException();
     }

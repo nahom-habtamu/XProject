@@ -2,5 +2,5 @@ namespace domain;
 public interface DomainRepository<T>
 {
     Task<T?> Get(string id);
-    Task Save(T entity);
+    Task<string> Save(T entity);
 }

@@ -34,7 +34,7 @@ public class DriverRepositoryImpl : DriverRepository
         return result;
     }
 
-    public Task Save(Driver entity)
+    public Task<string> Save(Driver entity)
     {
         throw new NotImplementedException();
     }

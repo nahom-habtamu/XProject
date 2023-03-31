@@ -24,7 +24,7 @@ public class VehicleOwnerRepositoryImpl : VehicleOwnerRepository
         throw new NotImplementedException();
     }
 
-    public Task Save(VehicleOwner entity)
+    public Task<string> Save(VehicleOwner entity)
     {
         throw new NotImplementedException();
     }
