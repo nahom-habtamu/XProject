@@ -36,7 +36,7 @@ public class Driver
     public static Driver parseFromDto(CreateDriverRequestDto requestDto)
     {
         return new Driver(
-            null,
+            string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
             requestDto.Name!,
             requestDto.PhoneNumber!,
             requestDto.Email!,
