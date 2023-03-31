@@ -25,16 +25,11 @@ public class CreateDriverControllerTest
         );
         string secondlyCreatedDriverId = await sut.Call(secondRequest);
 
-        var secondlyCreatedDriver = await getDriverController.Call(secondlyCreatedDriverId);
-        var expectedUpdatedDriver = new Driver(
-            secondRequest.Id, secondRequest.Name!,
-            secondRequest.PhoneNumber!, secondRequest.Email!,
-            secondRequest.Gender!, secondRequest.DateOfBirth,
-            secondRequest.SpecificAddress!, secondRequest.DrivingLicense!
-        );
+        var actualSecondlyCreatedDriver = await getDriverController.Call(secondlyCreatedDriverId);
+        var expectedSecondlyCreateddDriver = Driver.parseFromDto(secondRequest);
 
         Assert.Equal(secondlyCreatedDriverId, intiallyCreatedDriverId);
-        Assert.Equal(secondlyCreatedDriver, expectedUpdatedDriver);
+        Assert.Equal(actualSecondlyCreatedDriver, expectedSecondlyCreateddDriver);
 
         await CleanUp(database, secondlyCreatedDriverId);
     }
