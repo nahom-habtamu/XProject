@@ -33,7 +33,7 @@ public class Driver
         DrivingLicense = drivingLicense;
     }
 
-    public static Driver parseFromDto(CreateDriverRequestDto requestDto)
+    public static Driver parseFromDto(SaveDriverRequestDto requestDto)
     {
         return new Driver(
             string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,

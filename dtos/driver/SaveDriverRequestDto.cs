@@ -1,6 +1,6 @@
 namespace dtos.driver;
 
-public class CreateDriverRequestDto
+public class SaveDriverRequestDto
 {
     public string? Id { get; set; }
     public string? Name { get; set; }

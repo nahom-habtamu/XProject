@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.driver;
 
 [ApiController]
-public class CreateDriverController : ControllerBase
+public class SaveDriverController : ControllerBase
 {
     private readonly DriverRepository _repository;
 
-    public CreateDriverController(
+    public SaveDriverController(
         DriverRepository repository
     )
     {
@@ -18,7 +18,7 @@ public class CreateDriverController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<string> Call([FromBody] CreateDriverRequestDto requestDto)
+    public async Task<string> Call([FromBody] SaveDriverRequestDto requestDto)
     {
         var driver = Driver.parseFromDto(requestDto);
         await _repository.Save(driver);
