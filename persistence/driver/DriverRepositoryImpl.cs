@@ -36,11 +36,14 @@ public class DriverRepositoryImpl : DriverRepository
 
     public async Task Save(Driver entity)
     {
-        var sql = String.Format(@"replace into Driver values ({0},{1},{2},{3},{4},{5},{6},{7})",
-            entity.Id, entity.Name,
-            entity.PhoneNumber.Value, entity.Email,
-            (int)entity.Gender, entity.DateOfBirth,
-            entity.SpecificAddress, entity.DrivingLicense
+        var sql = String.Format(
+            @"insert into Driver values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}') on conflict (id)
+              do update set(name, phoneNumber, email, gender, dateOfBirth, specificAddress, drivingLicense) = 
+              (excluded.name, excluded.phoneNumber, excluded.email, excluded.gender, 
+               excluded.dateOfBirth, excluded.specificAddress, excluded.drivingLicense)
+            ;",
+            entity.Id, entity.Name, entity.PhoneNumber.Value, entity.Email, (int)entity.Gender,
+            entity.DateOfBirth, entity.SpecificAddress, entity.DrivingLicense
         );
         var connection = _context.Get();
         await connection.ExecuteAsync(sql);

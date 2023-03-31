@@ -18,10 +18,10 @@ public class CreateDriverController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Driver> Call([FromBody] CreateDriverRequestDto requestDto)
+    public async Task<string> Call([FromBody] CreateDriverRequestDto requestDto)
     {
         var driver = Driver.parseFromDto(requestDto);
         await _repository.Save(driver);
-        return driver;
+        return driver.Id;
     }
 }
