@@ -34,8 +34,15 @@ public class DriverRepositoryImpl : DriverRepository
         return result;
     }
 
-    public Task<string> Save(Driver entity)
+    public async Task Save(Driver entity)
     {
-        throw new NotImplementedException();
+        var sql = String.Format(@"replace into Driver values ({0},{1},{2},{3},{4},{5},{6},{7})",
+            entity.Id, entity.Name,
+            entity.PhoneNumber.Value, entity.Email,
+            (int)entity.Gender, entity.DateOfBirth,
+            entity.SpecificAddress, entity.DrivingLicense
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }

@@ -60,7 +60,7 @@ public class VehicleRepositoryImpl : VehicleRepository
         return vehicles;
     }
 
-    public Task<string> Save(Vehicle entity)
+    public Task Save(Vehicle entity)
     {
         throw new NotImplementedException();
     }

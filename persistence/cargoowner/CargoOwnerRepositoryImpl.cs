@@ -30,7 +30,7 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
         return cargoOwners;
     }
 
-    public Task<string> Save(CargoOwner entity)
+    public Task Save(CargoOwner entity)
     {
         throw new NotImplementedException();
     }

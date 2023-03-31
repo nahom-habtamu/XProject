@@ -42,7 +42,7 @@ public class BidRepositoryImpl : BidRepository
         return bids;
     }
 
-    public Task<string> Save(Bid entity)
+    public Task Save(Bid entity)
     {
         throw new NotImplementedException();
     }
