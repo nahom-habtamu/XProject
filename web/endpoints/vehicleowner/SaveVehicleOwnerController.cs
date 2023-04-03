@@ -8,14 +8,11 @@ namespace web.endpoints.vehicleowner;
 public class SaveVehicleOwnerController : ControllerBase
 {
     private readonly VehicleOwnerRepository _repository;
-    private readonly ILogger<SaveVehicleOwnerController> _logger;
 
     public SaveVehicleOwnerController(
-        ILogger<SaveVehicleOwnerController> logger,
         VehicleOwnerRepository repository
     )
     {
-        _logger = logger;
         _repository = repository;
     }
 
