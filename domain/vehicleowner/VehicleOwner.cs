@@ -30,7 +30,7 @@ public class VehicleOwner
         Password = password;
     }
 
-    public static VehicleOwner buildFromDto(CreateVehicleOwnerRequest requestDto)
+    public static VehicleOwner buildFromDto(SaveVehicleOwnerRequest requestDto)
     {
         return new VehicleOwner(
             null,

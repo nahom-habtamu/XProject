@@ -14,7 +14,9 @@ public class VehicleOwnerRepositoryImpl : VehicleOwnerRepository
     public async Task<VehicleOwner?> Get(string id)
     {
         var connection = _context.Get();
-        var sql = @"select id, name, phoneNumber, email, companyName, tradeLicense, userName, password from VehicleOwner WHERE id = " + "'" + id + "'";
+        var sql = @"select id, name, phoneNumber, email, companyName, tradeLicense, 
+                    userName, password from VehicleOwner 
+                    WHERE id = " + "'" + id + "'";
         var vehicleOwner = (await connection.QueryAsync<VehicleOwner>(sql)).FirstOrDefault();
         return vehicleOwner;
     }

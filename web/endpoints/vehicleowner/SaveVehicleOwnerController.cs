@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.vehicleowner;
 
 [ApiController]
-public class CreateVehicleOwnerController : ControllerBase
+public class SaveVehicleOwnerController : ControllerBase
 {
     private readonly VehicleOwnerRepository _repository;
-    private readonly ILogger<CreateVehicleOwnerController> _logger;
+    private readonly ILogger<SaveVehicleOwnerController> _logger;
 
-    public CreateVehicleOwnerController(
-        ILogger<CreateVehicleOwnerController> logger,
+    public SaveVehicleOwnerController(
+        ILogger<SaveVehicleOwnerController> logger,
         VehicleOwnerRepository repository
     )
     {
@@ -21,7 +21,7 @@ public class CreateVehicleOwnerController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<VehicleOwner> Call(CreateVehicleOwnerRequest requestDto)
+    public async Task<VehicleOwner> Call(SaveVehicleOwnerRequest requestDto)
     {
         var vehicleOwner = VehicleOwner.buildFromDto(requestDto);
         await _repository.Save(vehicleOwner);
