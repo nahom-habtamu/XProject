@@ -1,6 +1,6 @@
 namespace dtos.vehicleowner;
 
-public class SaveVehicleOwnerRequest
+public class SaveVehicleOwnerRequestDto
 {
     public string? Name { get; set; }
     public string? PhoneNumber { get; set; }
