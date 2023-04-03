@@ -18,10 +18,10 @@ public class SaveVehicleOwnerController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<VehicleOwner> Call(SaveVehicleOwnerRequestDto requestDto)
+    public async Task<string> Call(SaveVehicleOwnerRequestDto requestDto)
     {
         var vehicleOwner = VehicleOwner.buildFromDto(requestDto);
         await _repository.Save(vehicleOwner);
-        return vehicleOwner;
+        return vehicleOwner.Id;
     }
 }

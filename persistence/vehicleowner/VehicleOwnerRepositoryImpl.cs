@@ -26,8 +26,18 @@ public class VehicleOwnerRepositoryImpl : VehicleOwnerRepository
         throw new NotImplementedException();
     }
 
-    public Task Save(VehicleOwner entity)
+    public async Task Save(VehicleOwner entity)
     {
-        throw new NotImplementedException();
+        var sql = String.Format(
+            @"insert into VehicleOwner values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}') on conflict (id)
+              do update set(name, phoneNumber, email, companyName, tradeLicense, userName, password) = 
+              (excluded.name, excluded.phoneNumber, excluded.email, excluded.companyName, 
+               excluded.tradeLicense, excluded.userName, excluded.password)
+            ;",
+            entity.Id, entity.Name, entity.PhoneNumber.Value, entity.Email, entity.CompanyName,
+            entity.TradeLicense, entity.UserName, entity.Password
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }

@@ -33,7 +33,7 @@ public class VehicleOwner
     public static VehicleOwner buildFromDto(SaveVehicleOwnerRequestDto requestDto)
     {
         return new VehicleOwner(
-            null,
+            string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
             requestDto.Name!,
             requestDto.PhoneNumber!,
             requestDto.Email!, requestDto.CompanyName!,
