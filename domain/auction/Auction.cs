@@ -16,6 +16,7 @@ public class Auction
     public TimeSpan MinPickUpTime { get; set; }
     public TimeSpan MaxPickUpTime { get; set; }
     public Auction(
+        string? id,
         string cargoOwnerId,
         string typeOfCargo, int totalWeightOfCargo,
         string deliveryPlace, string pickUpPlace,
@@ -23,8 +24,7 @@ public class Auction
         string otherInformationAboutCargo,
         string minPickUpTime,
         string maxPickUpTime,
-        PriceInterval priceIntervalPerHundredKiloGram,
-        string? id = null
+        PriceInterval priceIntervalPerHundredKiloGram
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
@@ -65,13 +65,18 @@ public class Auction
 
     public static Auction parseFromDto(SaveAuctionRequestDto requestDto)
     {
-        return new Auction(requestDto.CargoOwnerId!, requestDto.TypeOfCargo!,
+        return new Auction(
+            string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
+            requestDto.CargoOwnerId!, requestDto.TypeOfCargo!,
             requestDto.TotalWeightOfCargo!, requestDto.DeliveryPlace!,
             requestDto.PickUpPlace!, requestDto.PlannedPickUpDate!,
             requestDto.OtherInformationAboutCargo!,
             requestDto.MinPickUpTime!,
             requestDto.MaxPickUpTime!,
-            new PriceInterval(requestDto.MinPricePerHundredKiloGram, requestDto.MaxPricePerHundredKiloGram)
+            new PriceInterval(
+                requestDto.MinPricePerHundredKiloGram,
+                requestDto.MaxPricePerHundredKiloGram
+            )
         );
     }
 

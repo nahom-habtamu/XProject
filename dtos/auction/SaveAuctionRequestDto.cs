@@ -1,6 +1,7 @@
 namespace dtos.auction;
 
 public class SaveAuctionRequestDto {
+    public string? Id { get; set; }
     public string? CargoOwnerId { get; set; }
     public string? TypeOfCargo { get; set; }
     public int TotalWeightOfCargo { get; set; }

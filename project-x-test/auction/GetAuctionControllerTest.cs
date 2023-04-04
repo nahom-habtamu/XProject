@@ -29,23 +29,23 @@ public class GetAuctionControllerTest
         var auctionFoundByIdTwo = await sut.Call(idTwo);
 
         Auction expectedAuctionResultForIdOne = new Auction(
+            "1110df78-9132-44d8-9168-4f90e31616e1",
             "4650df78-9132-44d8-9168-4f90e31616e1",
             "HEAVY", 20, "Idk", "Addis Ababa, Shola",
             DateTime.Parse("2023-02-03"),
             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
             "12:00:00", "02:00:00",
-            new PriceInterval(135.45, 180.9),
-            "1110df78-9132-44d8-9168-4f90e31616e1"
+            new PriceInterval(135.45, 180.9)
         );
 
         Auction expectedAuctionResultForIdTwo = new Auction(
+            "1110df78-9132-44d8-9168-4f90e31616e2",
             "4650df78-9132-44d8-9168-4f90e31616e2",
             "LIGHT", 20, "some place", "Addis Ababa, Shola",
             DateTime.Parse("2023-03-04"),
             "beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit",
             "11:00:00", "03:00:00",
-            new PriceInterval(35.45, 43.9),
-            "1110df78-9132-44d8-9168-4f90e31616e2"
+            new PriceInterval(35.45, 43.9)
         );
 
         Assert.Equal(auctionFoundByIdOne, expectedAuctionResultForIdOne);

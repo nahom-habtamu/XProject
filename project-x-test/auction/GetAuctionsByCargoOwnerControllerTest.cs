@@ -7,7 +7,6 @@ namespace project_x_test.auction;
 
 public class GetAuctionsByCargoOwnerControllerTest
 {
-
     [Fact]
     public async Task GettingAuctionsByWrongCargoOwnerIdShouldReturnEmptyList()
     {
@@ -47,13 +46,13 @@ public class GetAuctionsByCargoOwnerControllerTest
     {
         return new List<Auction>{
             new Auction(
+                "1110df78-9132-44d8-9168-4f90e31616e1",
                 "4650df78-9132-44d8-9168-4f90e31616e1",
                 "HEAVY", 20, "Idk", "Addis Ababa, Shola",
                 DateTime.Parse("2023-02-03"),
                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
                 "12:00:00", "02:00:00",
-                new PriceInterval(135.45, 180.9),
-                "1110df78-9132-44d8-9168-4f90e31616e1"
+                new PriceInterval(135.45, 180.9)
             )
         };
     }
