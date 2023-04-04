@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 namespace dtos.vehicle;
 
-public class CreateVehicleRequestDto
+public class SaveVehicleRequestDto
 {
     public string? PlateNumber { get; set; }
     public string? OwnerId { get; set; }

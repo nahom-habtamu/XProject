@@ -7,21 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.vehicle;
 
 [ApiController]
-public class CreateVehicleController : ControllerBase
+public class SaveVehicleController : ControllerBase
 {
     private readonly VehicleRepository _vehicleRepo;
     private readonly DriverRepository _driverRepo;
     private readonly VehicleOwnerRepository _vehicleOwnerRepo;
-    private readonly ILogger<CreateVehicleController> _logger;
 
-    public CreateVehicleController(
-        ILogger<CreateVehicleController> logger,
+    public SaveVehicleController(
         VehicleRepository vehicleRepo,
         DriverRepository driverRepo,
         VehicleOwnerRepository vehicleOwnerRepo
     )
     {
-        _logger = logger;
         _vehicleRepo = vehicleRepo;
         _driverRepo = driverRepo;
         _vehicleOwnerRepo = vehicleOwnerRepo;
@@ -29,7 +26,7 @@ public class CreateVehicleController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Vehicle> Call([FromBody] CreateVehicleRequestDto requestDto)
+    public async Task<Vehicle> Call([FromBody] SaveVehicleRequestDto requestDto)
     {
         await HandleWrongDriverId(requestDto);
         await HandleWrongOwnerId(requestDto);
@@ -39,7 +36,7 @@ public class CreateVehicleController : ControllerBase
         return vehicle;
     }
 
-    private async Task HandleWrongOwnerId(CreateVehicleRequestDto requestDto)
+    private async Task HandleWrongOwnerId(SaveVehicleRequestDto requestDto)
     {
         var vehicleOwner = await _vehicleOwnerRepo.Get(requestDto.OwnerId!);
 
@@ -49,7 +46,7 @@ public class CreateVehicleController : ControllerBase
         }
     }
 
-    private async Task HandleWrongDriverId(CreateVehicleRequestDto requestDto)
+    private async Task HandleWrongDriverId(SaveVehicleRequestDto requestDto)
     {
         var driver = await _driverRepo.Get(requestDto.DriverId!);
         if (driver == null)

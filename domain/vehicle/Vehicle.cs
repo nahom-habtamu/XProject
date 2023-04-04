@@ -54,7 +54,7 @@ namespace domain.vehicle
             InsuranceExpiryDate = insuranceExpiryDate;
         }
 
-        public static Vehicle parseFromDto(CreateVehicleRequestDto requestDto)
+        public static Vehicle parseFromDto(SaveVehicleRequestDto requestDto)
         {
             var jsonFormatter = new JsonListFormatter();
             return new Vehicle(
