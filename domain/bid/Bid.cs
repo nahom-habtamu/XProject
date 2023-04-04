@@ -24,7 +24,7 @@ public class Bid
         AdditionalInformation = additionalInformation;
     }
 
-    public static Bid parseFromDto(CreateBidRequestDto requestDto)
+    public static Bid parseFromDto(SaveBidRequestDto requestDto)
     {
         return new Bid(
             null,

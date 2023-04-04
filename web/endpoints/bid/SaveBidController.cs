@@ -7,21 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.bid;
 
 [ApiController]
-public class CreateBidController : ControllerBase
+public class SaveBidController : ControllerBase
 {
-    private readonly ILogger<CreateBidController> _logger;
     private readonly AuctionRepository _auctionRepo;
     private readonly DriverRepository _driverRepo;
     private readonly BidRepository _bidRepo;
 
-    public CreateBidController(
-        ILogger<CreateBidController> logger,
+    public SaveBidController(
         AuctionRepository auctionRepo,
         DriverRepository driverRepo,
         BidRepository bidRepo
     )
     {
-        _logger = logger;
         _auctionRepo = auctionRepo;
         _driverRepo = driverRepo;
         _bidRepo = bidRepo;
@@ -29,7 +26,7 @@ public class CreateBidController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Bid> Call([FromBody] CreateBidRequestDto requestDto)
+    public async Task<Bid> Call([FromBody] SaveBidRequestDto requestDto)
     {
         await HandleWrongDriverId(requestDto);
         await HandleWrongAuctionId(requestDto);
@@ -39,7 +36,7 @@ public class CreateBidController : ControllerBase
         return bid;
     }
 
-    private async Task HandleWrongAuctionId(CreateBidRequestDto requestDto)
+    private async Task HandleWrongAuctionId(SaveBidRequestDto requestDto)
     {
         var auction = await _auctionRepo.Get(requestDto.AuctionId!);
         if (auction == null)
@@ -48,7 +45,7 @@ public class CreateBidController : ControllerBase
         }
     }
 
-    private async Task HandleWrongDriverId(CreateBidRequestDto requestDto)
+    private async Task HandleWrongDriverId(SaveBidRequestDto requestDto)
     {
         var driver = await _driverRepo.Get(requestDto.DriverId!);
         if (driver == null)

@@ -1,6 +1,6 @@
 namespace dtos.bid;
 
-public class CreateBidRequestDto
+public class SaveBidRequestDto
 {
     public string? AuctionId { get; set; }
     public string? DriverId { get; set; }
