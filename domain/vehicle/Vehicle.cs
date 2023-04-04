@@ -58,7 +58,7 @@ namespace domain.vehicle
         {
             var jsonFormatter = new JsonListFormatter();
             return new Vehicle(
-                null,
+                string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
                 requestDto.PlateNumber!,
                 requestDto.OwnerId!,
                 requestDto.DriverId!,
