@@ -20,9 +20,7 @@ public class SaveDriverControllerTest
         var intialRequest = InitDtoForSavingDriverIntially();
         string intiallySavedDriverId = await sut.Call(intialRequest);
 
-        var secondRequest = InitDtoForSavingSameDriverSecondTimeWithDifferentValues(
-            intiallySavedDriverId
-        );
+        var secondRequest = InitDtoForSavingDriverSecondTime(intiallySavedDriverId);
         string secondlySavedDriverId = await sut.Call(secondRequest);
 
         var actualSecondlySavedDriver = await getDriverController.Call(secondlySavedDriverId);
@@ -47,13 +45,8 @@ public class SaveDriverControllerTest
         string savedDriverId = await sut.Call(saveDriverRequest);
         var savedDriver = await getDriverController.Call(savedDriverId);
 
-        var expectedDriver = new Driver(
-            savedDriverId, saveDriverRequest.Name!,
-            saveDriverRequest.PhoneNumber!, saveDriverRequest.Email!,
-            saveDriverRequest.Gender!, saveDriverRequest.DateOfBirth,
-            saveDriverRequest.SpecificAddress!,
-            saveDriverRequest.DrivingLicense!
-        );
+        saveDriverRequest.Id = savedDriverId;
+        var expectedDriver = Driver.parseFromDto(saveDriverRequest);
 
         Assert.Equal(savedDriver, expectedDriver);
         await CleanUp(database, savedDriverId);
@@ -61,9 +54,8 @@ public class SaveDriverControllerTest
 
     private DatabaseContext InitDbContext()
     {
-        return new DatabaseContext(
-            new Npgsql.NpgsqlConnection(
-                "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
+        return new DatabaseContext(new Npgsql.NpgsqlConnection(
+            "Server=localhost;Port=5432;Database=ProjectX;User Id=postgres;Password=root"));
     }
 
     private SaveDriverRequestDto InitDtoForSavingDriverIntially()
@@ -81,7 +73,7 @@ public class SaveDriverControllerTest
     }
 
     private SaveDriverRequestDto
-        InitDtoForSavingSameDriverSecondTimeWithDifferentValues(string id)
+        InitDtoForSavingDriverSecondTime(string id)
     {
         return new SaveDriverRequestDto
         {
