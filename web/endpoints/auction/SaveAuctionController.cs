@@ -32,11 +32,11 @@ public class SaveAuctionController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Auction> Call([FromBody] SaveAuctionRequestDto requestDto)
+    public async Task<string> Call([FromBody] SaveAuctionRequestDto requestDto)
     {
         await HandleInvalidCargoOwner(requestDto);
         Auction auctionToSave = Auction.parseFromDto(requestDto);
         await _auctionRepo.Save(auctionToSave);
-        return auctionToSave;
+        return auctionToSave.Id;
     }
 }

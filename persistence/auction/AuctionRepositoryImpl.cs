@@ -12,8 +12,9 @@ public class AuctionRepositoryImpl : AuctionRepository
         _context = context;
     }
 
-    const string baseGetSql = @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, pickUpPlace, plannedPickUpDate, otherInformationAboutCargo,
-        minpickuptime, maxpickuptime,minpriceperhundredkg as min, maxpriceperhundredkg as max  
+    const string baseGetSql = @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, 
+        pickUpPlace, plannedPickUpDate, otherInformationAboutCargo, minpickuptime, maxpickuptime,
+        minpriceperhundredkg as min, maxpriceperhundredkg as max  
         from Auction";
 
     public async Task<Auction?> Get(string id)
@@ -48,8 +49,26 @@ public class AuctionRepositoryImpl : AuctionRepository
         return result;
     }
 
-    public Task Save(Auction entity)
+    public async Task Save(Auction entity)
     {
-        throw new NotImplementedException();
+        var sql = String.Format(
+            @"insert into Auction values
+              ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')
+              on conflict (id) do update set(cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, 
+              pickUpPlace, plannedPickUpDate, otherInformationAboutCargo, minpickuptime, maxpickuptime,
+              minpriceperhundredkg, maxpriceperhundredkg) = (excluded.cargoOwnerId, excluded.typeOfCargo, 
+              excluded.totalWeightOfCargo,excluded.deliveryplace, excluded.pickUpPlace, 
+              excluded.plannedPickUpDate, excluded.otherInformationAboutCargo, excluded.minpickuptime, 
+              excluded.maxpickuptime,excluded.minpriceperhundredkg, excluded.maxpriceperhundredkg)
+            ;",
+            entity.Id, entity.CargoOwnerId!, entity.TypeOfCargo!,
+            entity.TotalWeightOfCargo!, entity.DeliveryPlace!,
+            entity.PickUpPlace!, entity.PlannedPickUpDate!,
+            entity.OtherInformationAboutCargo!,
+            entity.PriceIntervalPerHundredKiloGram!.Min, entity.PriceIntervalPerHundredKiloGram.Max,
+            entity.MinPickUpTime!, entity.MaxPickUpTime!
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }
