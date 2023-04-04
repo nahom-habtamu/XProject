@@ -6,25 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.auction;
 
 [ApiController]
-public class CreateAuctionController : ControllerBase
+public class SaveAuctionController : ControllerBase
 {
-    private readonly ILogger<CreateAuctionController> _logger;
-
     private readonly AuctionRepository _auctionRepo;
     private readonly CargoOwnerRepository _cargoOwnerRepo;
 
-    public CreateAuctionController(
-        ILogger<CreateAuctionController> logger,
+    public SaveAuctionController(
         AuctionRepository auctionRepo,
         CargoOwnerRepository cargoOwnerRepo
     )
     {
-        _logger = logger;
         _auctionRepo = auctionRepo;
         _cargoOwnerRepo = cargoOwnerRepo;
     }
 
-    private async Task HandleInvalidCargoOwner(CreateAuctionRequestDto requestDto)
+    private async Task HandleInvalidCargoOwner(SaveAuctionRequestDto requestDto)
     {
         var cargoOwner = await _cargoOwnerRepo.Get(requestDto.CargoOwnerId!);
 
@@ -36,7 +32,7 @@ public class CreateAuctionController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Auction> Call([FromBody] CreateAuctionRequestDto requestDto)
+    public async Task<Auction> Call([FromBody] SaveAuctionRequestDto requestDto)
     {
         await HandleInvalidCargoOwner(requestDto);
         Auction auctionToSave = Auction.parseFromDto(requestDto);

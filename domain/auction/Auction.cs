@@ -63,7 +63,7 @@ public class Auction
         MaxPickUpTime = TimeSpan.Parse(maxPickUpTime);
     }
 
-    public static Auction parseFromDto(CreateAuctionRequestDto requestDto)
+    public static Auction parseFromDto(SaveAuctionRequestDto requestDto)
     {
         return new Auction(requestDto.CargoOwnerId!, requestDto.TypeOfCargo!,
             requestDto.TotalWeightOfCargo!, requestDto.DeliveryPlace!,
