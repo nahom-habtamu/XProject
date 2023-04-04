@@ -26,19 +26,29 @@ public class SaveVehicleController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Vehicle> Call([FromBody] SaveVehicleRequestDto requestDto)
+    public async Task<string> Call([FromBody] SaveVehicleRequestDto requestDto)
     {
-        await HandleWrongDriverId(requestDto);
-        await HandleWrongOwnerId(requestDto);
+        await HandleWrongDriverId(requestDto.DriverId!);
+        await HandleWrongOwnerId(requestDto.OwnerId!);
+        await HandleDuplicatePlateNumber(requestDto.PlateNumber!);
 
         var vehicle = Vehicle.parseFromDto(requestDto);
         await _vehicleRepo.Save(vehicle);
-        return vehicle;
+        return vehicle.Id;
     }
 
-    private async Task HandleWrongOwnerId(SaveVehicleRequestDto requestDto)
+    private async Task HandleDuplicatePlateNumber(string plateNumber)
     {
-        var vehicleOwner = await _vehicleOwnerRepo.Get(requestDto.OwnerId!);
+        var plateNumbers = await _vehicleRepo.GetAllPlateNumbers();
+        if (plateNumbers.Any(p => p.Equals(plateNumber)))
+        {
+            throw new Exception("Duplicate Plate Number");
+        }
+    }
+
+    private async Task HandleWrongOwnerId(string ownerId)
+    {
+        var vehicleOwner = await _vehicleOwnerRepo.Get(ownerId!);
 
         if (vehicleOwner == null)
         {
@@ -46,9 +56,9 @@ public class SaveVehicleController : ControllerBase
         }
     }
 
-    private async Task HandleWrongDriverId(SaveVehicleRequestDto requestDto)
+    private async Task HandleWrongDriverId(string driverId)
     {
-        var driver = await _driverRepo.Get(requestDto.DriverId!);
+        var driver = await _driverRepo.Get(driverId!);
         if (driver == null)
         {
             throw new Exception("Invalid Driver");

@@ -1,4 +1,5 @@
 using Dapper;
+using domain.common;
 using domain.vehicle;
 
 namespace persistence.vehicle;
@@ -60,8 +61,38 @@ public class VehicleRepositoryImpl : VehicleRepository
         return vehicles;
     }
 
-    public Task Save(Vehicle entity)
+    public async Task Save(Vehicle entity)
     {
-        throw new NotImplementedException();
+        var jsonFormatter = new JsonListFormatter();
+        var sql = String.Format(@"insert into Vehicle values 
+            (
+                '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',
+                '{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}'
+            ) on conflict (id) do update set
+                (
+                    plateNumber, ownerId, driverId, city, 
+                    type, loadType, manufacturedDate, make, model, 
+                    loadCapacity, color, carImage, libreImage, 
+                    insuranceImage, libreExpiryDate, insuranceExpiryDate, 
+                    driverIdentificationDocument
+                ) = 
+                (
+                    excluded.plateNumber, excluded.ownerId, excluded.driverId, excluded.city, 
+                    excluded.type, excluded.loadType, excluded.manufacturedDate, 
+                    excluded.make, excluded.model, excluded.loadCapacity, excluded.color, 
+                    excluded.carImage, excluded.libreImage, 
+                    excluded.insuranceImage, excluded.libreExpiryDate, excluded.insuranceExpiryDate, 
+                    excluded.driverIdentificationDocument
+                )
+            ;",
+            entity.Id, entity.PlateNumber, entity.OwnerId, entity.DriverId, entity.City,
+            entity.Type, entity.LoadType, entity.ManufacturedDate,
+            entity.Make, entity.Model, entity.LoadCapacity,
+            entity.Color, entity.CarImage, entity.LibreImage,
+            entity.InsuranceImage, entity.LibreExpiryDate, entity.InsuranceExpiryDate,
+            jsonFormatter.Encode(entity.DriverIdentificationDocument.Value)
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }
