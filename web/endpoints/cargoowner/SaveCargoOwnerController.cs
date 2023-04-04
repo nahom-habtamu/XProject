@@ -16,10 +16,10 @@ public class SaveCargoOwnerController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<CargoOwner> Call([FromBody] SaveCargoOwnerRequestDto requestDto)
+    public async Task<string> Call([FromBody] SaveCargoOwnerRequestDto requestDto)
     {
         var cargoOwner = CargoOwner.parseFromDto(requestDto);
         await _repository.Save(cargoOwner);
-        return cargoOwner;
+        return cargoOwner.Id;
     }
 }

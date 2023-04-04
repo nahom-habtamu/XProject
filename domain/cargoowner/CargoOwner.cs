@@ -43,11 +43,10 @@ public class CargoOwner
         PointPersonPosition = pointPersonPosition;
     }
 
-
     public static CargoOwner parseFromDto(SaveCargoOwnerRequestDto requestDto)
     {
         return new CargoOwner(
-            id: null,
+            string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
             requestDto.Name!,
             requestDto.PhoneNumber!,
             requestDto.Email!,

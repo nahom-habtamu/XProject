@@ -10,28 +10,47 @@ public class CargoOwnerRepositoryImpl : CargoOwnerRepository
         _context = context;
     }
 
+    private readonly string baseGetSql = @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
+        pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
+        pointPersonPosition from cargoowner";
+
     public async Task<CargoOwner?> Get(string id)
     {
         var connection = _context.Get();
-        var sql = @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
-            pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
-            pointPersonPosition from cargoowner WHERE id = " + "'" + id + "'";
-        var cargoOwner = (await connection.QueryAsync<CargoOwner>(sql)).FirstOrDefault();
+        var sql = baseGetSql + " WHERE id = " + "'" + id + "'";
+        var cargoOwner = (await QueryAndParseResult(sql)).FirstOrDefault();
         return cargoOwner;
     }
 
     public async Task<List<CargoOwner>> GetAllCargoOwners()
     {
+        var cargoOwners = await QueryAndParseResult(baseGetSql);
+        return cargoOwners.ToList();
+    }
+
+    private async Task<IEnumerable<CargoOwner>> QueryAndParseResult(string sql)
+    {
         var connection = _context.Get();
-        var sql = @"select id, name, phoneNumber, email, specificAddress, tradeLicense,
-            pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
-            pointPersonPosition from cargoowner";
         var cargoOwners = (await connection.QueryAsync<CargoOwner>(sql)).ToList();
         return cargoOwners;
     }
 
-    public Task Save(CargoOwner entity)
+    public async Task Save(CargoOwner entity)
     {
-        throw new NotImplementedException();
+        var sql = String.Format(
+            @"insert into CargoOwner values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')
+              on conflict (id) do update set(name, phoneNumber, email, specificAddress, tradeLicense,
+              pointPersonName, pointPersonPhoneNumber,pointPersonSpecificAddress, pointPersonEmail, 
+              pointPersonPosition) = (excluded.name, excluded.phoneNumber, excluded.email, 
+              excluded.specificAddress, excluded.tradeLicense,excluded.pointPersonName, 
+              excluded.pointPersonPhoneNumber,excluded.pointPersonSpecificAddress, 
+              excluded.pointPersonEmail, excluded.pointPersonPosition)
+            ;",
+            entity.Id, entity.Name, entity.PhoneNumber.Value, entity.Email, entity.SpecificAddress,
+            entity.TradeLicense, entity.PointPersonName, entity.PointPersonPhoneNumber.Value,
+            entity.PointPersonSpecificAddress, entity.PointPersonEmail, entity.PointPersonPosition
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }
