@@ -23,8 +23,8 @@ create table if not exists Auction(
 	otherInformationAboutCargo varchar(255) not null,
 	minPricePerHundredKg float not null,
 	maxPricePerHundredKg float not null,
-	minPickUpTime varchar(5) not null,
-	maxPickUpTime varchar(5) not null,
+	minPickUpTime varchar(8) not null,
+	maxPickUpTime varchar(8) not null,
 	CONSTRAINT cargoOwnerId
       FOREIGN KEY(cargoOwnerId) 
 	  REFERENCES CargoOwner(id)
