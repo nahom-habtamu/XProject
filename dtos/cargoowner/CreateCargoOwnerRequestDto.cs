@@ -1,6 +1,6 @@
 namespace dtos.cargoowner;
 
-public class CreateCargoOwnerRequestDto
+public class SaveCargoOwnerRequestDto
 {
     public string? Name { get; set; }
     public string? PhoneNumber { get; set; }

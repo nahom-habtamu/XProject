@@ -5,23 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace web.endpoints.cargoowner;
 
 [ApiController]
-public class CreateCargoOwnerController : ControllerBase
+public class SaveCargoOwnerController : ControllerBase
 {
-    private readonly ILogger<CreateCargoOwnerController> _logger;
     private readonly CargoOwnerRepository _repository;
 
-    public CreateCargoOwnerController(
-        ILogger<CreateCargoOwnerController> logger,
-        CargoOwnerRepository repository
-    )
+    public SaveCargoOwnerController(CargoOwnerRepository repository)
     {
-        _logger = logger;
         _repository = repository;
     }
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<CargoOwner> Call([FromBody] CreateCargoOwnerRequestDto requestDto)
+    public async Task<CargoOwner> Call([FromBody] SaveCargoOwnerRequestDto requestDto)
     {
         var cargoOwner = CargoOwner.parseFromDto(requestDto);
         await _repository.Save(cargoOwner);

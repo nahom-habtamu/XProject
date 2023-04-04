@@ -44,7 +44,7 @@ public class CargoOwner
     }
 
 
-    public static CargoOwner parseFromDto(CreateCargoOwnerRequestDto requestDto)
+    public static CargoOwner parseFromDto(SaveCargoOwnerRequestDto requestDto)
     {
         return new CargoOwner(
             id: null,
