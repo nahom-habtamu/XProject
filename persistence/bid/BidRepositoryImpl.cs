@@ -42,8 +42,16 @@ public class BidRepositoryImpl : BidRepository
         return bids;
     }
 
-    public Task Save(Bid entity)
+    public async Task Save(Bid entity)
     {
-        throw new NotImplementedException();
+        var sql = String.Format(
+            @"insert into Bid values('{0}','{1}','{2}','{3}','{4}') on conflict (id) 
+              do update set(auctionId, driverId, pricePerKilogram, additionalInformation) = 
+              (excluded.auctionId, excluded.driverId, excluded.pricePerKilogram, excluded.additionalInformation)
+            ;",
+            entity.Id, entity.AuctionId, entity.DriverId, entity.PricePerKilogram, entity.AdditionalInformation
+        );
+        var connection = _context.Get();
+        await connection.ExecuteAsync(sql);
     }
 }

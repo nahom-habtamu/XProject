@@ -27,7 +27,7 @@ public class Bid
     public static Bid parseFromDto(SaveBidRequestDto requestDto)
     {
         return new Bid(
-            null,
+            string.IsNullOrEmpty(requestDto.Id) ? null : requestDto.Id,
             requestDto.AuctionId!,
             requestDto.DriverId!,
             requestDto.PricePerKilogram,
@@ -60,7 +60,7 @@ public class Bid
         }
         return false;
     }
-    
+
     public override int GetHashCode()
     {
         return this.Id.GetHashCode();

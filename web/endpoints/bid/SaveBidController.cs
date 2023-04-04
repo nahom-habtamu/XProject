@@ -26,14 +26,24 @@ public class SaveBidController : ControllerBase
 
     [HttpPost]
     [Route("[controller]")]
-    public async Task<Bid> Call([FromBody] SaveBidRequestDto requestDto)
+    public async Task<string> Call([FromBody] SaveBidRequestDto requestDto)
     {
         await HandleWrongDriverId(requestDto);
         await HandleWrongAuctionId(requestDto);
+        await HandleDuplicateAuctionAndDriver(requestDto);
 
         var bid = Bid.parseFromDto(requestDto);
         await _bidRepo.Save(bid);
-        return bid;
+        return bid.Id;
+    }
+
+    private async Task HandleDuplicateAuctionAndDriver(SaveBidRequestDto requestDto)
+    {
+        var bidsByCurrentDriver = await _bidRepo.GetBidsByDriver(requestDto.DriverId!);
+        if (bidsByCurrentDriver.Any(b => b.AuctionId.Equals(requestDto.AuctionId)))
+        {
+            throw new Exception("Duplicate Bid For This Auction");
+        }
     }
 
     private async Task HandleWrongAuctionId(SaveBidRequestDto requestDto)
