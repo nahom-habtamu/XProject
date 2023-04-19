@@ -48,21 +48,24 @@ insert into Driver values(
 	'7210df78-9132-44d8-9168-4f90e31616e1',
 	'Nahom Habtamu','0926849888','nahom@gmail.com',
 	'0','04-05-2023', 'Addis Ababa, Shola',
-	'1250df78-9132-44d8-9168-4f90e31616e4.png'
+	'1250df78-9132-44d8-9168-4f90e31616e4.png',
+	'username','password'
 );
 
 insert into Driver values(
 	'7210df78-9132-44d8-9168-4f90e31616e2',
 	'Dagim Habtamu','0947977597','dagim@gmail.com',
 	'0','04-05-2023', 'Addis Ababa, Shola',
-	'8720df78-9132-44d8-9168-4f90e31616e4.png'
+	'8720df78-9132-44d8-9168-4f90e31616e4.png',
+	'username','password'
 );
 
 insert into Driver values(
 	'7210df78-9132-44d8-9168-4f90e31616e3',
 	'Tigist Bekele','0911041221','tg@gmail.com',
 	'1','04-05-2023', 'Addis Ababa, Shola',
-	'5460df78-9132-44d8-9168-4f90e31616e4.png'
+	'5460df78-9132-44d8-9168-4f90e31616e4.png',
+	'username','password'
 );
 
 

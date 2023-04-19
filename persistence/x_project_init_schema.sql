@@ -49,7 +49,9 @@ create table if not exists Driver(
 	gender Gender not null,
 	dateOfBirth date not null,
 	specificAddress varchar(100) not null,
-	drivingLicense varchar(255) not null
+	drivingLicense varchar(255) not null,
+	userName varchar(100) not null,
+	password varchar(255) not null
 );
 
 create table if not exists VehicleOwner(
