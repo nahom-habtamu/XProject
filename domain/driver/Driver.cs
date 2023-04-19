@@ -12,6 +12,8 @@ public class Driver
     public DateTime DateOfBirth { get; set; }
     public string SpecificAddress { get; set; }
     public string DrivingLicense { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
     public Driver(
         string? id,
         string name,
@@ -20,7 +22,9 @@ public class Driver
         string gender,
         DateTime dateOfBirth,
         string specificAddress,
-        string drivingLicense
+        string drivingLicense,
+        string userName,
+        string password
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
@@ -31,6 +35,8 @@ public class Driver
         DateOfBirth = dateOfBirth;
         SpecificAddress = specificAddress;
         DrivingLicense = drivingLicense;
+        UserName = userName;
+        Password = password;
     }
 
     public static Driver parseFromDto(SaveDriverRequestDto requestDto)
@@ -42,7 +48,9 @@ public class Driver
             requestDto.Email!,
             requestDto.Gender!,
             requestDto.DateOfBirth, requestDto.SpecificAddress!,
-            requestDto.DrivingLicense!
+            requestDto.DrivingLicense!,
+            requestDto.UserName!,
+            requestDto.Password!
         );
     }
 
@@ -67,7 +75,9 @@ public class Driver
             this.Gender.Equals(parsed?.Gender) &&
             this.DateOfBirth.Equals(parsed?.DateOfBirth) &&
             this.SpecificAddress.Equals(parsed.SpecificAddress) &&
-            this.DrivingLicense.Equals(parsed.DrivingLicense)
+            this.DrivingLicense.Equals(parsed.DrivingLicense) &&
+            this.UserName.Equals(parsed.UserName) &&
+            this.Password.Equals(parsed.Password)
         )
         {
             return true;

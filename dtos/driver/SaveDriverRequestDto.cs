@@ -10,4 +10,6 @@ public class SaveDriverRequestDto
     public DateTime DateOfBirth { get; set; }
     public string? SpecificAddress { get; set; }
     public string? DrivingLicense { get; set; }
+    public string? UserName { get; set; }
+    public string? Password { get; set; }
 }

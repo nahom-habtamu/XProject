@@ -7,7 +7,7 @@ public class DriverTest
         "7210df78-9132-44d8-9168-4f90e31616e1",
         "Nahom Habtamu", "0926849888", "nahom@gmail.com", "0",
         new DateTime(2023, 10, 9), "I dont know the address",
-        "1250df78-9132-44d8-9168-4f90e31616e4.png"
+        "1250df78-9132-44d8-9168-4f90e31616e4.png","username","password"
     );
 
     [Fact]
@@ -17,7 +17,7 @@ public class DriverTest
             "7210df78-9132-44d8-9168-4f90e31616e1",
             "Nahom Habtamu", "0926849888", "nahom@gmail.com", "0",
             new DateTime(2023, 10, 9), "I dont know the address",
-            "1250df78-9132-44d8-9168-4f90e31616e4.png"
+            "1250df78-9132-44d8-9168-4f90e31616e4.png","username","password"
         );
         Assert.Equal(driverOne, driverTwo);
     }
@@ -29,7 +29,7 @@ public class DriverTest
             "7210df78-9132-44d8-9168-4f90e31616e2",
             "Gagim Habtamu", "0926849888", "nahom@gmail.com", "0",
             new DateTime(2023, 10, 9), "I dont know the address", 
-            "1250df78-9132-44d8-9168-4f90e31616e4.png"
+            "1250df78-9132-44d8-9168-4f90e31616e4.png","username","password"
         );
         
         Assert.NotEqual(driverOne, driverTwo);

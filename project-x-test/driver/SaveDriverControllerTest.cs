@@ -68,7 +68,9 @@ public class SaveDriverControllerTest
             Gender = "1",
             Name = "Driver1",
             PhoneNumber = "0911111111",
-            SpecificAddress = "Somwhere in Ethiopia"
+            SpecificAddress = "Somwhere in Ethiopia",
+            UserName = "username",
+            Password = "password",
         };
     }
 
@@ -84,7 +86,9 @@ public class SaveDriverControllerTest
             Gender = "1",
             Name = "Driver1 Edited",
             PhoneNumber = "0911111111",
-            SpecificAddress = "Somwhere in Ethiopia"
+            SpecificAddress = "Somwhere in Ethiopia",
+            UserName = "username",
+            Password = "password",
         };
     }
 
