@@ -37,19 +37,19 @@ public class GetAllCargoOwnersControllerTest
             new CargoOwner(
                 "4650df78-9132-44d8-9168-4f90e31616e1",
                 "Cargo Owner 1", "0926849881", "cowner1@gmail.com",
-                "Shola, Addis Ababa", "65650df78-9132-44d8-9168-4f90e31616e4.png",
+                "Shola, Addis Ababa", "65650df78-9132-44d8-9168-4f90e31616e4.png","username","password",
                 "abebe gemechu", "0911041221", "Shola, Addis Ababa", "abebe@gmail.com", "NN"
             ),
             new CargoOwner(
                 "4650df78-9132-44d8-9168-4f90e31616e2",
                 "Cargo Owner 2", "0926849882", "cowner2@gmail.com",
-                "Shola, Addis Ababa", "1230df78-9132-44d8-9168-4f90e31616e4.png",
+                "Shola, Addis Ababa", "1230df78-9132-44d8-9168-4f90e31616e4.png","username","password",
                 "abebe gemechu", "0911041221", "Shola, Addis Ababa", "abebe@gmail.com", "NN"
             ),
             new CargoOwner(
                 "4650df78-9132-44d8-9168-4f90e31616e3",
                 "Cargo Owner 3", "0926849883", "cowner3@gmail.com",
-                "Shola, Addis Ababa", "0650df78-9132-44d8-9168-4f90e31616e4.png",
+                "Shola, Addis Ababa", "0650df78-9132-44d8-9168-4f90e31616e4.png","username","password",
                 "abebe gemechu", "0911041221", "Shola, Addis Ababa", "abebe@gmail.com", "NN"
             ),
         };

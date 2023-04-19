@@ -15,6 +15,8 @@ public class CargoOwner
     public string PointPersonSpecificAddress { get; set; }
     public string PointPersonEmail { get; set; }
     public string PointPersonPosition { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
 
     public CargoOwner(
         string? id,
@@ -23,6 +25,8 @@ public class CargoOwner
         string email,
         string specificAddress,
         string tradeLicense,
+        string userName,
+        string password,
         string pointPersonName,
         string pointPersonPhoneNumber,
         string pointPersonSpecificAddress,
@@ -36,6 +40,8 @@ public class CargoOwner
         Email = email;
         SpecificAddress = specificAddress;
         TradeLicense = tradeLicense;
+        UserName = userName;
+        Password = password;
         PointPersonEmail = pointPersonEmail;
         PointPersonName = pointPersonName;
         PointPersonPhoneNumber = new MobileNumber(pointPersonPhoneNumber);
@@ -52,6 +58,8 @@ public class CargoOwner
             requestDto.Email!,
             requestDto.SpecificAddress!,
             requestDto.TradeLicense!,
+            requestDto.UserName!,
+            requestDto.Password!,
             requestDto.PointPersonName!,
             requestDto.PointPersonPhoneNumber!,
             requestDto.PointPersonSpecificAddress!,
@@ -79,6 +87,8 @@ public class CargoOwner
             this.Name.Equals(parsed.Name) &&
             this.PhoneNumber.Equals(parsed.PhoneNumber) &&
             this.TradeLicense.Equals(parsed.TradeLicense) &&
+            this.UserName.Equals(parsed.UserName) &&
+            this.Password.Equals(parsed.Password) &&
             this.SpecificAddress.Equals(parsed.SpecificAddress) &&
             this.PointPersonName.Equals(parsed?.PointPersonName) &&
             this.PointPersonEmail.Equals(parsed.PointPersonEmail) &&
