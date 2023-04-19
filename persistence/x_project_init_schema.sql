@@ -5,6 +5,8 @@ create table if not exists CargoOwner(
 	email varchar(100) not null,
 	specificAddress varchar(200) not null,
 	tradeLicense varchar(255) not null,
+	userName varchar(100) not null,
+	password varchar(255) not null,
 	pointPersonName varchar(100) not null,
 	pointPersonPhoneNumber varchar(100) not null,
 	pointPersonSpecificAddress varchar(200) not null,
