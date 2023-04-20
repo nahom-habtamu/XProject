@@ -13,4 +13,5 @@ public class SaveAuctionRequestDto {
     public string? MinPickUpTime { get; set; }
     public string? MaxPickUpTime { get; set; }
     public string? OtherInformationAboutCargo { get; set; }
+    public DateTime? CreatedAt { get; set; }
 }

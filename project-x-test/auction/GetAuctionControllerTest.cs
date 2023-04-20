@@ -35,6 +35,7 @@ public class GetAuctionControllerTest
             DateTime.Parse("2023-02-03"),
             "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
             "12:00:00", "02:00:00",
+            DateTime.Parse("2023-04-20 11:43:00"),
             new PriceInterval(135.45, 180.9)
         );
 
@@ -45,6 +46,7 @@ public class GetAuctionControllerTest
             DateTime.Parse("2023-03-04"),
             "beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit",
             "11:00:00", "03:00:00",
+            DateTime.Parse("2023-04-20 11:44:00"),
             new PriceInterval(35.45, 43.9)
         );
 

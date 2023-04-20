@@ -12,4 +12,5 @@ public class GetAllAuctionsItemResponseDto
     public double MaxPricePerHundredKiloGram { get; set; }
     public TimeSpan MinPickUpTime { get; set; }
     public TimeSpan MaxPickUpTime { get; set; }
+    public string? CreatedAt { get; set; }
 }

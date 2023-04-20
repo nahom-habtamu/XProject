@@ -71,7 +71,8 @@ public class GetAllAuctionsController : ControllerBase
             MaxPricePerHundredKiloGram = auction.PriceIntervalPerHundredKiloGram!.Max,
             MinPricePerHundredKiloGram = auction.PriceIntervalPerHundredKiloGram.Min,
             MaxPickUpTime = auction.MaxPickUpTime,
-            MinPickUpTime = auction.MinPickUpTime
+            MinPickUpTime = auction.MinPickUpTime,
+            CreatedAt = auction.CreatedAt.ToString("MMM dd , yyyy hh:mm:ss")
         };
     }
 }

@@ -13,8 +13,8 @@ public class AuctionRepositoryImpl : AuctionRepository
     }
 
     const string baseGetSql = @"select id, cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, 
-        pickUpPlace, plannedPickUpDate, otherInformationAboutCargo, minpickuptime, maxpickuptime,
-        minpriceperhundredkg as min, maxpriceperhundredkg as max  
+        pickUpPlace, plannedPickUpDate, otherInformationAboutCargo, minpickuptime, maxpickuptime, createdAt,
+        minpriceperhundredkg as min, maxpriceperhundredkg as max
         from Auction";
 
     public async Task<Auction?> Get(string id)
@@ -53,20 +53,21 @@ public class AuctionRepositoryImpl : AuctionRepository
     {
         var sql = String.Format(
             @"insert into Auction values
-              ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')
+              ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}')
               on conflict (id) do update set(cargoOwnerId, typeOfCargo, totalWeightOfCargo, deliveryplace, 
               pickUpPlace, plannedPickUpDate, otherInformationAboutCargo, minpickuptime, maxpickuptime,
-              minpriceperhundredkg, maxpriceperhundredkg) = (excluded.cargoOwnerId, excluded.typeOfCargo, 
-              excluded.totalWeightOfCargo,excluded.deliveryplace, excluded.pickUpPlace, 
-              excluded.plannedPickUpDate, excluded.otherInformationAboutCargo, excluded.minpickuptime, 
-              excluded.maxpickuptime,excluded.minpriceperhundredkg, excluded.maxpriceperhundredkg)
+              minpriceperhundredkg, maxpriceperhundredkg, createdAt) = (excluded.cargoOwnerId, 
+              excluded.typeOfCargo, excluded.totalWeightOfCargo,excluded.deliveryplace, 
+              excluded.pickUpPlace, excluded.plannedPickUpDate, excluded.otherInformationAboutCargo, 
+              excluded.minpickuptime, excluded.maxpickuptime,excluded.minpriceperhundredkg, 
+              excluded.maxpriceperhundredkg,excluded.createdAt)
             ;",
             entity.Id, entity.CargoOwnerId!, entity.TypeOfCargo!,
             entity.TotalWeightOfCargo!, entity.DeliveryPlace!,
             entity.PickUpPlace!, entity.PlannedPickUpDate!,
             entity.OtherInformationAboutCargo!,
             entity.PriceIntervalPerHundredKiloGram!.Min, entity.PriceIntervalPerHundredKiloGram.Max,
-            entity.MinPickUpTime!, entity.MaxPickUpTime!
+            entity.MinPickUpTime!, entity.MaxPickUpTime!, entity.CreatedAt
         );
         var connection = _context.Get();
         await connection.ExecuteAsync(sql);

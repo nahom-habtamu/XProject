@@ -44,6 +44,7 @@ public class GetAllAuctionsControllerTest
                 MaxPickUpTime = TimeSpan.Parse("02:00:00"),
                 MinPricePerHundredKiloGram = 135.45,
                 MaxPricePerHundredKiloGram = 180.9,
+                CreatedAt = DateTime.Parse("2023-04-20 11:43:00").ToString("MMM dd , yyyy hh:mm:ss")
             },
 
             new GetAllAuctionsItemResponseDto {
@@ -57,6 +58,7 @@ public class GetAllAuctionsControllerTest
                 MaxPickUpTime = TimeSpan.Parse("03:00:00"),
                 MinPricePerHundredKiloGram = 35.45,
                 MaxPricePerHundredKiloGram = 43.9,
+                CreatedAt = DateTime.Parse("2023-04-20 11:44:00").ToString("MMM dd , yyyy hh:mm:ss")
             },
 
             new GetAllAuctionsItemResponseDto {
@@ -70,6 +72,7 @@ public class GetAllAuctionsControllerTest
                 MaxPickUpTime = TimeSpan.Parse("04:00:00"),
                 MinPricePerHundredKiloGram = 55.45,
                 MaxPricePerHundredKiloGram = 73.9,
+                CreatedAt = DateTime.Parse("2023-04-20 11:45:00").ToString("MMM dd , yyyy hh:mm:ss")
             },
         };
     }
@@ -88,6 +91,7 @@ public class GetAllAuctionsControllerTest
             itemOne.MinPricePerHundredKiloGram!.Equals(itemTwo.MinPricePerHundredKiloGram) &&
             itemOne.MaxPricePerHundredKiloGram!.Equals(itemTwo.MaxPricePerHundredKiloGram) &&
             itemOne.TypeOfCargo!.Equals(itemTwo.TypeOfCargo) &&
+            itemOne.CreatedAt!.Equals(itemTwo.CreatedAt) &&
             itemOne.WeightOfCargo!.Equals(itemTwo.WeightOfCargo);
     }
 }

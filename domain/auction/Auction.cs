@@ -13,6 +13,7 @@ public class Auction
     public DateTime PlannedPickUpDate { get; set; }
     public string OtherInformationAboutCargo { get; set; }
     public PriceInterval? PriceIntervalPerHundredKiloGram { get; set; }
+    public DateTime CreatedAt { get; set; }
     public TimeSpan MinPickUpTime { get; set; }
     public TimeSpan MaxPickUpTime { get; set; }
     public Auction(
@@ -24,6 +25,7 @@ public class Auction
         string otherInformationAboutCargo,
         string minPickUpTime,
         string maxPickUpTime,
+        DateTime? createdAt,
         PriceInterval priceIntervalPerHundredKiloGram
     )
     {
@@ -38,6 +40,7 @@ public class Auction
         PriceIntervalPerHundredKiloGram = priceIntervalPerHundredKiloGram;
         MinPickUpTime = TimeSpan.Parse(minPickUpTime);
         MaxPickUpTime = TimeSpan.Parse(maxPickUpTime);
+        CreatedAt = createdAt ?? DateTime.Now;
     }
 
     public Auction(
@@ -48,7 +51,8 @@ public class Auction
         DateTime plannedPickUpDate,
         string otherInformationAboutCargo,
         string minPickUpTime,
-        string maxPickUpTime
+        string maxPickUpTime,
+        DateTime? createdAt
     )
     {
         Id = id;
@@ -61,6 +65,7 @@ public class Auction
         OtherInformationAboutCargo = otherInformationAboutCargo;
         MinPickUpTime = TimeSpan.Parse(minPickUpTime);
         MaxPickUpTime = TimeSpan.Parse(maxPickUpTime);
+        CreatedAt = createdAt ?? DateTime.Now;
     }
 
     public static Auction parseFromDto(SaveAuctionRequestDto requestDto)
@@ -73,6 +78,7 @@ public class Auction
             requestDto.OtherInformationAboutCargo!,
             requestDto.MinPickUpTime!,
             requestDto.MaxPickUpTime!,
+            requestDto.CreatedAt,
             new PriceInterval(
                 requestDto.MinPricePerHundredKiloGram,
                 requestDto.MaxPricePerHundredKiloGram
