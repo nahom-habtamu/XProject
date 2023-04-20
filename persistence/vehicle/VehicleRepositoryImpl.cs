@@ -10,7 +10,7 @@ public class VehicleRepositoryImpl : VehicleRepository
     private readonly string baseGetSql = @"select id, plateNumber, ownerId, driverId, city, 
         type, loadType, manufacturedDate, make, model, 
         loadCapacity, color, carImage, libreImage, 
-        insuranceImage, libreExpiryDate, insuranceExpiryDate, 
+        insuranceImage, libreExpiryDate, insuranceExpiryDate, createdAt, 
         driverIdentificationDocument as driverDocument from Vehicle
     ";
 
@@ -67,13 +67,13 @@ public class VehicleRepositoryImpl : VehicleRepository
         var sql = String.Format(@"insert into Vehicle values 
             (
                 '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',
-                '{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}'
+                '{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}'
             ) on conflict (id) do update set
                 (
                     plateNumber, ownerId, driverId, city, 
                     type, loadType, manufacturedDate, make, model, 
                     loadCapacity, color, carImage, libreImage, 
-                    insuranceImage, libreExpiryDate, insuranceExpiryDate, 
+                    insuranceImage, libreExpiryDate, insuranceExpiryDate, createdAt,
                     driverIdentificationDocument
                 ) = 
                 (
@@ -82,14 +82,15 @@ public class VehicleRepositoryImpl : VehicleRepository
                     excluded.make, excluded.model, excluded.loadCapacity, excluded.color, 
                     excluded.carImage, excluded.libreImage, 
                     excluded.insuranceImage, excluded.libreExpiryDate, excluded.insuranceExpiryDate, 
-                    excluded.driverIdentificationDocument
+                    excluded.createdAt,excluded.driverIdentificationDocument
                 )
             ;",
             entity.Id, entity.PlateNumber, entity.OwnerId, entity.DriverId, entity.City,
             entity.Type, entity.LoadType, entity.ManufacturedDate,
             entity.Make, entity.Model, entity.LoadCapacity,
             entity.Color, entity.CarImage, entity.LibreImage,
-            entity.InsuranceImage, entity.LibreExpiryDate, entity.InsuranceExpiryDate,
+            entity.InsuranceImage, entity.LibreExpiryDate,
+            entity.InsuranceExpiryDate, entity.CreatedAt,
             jsonFormatter.Encode(entity.DriverIdentificationDocument.Value)
         );
         var connection = _context.Get();

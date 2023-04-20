@@ -61,7 +61,7 @@ public class GetVehiclesByDriverControllerTest
                 "Addis Ababa","SOME_VEHICLE_TYPE","SOME_LOAD_TYPE",DateTime.Parse("04-05-2022"),
                 "Make 1", "Model 1","266KG","Green","7210df78-9132-44d8-9168-4f90e31616.jpg",
                 "3210df78-9132-44d8-9168-4f90e31616.jpg","5210df78-9132-44d8-9168-4f90e31616.jpg",
-                DateTime.Parse("03-05-2023"),DateTime.Parse("08-05-2023"),
+                DateTime.Parse("03-05-2023"),DateTime.Parse("08-05-2023"), DateTime.Parse("2023-04-20 11:43:00"),
                 @"[
                     'x8-9132-44d8-9168-4f90e31616e1.jpg',
                     'x8-9132-44d8-9168-4f90e31616e1.jpg'
@@ -79,7 +79,7 @@ public class GetVehiclesByDriverControllerTest
                 "Addis Ababa","SOME_VEHICLE_TYPE_2","SOME_LOAD_TYPE_2",DateTime.Parse("04-05-2022"),
                 "Make 2", "Model 2","266KG","Red","1110df78-9132-44d8-9168-4f90e31616.jpg",
                 "2810df78-9132-44d8-9168-4f90e31616.jpg","9010df78-9132-44d8-9168-4f90e31616.jpg",
-                DateTime.Parse("03-05-2023"),DateTime.Parse("08-05-2023"),
+                DateTime.Parse("03-05-2023"),DateTime.Parse("08-05-2023"), DateTime.Parse("2023-04-20 11:44:00"),
                 @"[
                     'y8-9132-44d8-9168-4f90e31616e1.jpg',
                     'y8-9132-44d8-9168-4f90e31616e1.jpg'

@@ -22,6 +22,7 @@ namespace domain.vehicle
         public string InsuranceImage { get; set; }
         public DateTime LibreExpiryDate { get; set; }
         public DateTime InsuranceExpiryDate { get; set; }
+        public DateTime CreatedAt { get; set; }
         public IdentificationDocument DriverIdentificationDocument { get; set; }
 
         public Vehicle(
@@ -29,7 +30,8 @@ namespace domain.vehicle
             string driverId, string city, string type, string loadType,
             DateTime manufacturedDate, string make, string model, string loadCapacity,
             string color, string carImage, string libreImage, string insuranceImage,
-            DateTime libreExpiryDate, DateTime insuranceExpiryDate, string driverDocument
+            DateTime libreExpiryDate, DateTime insuranceExpiryDate,
+            DateTime? createdAt, string driverDocument
         )
         {
             Id = id ?? Guid.NewGuid().ToString("N");
@@ -52,6 +54,7 @@ namespace domain.vehicle
             InsuranceImage = insuranceImage;
             LibreExpiryDate = libreExpiryDate;
             InsuranceExpiryDate = insuranceExpiryDate;
+            CreatedAt = createdAt ?? DateTime.Now;
         }
 
         public static Vehicle parseFromDto(SaveVehicleRequestDto requestDto)
@@ -75,6 +78,7 @@ namespace domain.vehicle
                 requestDto.InsuranceImage!,
                 requestDto.LibreExpiryDate,
                 requestDto.InsuranceExpiryDate,
+                requestDto.CreatedAt,
                 jsonFormatter.Encode(
                     new List<string>{
                         requestDto.DriverIdentificationDocumentFront!,
@@ -115,6 +119,7 @@ namespace domain.vehicle
                 this.Make!.Equals(parsed.Make) &&
                 this.Model!.Equals(parsed.Model) &&
                 this.PlateNumber!.Equals(parsed.PlateNumber) &&
+                (this.CreatedAt! - parsed.CreatedAt).TotalSeconds < 2 &&
                 this.Type!.Equals(parsed.Type)
             )
             {

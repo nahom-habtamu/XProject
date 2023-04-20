@@ -16,6 +16,7 @@ public class SaveVehicleRequestDto
     public string? Color { get; set; }
     public DateTime LibreExpiryDate { get; set; }
     public DateTime InsuranceExpiryDate { get; set; }
+    public DateTime? CreatedAt { get; set; }
     public string? DriverIdentificationDocumentFront { get; set; }
     public string? DriverIdentificationDocumentBack { get; set; }
     public string? CarImage { get; set; }

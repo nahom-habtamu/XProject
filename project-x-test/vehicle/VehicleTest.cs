@@ -9,7 +9,7 @@ public class VehicleTest
         "Addis Ababa", "SOME_VEHICLE_TYPE", "SOME_LOAD_TYPE", DateTime.Parse("04-05-2022"),
         "Make 1", "Model 1", "266KG", "Green", "7210df78-9132-44d8-9168-4f90e31616.jpg",
         "3210df78-9132-44d8-9168-4f90e31616.jpg", "5210df78-9132-44d8-9168-4f90e31616.jpg",
-        DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"),
+        DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"), DateTime.Parse("2023-04-20 11:43:00"),
         "[\"x8-9132-44d8-9168-4f90e31616e1.jpg\",\"x8-9132-44d8-9168-4f90e31616e1.jpg\"]"
     );
 
@@ -22,7 +22,7 @@ public class VehicleTest
             "Addis Ababa", "SOME_VEHICLE_TYPE", "SOME_LOAD_TYPE", DateTime.Parse("04-05-2022"),
             "Make 1", "Model 1", "266KG", "Green", "7210df78-9132-44d8-9168-4f90e31616.jpg",
             "3210df78-9132-44d8-9168-4f90e31616.jpg", "5210df78-9132-44d8-9168-4f90e31616.jpg",
-            DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"),
+            DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"),DateTime.Parse("2023-04-20 11:43:00"),
             @"[
                 'x8-9132-44d8-9168-4f90e31616e1.jpg',
                 'x8-9132-44d8-9168-4f90e31616e1.jpg'    
@@ -40,7 +40,7 @@ public class VehicleTest
             "Addis Ababa", "SOME_VEHICLE_TYPE", "SOME_LOAD_TYPE_0", DateTime.Parse("04-05-2022"),
             "Make 1", "Model 1", "266KG", "Green", "7210df78-9132-44d8-9168-4f90e31616.jpg",
             "3210df78-9132-44d8-9168-4f90e31616.jpg", "5210df78-9132-44d8-9168-4f90e31616.jpg",
-            DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"),
+            DateTime.Parse("03-05-2023"), DateTime.Parse("08-05-2023"), DateTime.Parse("2023-04-20 11:49:00"),
             "[\"x8-9132-44d8-9168-4f90e31616e1.jpg\",\"x8-9132-44d8-9168-4f90e31616e1.jpg\"]"
         );
 
