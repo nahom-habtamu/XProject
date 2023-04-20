@@ -84,6 +84,7 @@ create table if not exists Vehicle(
   insuranceImage varchar(255) not null,
   libreExpiryDate date not null,
   insuranceExpiryDate date not null,
+  createdAt timestamp without time zone NOT NULL,
   driverIdentificationDocument varchar(255) not null,
   CONSTRAINT ownerId
     FOREIGN KEY(ownerId) 
