@@ -45,6 +45,8 @@ public class SaveAuctionControllerTest
         var savedAuction = await getAuctionController.Call(savedAuctionId);
 
         saveAuctionRequest.Id = savedAuctionId;
+        saveAuctionRequest.CreatedAt = savedAuction.CreatedAt;
+
         var expectedAuction = Auction.parseFromDto(saveAuctionRequest);
 
         Assert.Equal(expectedAuction, savedAuction);
@@ -61,8 +63,9 @@ public class SaveAuctionControllerTest
 
         var initialRequest = InitDtoForSavingAuctionInitially();
         string initiallySavedAuctionId = await sut.Call(initialRequest);
+        var initiallySavedAuction = await getAuctionController.Call(initiallySavedAuctionId);
 
-        var secondRequest = InitDtoForSavingAuctionSecondTime(initiallySavedAuctionId);
+        var secondRequest = InitDtoForSavingAuctionSecondTime(initiallySavedAuctionId, initiallySavedAuction.CreatedAt);
         string secondlySavedAuctionId = await sut.Call(secondRequest);
 
         var secondlySavedAuction = await getAuctionController.Call(secondlySavedAuctionId);
@@ -109,7 +112,10 @@ public class SaveAuctionControllerTest
         };
     }
 
-    private SaveAuctionRequestDto InitDtoForSavingAuctionSecondTime(string id)
+    private SaveAuctionRequestDto InitDtoForSavingAuctionSecondTime(
+        string id,
+        DateTime createdAt
+    )
     {
         return new SaveAuctionRequestDto
         {
@@ -125,6 +131,7 @@ public class SaveAuctionControllerTest
             PlannedPickUpDate = new DateTime(2023, 7, 3),
             TotalWeightOfCargo = 2000,
             TypeOfCargo = "HEAVY",
+            CreatedAt = createdAt
         };
     }
 
