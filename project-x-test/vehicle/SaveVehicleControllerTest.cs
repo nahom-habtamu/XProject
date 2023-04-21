@@ -55,6 +55,7 @@ public class SaveVehicleControllerTest
         var savedVehicle = await getVehicleController.Call(savedVehicleId);
 
         saveVehicleRequest.Id = savedVehicleId;
+        saveVehicleRequest.CreatedAt = savedVehicle.CreatedAt;
         var expectedVehicle = Vehicle.parseFromDto(saveVehicleRequest);
         Assert.Equal(expectedVehicle, savedVehicle);
 
@@ -69,8 +70,12 @@ public class SaveVehicleControllerTest
 
         var initialRequest = InitDtoForSavingVehicleInitially();
         string initiallySavedVehicleId = await sut.Call(initialRequest);
+        var initiallySavedVehicle = await getVehicleController.Call(initiallySavedVehicleId);
 
-        var secondRequest = InitDtoForSavingVehicleSecondTime(initiallySavedVehicleId);
+        var secondRequest = InitDtoForSavingVehicleSecondTime(
+            initiallySavedVehicleId,
+            initiallySavedVehicle.CreatedAt
+        );
         string secondlySavedVehicleId = await sut.Call(secondRequest);
 
         var secondlySavedVehicle = await getVehicleController.Call(secondlySavedVehicleId);
@@ -153,7 +158,10 @@ public class SaveVehicleControllerTest
         };
     }
 
-    private SaveVehicleRequestDto InitDtoForSavingVehicleSecondTime(string id)
+    private SaveVehicleRequestDto InitDtoForSavingVehicleSecondTime(
+        string id,
+        DateTime createdAt
+    )
     {
         return new SaveVehicleRequestDto
         {
@@ -176,6 +184,7 @@ public class SaveVehicleControllerTest
             Model = "Model 190007726371",
             PlateNumber = "99199",
             Type = "GiantCarType",
+            CreatedAt = createdAt
         };
     }
 
