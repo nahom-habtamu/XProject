@@ -9,12 +9,15 @@ public class Bid
     public string DriverId { get; set; }
     public double PricePerKilogram { get; set; }
     public string AdditionalInformation { get; set; }
+    public DateTime CreatedAt { get; set; }
+
     public Bid(
         string? id,
         string auctionId,
         string driverId,
         double pricePerKilogram,
-        string additionalInformation
+        string additionalInformation,
+        DateTime? createdAt
     )
     {
         Id = id ?? Guid.NewGuid().ToString("N");
@@ -22,6 +25,7 @@ public class Bid
         DriverId = driverId;
         PricePerKilogram = pricePerKilogram;
         AdditionalInformation = additionalInformation;
+        CreatedAt = createdAt ?? DateTime.Now;
     }
 
     public static Bid parseFromDto(SaveBidRequestDto requestDto)
@@ -31,7 +35,8 @@ public class Bid
             requestDto.AuctionId!,
             requestDto.DriverId!,
             requestDto.PricePerKilogram,
-            requestDto.AdditionalInformation!
+            requestDto.AdditionalInformation!,
+            requestDto.CreatedAt
         );
     }
 
@@ -53,7 +58,8 @@ public class Bid
             this.DriverId.Equals(parsed?.DriverId) &&
             this.AuctionId.Equals(parsed?.AuctionId) &&
             this.AdditionalInformation.Equals(parsed?.AdditionalInformation) &&
-            this.PricePerKilogram.Equals(parsed?.PricePerKilogram)
+            this.PricePerKilogram.Equals(parsed?.PricePerKilogram) &&
+            this.CreatedAt.Equals(parsed?.CreatedAt)
         )
         {
             return true;

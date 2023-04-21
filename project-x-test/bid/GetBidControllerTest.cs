@@ -35,7 +35,8 @@ public class GetBidControllerTest
             "1110df78-9132-44d8-9168-4f90e31616e1",
             "7210df78-9132-44d8-9168-4f90e31616e1",
             900,
-            "as opposed to using Content here, content here, making it look like readable readable English"
+            "as opposed to using Content here, content here, making it look like readable readable English",
+            DateTime.Parse("2023-04-20 11:43:00")
         );
 
         var expectedBidByIdTwo = new Bid(
@@ -43,7 +44,8 @@ public class GetBidControllerTest
             "1110df78-9132-44d8-9168-4f90e31616e2",
             "7210df78-9132-44d8-9168-4f90e31616e2",
             1000,
-            "with the release of Letraset sheets containing Lorem Ipsum passages, and more things"
+            "with the release of Letraset sheets containing Lorem Ipsum passages, and more things",
+            DateTime.Parse("2023-04-20 11:44:00")
         );
 
         Assert.Equal(expectedBidByIdOne, actualBidByIdOne);

@@ -8,7 +8,7 @@ public class BidRepositoryImpl : BidRepository
     private readonly DatabaseContext _context;
 
     private readonly string baseGetSql =
-        @"select id, auctionId, driverId, pricePerKilogram, additionalInformation from Bid";
+        @"select id, auctionId, driverId, pricePerKilogram, additionalInformation, createdAt from Bid";
 
     public BidRepositoryImpl(DatabaseContext context)
     {
@@ -45,11 +45,14 @@ public class BidRepositoryImpl : BidRepository
     public async Task Save(Bid entity)
     {
         var sql = String.Format(
-            @"insert into Bid values('{0}','{1}','{2}','{3}','{4}') on conflict (id) 
-              do update set(auctionId, driverId, pricePerKilogram, additionalInformation) = 
-              (excluded.auctionId, excluded.driverId, excluded.pricePerKilogram, excluded.additionalInformation)
+            @"insert into Bid values('{0}','{1}','{2}','{3}','{4}','{5}') on conflict (id) 
+              do update set(auctionId, driverId, pricePerKilogram, additionalInformation, createdAt) = 
+              (excluded.auctionId, excluded.driverId, excluded.pricePerKilogram, 
+               excluded.additionalInformation, excluded.createdAt
+               )
             ;",
-            entity.Id, entity.AuctionId, entity.DriverId, entity.PricePerKilogram, entity.AdditionalInformation
+            entity.Id, entity.AuctionId, entity.DriverId, entity.PricePerKilogram,
+            entity.AdditionalInformation, entity.CreatedAt
         );
         var connection = _context.Get();
         await connection.ExecuteAsync(sql);

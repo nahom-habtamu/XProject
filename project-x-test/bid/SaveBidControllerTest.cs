@@ -80,6 +80,8 @@ public class SaveBidControllerTest
         var savedBid = await getBidController.Call(savedBidId);
 
         saveBidRequest.Id = savedBidId;
+        saveBidRequest.CreatedAt = savedBid?.CreatedAt;
+
         var expectedBid = Bid.parseFromDto(saveBidRequest);
         Assert.Equal(expectedBid, savedBid);
 
@@ -99,7 +101,9 @@ public class SaveBidControllerTest
             AdditionalInformation = "Some blah blah information tsh hgahf djhajdg ladjabfhjafj kfnkanf",
             PricePerKilogram = 290
         };
+
         string initiallySavedBidId = await sut.Call(initialRequest);
+        var initiallySavedBid = await getBidController.Call(initiallySavedBidId);
 
         var secondRequest = new SaveBidRequestDto
         {
@@ -107,7 +111,8 @@ public class SaveBidControllerTest
             AuctionId = "1110df78-9132-44d8-9168-4f90e31616e3",
             DriverId = "7210df78-9132-44d8-9168-4f90e31616e2",
             AdditionalInformation = "I am gonna kill you",
-            PricePerKilogram = 970
+            PricePerKilogram = 970,
+            CreatedAt = initiallySavedBid?.CreatedAt
         };
         string secondlySavedBidId = await sut.Call(secondRequest);
 
