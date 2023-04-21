@@ -109,7 +109,7 @@ public class Auction
             this.PlannedPickUpDate.Equals(parsed.PlannedPickUpDate) &&
             this.OtherInformationAboutCargo.Equals(parsed.OtherInformationAboutCargo) &&
             this.PriceIntervalPerHundredKiloGram!.Equals(parsed.PriceIntervalPerHundredKiloGram) &&
-            (this.CreatedAt - parsed!.CreatedAt).TotalSeconds < 5 &&
+            this.CreatedAt.Equals(parsed!.CreatedAt) &&
             this.MinPickUpTime!.Equals(parsed.MinPickUpTime) &&
             this.MaxPickUpTime!.Equals(parsed.MaxPickUpTime)
         )
