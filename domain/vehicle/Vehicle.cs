@@ -119,7 +119,7 @@ namespace domain.vehicle
                 this.Make!.Equals(parsed.Make) &&
                 this.Model!.Equals(parsed.Model) &&
                 this.PlateNumber!.Equals(parsed.PlateNumber) &&
-                (this.CreatedAt! - parsed.CreatedAt).TotalSeconds < 2 &&
+                this.CreatedAt.Equals(parsed.CreatedAt) &&
                 this.Type!.Equals(parsed.Type)
             )
             {
