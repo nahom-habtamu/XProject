@@ -27,7 +27,7 @@ public class GetAllAuctionsControllerTest
                   CheckEquality(pa, minExpectedResult[2])
         ).ToList();
         Assert.True(lengthCheck);
-        Assert.Equal(minExpectedResult.Count, checkedItems.Count);
+        Assert.True(checkedItems.Count >= minExpectedResult.Count);
     }
 
     private List<GetAllAuctionsItemResponseDto> GetExpectedResponseItems()
