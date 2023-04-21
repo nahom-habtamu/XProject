@@ -155,7 +155,8 @@ insert into Bid values(
 	'1110df78-9132-44d8-9168-4f90e31616e1',
 	'7210df78-9132-44d8-9168-4f90e31616e1',
 	900,
-	'as opposed to using Content here, content here, making it look like readable readable English'
+	'as opposed to using Content here, content here, making it look like readable readable English',
+	'2023-04-20 11:43:00'
 );
 
 insert into Bid values(
@@ -163,7 +164,8 @@ insert into Bid values(
 	'1110df78-9132-44d8-9168-4f90e31616e2',
 	'7210df78-9132-44d8-9168-4f90e31616e2',
 	1000,
-	'with the release of Letraset sheets containing Lorem Ipsum passages, and more things'
+	'with the release of Letraset sheets containing Lorem Ipsum passages, and more things',
+	'2023-04-20 11:44:00'
 );
 
 insert into Bid values(
@@ -171,5 +173,6 @@ insert into Bid values(
 	'1110df78-9132-44d8-9168-4f90e31616e3',
 	'7210df78-9132-44d8-9168-4f90e31616e3',
 	1100,
-	'web page editors now use Lorem Ipsum as their default model text'
+	'web page editors now use Lorem Ipsum as their default model text',
+	'2023-04-20 11:45:00'
 );

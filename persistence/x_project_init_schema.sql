@@ -84,7 +84,7 @@ create table if not exists Vehicle(
   insuranceImage varchar(255) not null,
   libreExpiryDate date not null,
   insuranceExpiryDate date not null,
-  createdAt timestamp without time zone NOT NULL,
+  createdAt timestamp without time zone not null,
   driverIdentificationDocument varchar(255) not null,
   CONSTRAINT ownerId
     FOREIGN KEY(ownerId) 
@@ -100,6 +100,7 @@ create table if not exists Bid(
 	driverId varchar(64) not null,
 	pricePerKilogram float not null,
 	additionalInformation varchar(255) not null,
+	createdAt timestamp without time zone not null,
 	CONSTRAINT auctionId
     	FOREIGN KEY(auctionId) 
     	REFERENCES Auction(id),
