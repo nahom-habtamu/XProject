@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Minio" Version="4.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
@@ -22,5 +23,4 @@
   <ItemGroup>
     <ProjectReference Include="..\persistence\persistence.csproj" />
   </ItemGroup>
-
 </Project>
