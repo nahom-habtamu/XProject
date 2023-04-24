@@ -12,6 +12,7 @@ using persistence.cargoowner;
 using persistence.driver;
 using persistence.vehicle;
 using persistence.vehicleowner;
+using web.filestore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +24,8 @@ builder.Services.AddSwaggerGen();
 
 #region CustomInjections
 
-var connectionString = builder.Configuration.GetConnectionString("TestDbConnection");
-
-builder.Services.AddScoped(o => new NpgsqlConnection(connectionString));
-builder.Services.AddScoped<DatabaseContext>();
-
+RegisterDatabaseContext(builder);
+RegisterFileUploaderInstanceFactory(builder);
 RegisterRepostories(builder);
 
 #endregion
@@ -48,6 +46,24 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static void RegisterDatabaseContext(WebApplicationBuilder builder)
+{
+    var connectionString = builder.Configuration.GetConnectionString("TestDbConnection");
+    builder.Services.AddScoped(o => new NpgsqlConnection(connectionString));
+    builder.Services.AddScoped<DatabaseContext>();
+}
+
+static void RegisterFileUploaderInstanceFactory(WebApplicationBuilder builder)
+{
+    var accessKey = builder.Configuration["Minio:AccessKey"];
+    var secretKey = builder.Configuration["Minio:SecretKey"];
+    var endPoint = builder.Configuration["Minio:EndPoint"];
+
+    builder.Services.AddScoped(o => new FileStoreInstanceFactory(
+        accessKey, secretKey, endPoint
+    ));
+}
 
 static void RegisterRepostories(WebApplicationBuilder builder)
 {
