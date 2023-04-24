@@ -1,6 +1,6 @@
 using Minio;
 
-namespace web.filestore;
+namespace web;
 
 public class FileStoreInstanceFactory
 {
