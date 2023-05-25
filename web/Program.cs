@@ -14,10 +14,21 @@ using persistence.vehicle;
 using persistence.vehicleowner;
 using web;
 
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: myAllowSpecificOrigins,
+        builder =>
+        {
+            builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        }
+    );
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,6 +44,9 @@ RegisterRepostories(builder);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseCors(myAllowSpecificOrigins);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -40,6 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 
